@@ -1,6 +1,6 @@
 <?php
 
-// Load DolibarrModules class 
+// Load DolibarrModules class
 include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 
 // Load module lib

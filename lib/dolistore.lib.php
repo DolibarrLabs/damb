@@ -22,25 +22,25 @@
  */
 if (! function_exists('get_module_version'))
 {
-	function get_module_version($module_url)
-	{
-		if (! empty($module_url) && $module_url != '#')
-		{
-			$connected = @fsockopen("www.dolistore.com", 80);
+    function get_module_version($module_url)
+    {
+        if (! empty($module_url) && $module_url != '#')
+        {
+            $connected = @fsockopen("www.dolistore.com", 80);
 
-			if ($connected)
-			{
-				// Close socket
-				fclose($connected);
+            if ($connected)
+            {
+                // Close socket
+                fclose($connected);
 
-				// Get module page content
-				$page = @file_get_contents($module_url);
+                // Get module page content
+                $page = @file_get_contents($module_url);
 
-				// Extract module version
-				preg_match("/var module_version = '(.*)'/", $page, $module_version);
-			}
-		}
+                // Extract module version
+                preg_match("/var module_version = '(.*)'/", $page, $module_version);
+            }
+        }
 
-		return isset($module_version[1]) ? $module_version[1] : NULL;
-	}
+        return isset($module_version[1]) ? $module_version[1] : NULL;
+    }
 }
