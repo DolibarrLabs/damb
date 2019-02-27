@@ -85,18 +85,18 @@ if (! function_exists('add_permission'))
 }
 
 /**
- * Add a sub permission to a module object instance
+ * Add a subpermission to a module object instance
  *
  * @param     $module                 module object instance
  * @param     $perm_name              permission name
- * @param     $subperm_name           sub permission name
+ * @param     $subperm_name           subpermission name
  * @param     $desc                   permission description
  * @param     $type                   permission type: 'r', 'c', 'm', 'd'
  * @param     $enabled_by_default     enable the permission by default for all users
  */
-if (! function_exists('add_sub_permission'))
+if (! function_exists('add_subpermission'))
 {
-    function add_sub_permission(&$module, $perm_name, $subperm_name, $desc = '', $type = '', $enabled_by_default = 1)
+    function add_subpermission(&$module, $perm_name, $subperm_name, $desc = '', $type = '', $enabled_by_default = 1)
     {
         $id = (int)$module->number + (is_array($module->rights) ? count($module->rights) : 0) + 1;
 
@@ -189,7 +189,7 @@ if (! function_exists('add_left_menu'))
 }
 
 /**
- * Add a left sub menu entry to a module object instance
+ * Add a left submenu entry to a module object instance
  *
  * @param     $module       module object instance
  * @param     $main_menu    main/top menu name where to insert
@@ -202,9 +202,9 @@ if (! function_exists('add_left_menu'))
  * @param     $target       menu target, leave empty or use '_blank' to open in a new window / tab
  * @param     $position     menu position
  */
-if (! function_exists('add_left_sub_menu'))
+if (! function_exists('add_left_submenu'))
 {
-    function add_left_sub_menu(&$module, $main_menu, $left_menu, $name, $title, $url, $perms = '1', $enabled = '1', $target = '', $position = 100)
+    function add_left_submenu(&$module, $main_menu, $left_menu, $name, $title, $url, $perms = '1', $enabled = '1', $target = '', $position = 100)
     {
         add_menu($module, 'left', 'fk_mainmenu='.$main_menu.',fk_leftmenu='.$left_menu, $main_menu, $name, $title, $url, $position, $enabled, $perms, $target);
     }
