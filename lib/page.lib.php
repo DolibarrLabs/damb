@@ -114,15 +114,15 @@ if (! function_exists('control_access'))
 }
 
 /**
- * Add a subtitle to the page
+ * Print a subtitle
  *
  * @param    $title             subtitle title
  * @param    $picture           subtitle picture
  * @param    $morehtmlright     more HTML to show on the right
  */
-if (! function_exists('add_sub_title'))
+if (! function_exists('print_subtitle'))
 {
-    function add_sub_title($title, $picture = 'title_generic.png', $morehtmlright = '')
+    function print_subtitle($title, $picture = 'title_generic.png', $morehtmlright = '')
     {
         global $langs;
 

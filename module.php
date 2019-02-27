@@ -37,7 +37,7 @@ dol_include_once('damb/lib/page.lib.php');
 
 print_header('AdvancedModuleBuilder', 'damb@damb');
 
-add_sub_title('AdvancedModuleBuilder', 'title_setup.png');
+print_subtitle('AdvancedModuleBuilder', 'title_setup.png');
 
 $tabs = array(
     array('title' => 'Module', 'url' => 'damb/module.php', 'active' => true),
