@@ -1,7 +1,7 @@
 <?php
 
 // Load ModeleBoxes class
-require_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
+include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
 
 // Load widget lib
 dol_include_once('${module_folder}/lib/widget.lib.php');
@@ -29,7 +29,6 @@ class ${widget_class_name} extends ModeleBoxes
 
         // Widget configuration
         $this->db                = $db;
-        $this->boxcode           = '';
         $this->boxlabel          = $langs->trans('${widget_label}');
         $this->boximg            = '${widget_image}';
         $this->position          = ${widget_position};

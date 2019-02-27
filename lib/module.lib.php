@@ -155,13 +155,13 @@ if (! function_exists('add_menu'))
  * @param     $title     menu title
  * @param     $url       target page url
  * @param     $perms     should anyone see & use the menu or use conditions like '$user->rights->monmodule->level1->level2'
- * @param     $target    menu target, leave empty or use '_blank' to open in a new window / tab
  * @param     $enabled   should the menu be always enabled or use conditions like '$conf->monmodule->enabled'
+ * @param     $target    menu target, leave empty or use '_blank' to open in a new window / tab
  * @param     $position  menu position
  */
 if (! function_exists('add_top_menu'))
 {
-    function add_top_menu(&$module, $name, $title, $url, $perms = '1', $target = '', $enabled = '1', $position = 100)
+    function add_top_menu(&$module, $name, $title, $url, $perms = '1', $enabled = '1', $target = '', $position = 100)
     {
         add_menu($module, 'top', 0, $name, '', $title, $url, $position, $enabled, $perms, $target);
     }
@@ -176,13 +176,13 @@ if (! function_exists('add_top_menu'))
  * @param     $title        menu title
  * @param     $url          target page url
  * @param     $perms        should anyone see & use the menu or use conditions like '$user->rights->monmodule->level1->level2'
- * @param     $target       menu target, leave empty or use '_blank' to open in a new window / tab
  * @param     $enabled      should the menu be always enabled or use conditions like '$conf->monmodule->enabled'
+ * @param     $target       menu target, leave empty or use '_blank' to open in a new window / tab
  * @param     $position     menu position
  */
 if (! function_exists('add_left_menu'))
 {
-    function add_left_menu(&$module, $main_menu, $name, $title, $url, $perms = '1', $target = '', $enabled = '1', $position = 100)
+    function add_left_menu(&$module, $main_menu, $name, $title, $url, $perms = '1', $enabled = '1', $target = '', $position = 100)
     {
         add_menu($module, 'left', 'fk_mainmenu='.$main_menu, $main_menu, $name, $title, $url, $position, $enabled, $perms, $target);
     }
@@ -198,13 +198,13 @@ if (! function_exists('add_left_menu'))
  * @param     $title        menu title
  * @param     $url          target page url
  * @param     $perms        should anyone see & use the menu or use conditions like '$user->rights->monmodule->level1->level2'
- * @param     $target       menu target, leave empty or use '_blank' to open in a new window / tab
  * @param     $enabled      should the menu be always enabled or use conditions like '$conf->monmodule->enabled'
+ * @param     $target       menu target, leave empty or use '_blank' to open in a new window / tab
  * @param     $position     menu position
  */
 if (! function_exists('add_left_sub_menu'))
 {
-    function add_left_sub_menu(&$module, $main_menu, $left_menu, $name, $title, $url, $perms = '1', $target = '', $enabled = '1', $position = 100)
+    function add_left_sub_menu(&$module, $main_menu, $left_menu, $name, $title, $url, $perms = '1', $enabled = '1', $target = '', $position = 100)
     {
         add_menu($module, 'left', 'fk_mainmenu='.$main_menu.',fk_leftmenu='.$left_menu, $main_menu, $name, $title, $url, $position, $enabled, $perms, $target);
     }
