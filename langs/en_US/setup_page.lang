@@ -1,0 +1,15 @@
+# DAMB Setup Page - en_US
+#
+# Copyright (C) 2019 AXeL
+
+Setup = Setup
+Settings = Settings
+Changelog = Changelog
+About = About
+Option = Option
+Value = Value
+NumberingModels = Numbering models
+DocumentModels = Document models
+DocModelAzurDescription = PDF template Azur. A complete document model (recommended template)
+DocModelCrabeDescription = PDF template Crabe. A complete document model (logo...)
+NoSetupAvailable = No setup available.

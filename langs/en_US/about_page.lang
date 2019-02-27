@@ -1,0 +1,22 @@
+# DAMB About Page - en_US
+#
+# Copyright (C) 2019 AXeL
+
+Settings = Settings
+Changelog = Changelog
+About = About
+DevelopedBy = Developed by
+DolibaseVersion = This module use Dolibase version
+ForAnyQuestions = For any questions or feedback, please send an e-mail to
+FindMyModules = Find my other modules on
+Dolistore = Dolistore
+ReportBug = Report a bug
+TechnicalInformations = Technical informations
+DolibarrVersion = Dolibarr version
+ModuleVersion = Module version
+PHPVersion = PHP version
+DatabaseVersion = Database version
+WebServerVersion = Web server version
+ReportBugNotice = The technical informations below should be provided in your bug report, in addition of file %s to increase the chance of fixing the bug quickly.
+EnableLogModule = Debug Logs module is not enabled %s
+ClickToEnable = Click to enable

@@ -19,13 +19,13 @@
  *
  * @param     $title         Page title
  * @param     $lang_files    String|Array of lang files to load
- * @param     $js_files      Array of js files to include in page head
  * @param     $css_files     Array of css files to include in page head
+ * @param     $js_files      Array of js files to include in page head
  * @param     $head          Additional lines to include in page head
  */
 if (! function_exists('print_header'))
 {
-    function print_header($title, $lang_files = array(), $js_files = array(), $css_files = array(), $head = '')
+    function print_header($title, $lang_files = array(), $css_files = array(), $js_files = array(), $head = '')
     {
         global $langs;
 
@@ -136,12 +136,12 @@ if (! function_exists('add_sub_title'))
  * @param     $tabs         tabs array as [['title' => 'MyTab', 'url' => 'mymodule/page.php', 'active' => true, 'permission' => '$user->admin']]
  * @param     $title        tabs main title
  * @param     $picture      tabs picture (picture file should have the prefix 'object_')
- * @param     $type         used to display tabs from other modules, e.: 'mymodule'
  * @param     $noheader     -1 or 0=Add tab header, 1=no tab header. If you set this to 1, using dol_fiche_end() to close tab is not required.
+ * @param     $type         used to display tabs from other modules, e.: 'mymodule'
  */
 if (! function_exists('print_tabs'))
 {
-    function print_tabs($tabs, $title = '', $picture = '', $type = '', $noheader = 0)
+    function print_tabs($tabs, $title = '', $picture = '', $noheader = 0, $type = '')
     {
         global $conf, $langs;
 
@@ -183,7 +183,7 @@ if (! function_exists('print_tabs'))
         }
 
         // Generate tabs
-        dol_fiche_head($links, $active_link, $title, $noheader, $picture);
+        dol_fiche_head($links, $active_link, $langs->trans($title), $noheader, $picture);
     }
 }
 
@@ -191,12 +191,12 @@ if (! function_exists('print_tabs'))
  * Include a template into the page
  *
  * @param   $template_path      template relative path, e.: 'mymodule/tpl/template.php'
+ * @param   $template_params    template parameters, e.: array('param' => 'value')
  * @param   $use_require_once   avoids including the template many times on the same page
- * @param   $template_params    template parameters
  */
 if (! function_exists('load_template'))
 {
-    function load_template($template_path, $use_require_once = false, $template_params = array())
+    function load_template($template_path, $template_params = array(), $use_require_once = false)
     {
         // Stop measuring time after print_header call & Start measuring time after load_template call
         if (function_exists('start_time_measure')) {
@@ -283,5 +283,26 @@ if (! function_exists('warning_message'))
         }
 
         setEventMessage($message, 'warnings');
+    }
+}
+
+/**
+ * Translate a string & print it
+ *
+ * @param     $str       String to translate
+ * @param     $print     Print the translated string if true or return it if false
+ */
+if (! function_exists('print_trans'))
+{
+    function print_trans($str, $print = true)
+    {
+        global $langs;
+
+        if ($print) {
+            echo $langs->trans($str);
+        }
+        else {
+            return $langs->trans($str);
+        }
     }
 }

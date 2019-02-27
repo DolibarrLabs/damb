@@ -4,12 +4,12 @@
 include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 
 // Load module lib
-dol_include_once('${module_folder}/lib/module.lib.php');
+dol_include_once('damb/lib/module.lib.php');
 
 /**
  * Class to describe and enable module
  */
-class mod${module_class_name} extends DolibarrModules
+class modDAMB extends DolibarrModules
 {
     /**
      * Constructor. Define names, constants, directories, boxes, permissions
@@ -20,16 +20,16 @@ class mod${module_class_name} extends DolibarrModules
     {
         // Module configuration
         $this->db              = $db;
-        $this->editor_name     = '${author_name}';
-        $this->editor_url      = '${author_url}';
-        $this->numero          = '${module_number}';
-        $this->rights_class    = '${module_rights_class}';
-        $this->family          = '${module_family}';
-        $this->module_position = ${module_position};
-        $this->name            = '${module_name}';
-        $this->description     = '${module_desc}';
-        $this->picto           = '${module_picture}@${module_folder}';
-        $this->version         = '${module_version}';
+        $this->editor_name     = '<b>AXeL</b>';
+        $this->editor_url      = 'https://github.com/AXeL-dev';
+        $this->numero          = '686577660';
+        $this->rights_class    = 'damb';
+        $this->family          = 'base';
+        $this->module_position = 500;
+        $this->name            = 'AdvancedModuleBuilder';
+        $this->description     = 'AdvancedModuleBuilderDesc';
+        $this->picto           = 'package.png@damb';
+        $this->version         = '1.0.0';
         $this->const_name      = get_constant_name($this);
         $this->special         = 0;
 
@@ -42,15 +42,15 @@ class mod${module_class_name} extends DolibarrModules
         );
 
         // Config page
-        $this->config_page_url = array('${module_setup_page}@${module_folder}');
+        $this->config_page_url = array('setup.php@damb');
 
         // Dependencies
-        $this->need_dolibarr_version = array(${module_dolibarr_min});
-        $this->phpmin                = array(${module_php_min});
-        $this->depends               = array(${module_depends});
-        $this->requiredby            = array(${module_required_by});
-        $this->conflictwith          = array(${module_conflict_with});
-        $this->langfiles             = array(${module_lang_files});
+        $this->need_dolibarr_version = array(3, 8);
+        $this->phpmin                = array(4, 0);
+        $this->depends               = array();
+        $this->requiredby            = array();
+        $this->conflictwith          = array();
+        $this->langfiles             = array('damb@damb');
     }
 
     /**
@@ -65,7 +65,7 @@ class mod${module_class_name} extends DolibarrModules
     public function init($options = '')
     {
         // Load module tables
-        $result = $this->_load_tables('/${module_folder}/sql/');
+        //$result = $this->_load_tables('/damb/sql/');
 
         return $this->_init(array(), $options);
     }

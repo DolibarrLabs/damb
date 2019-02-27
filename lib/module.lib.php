@@ -420,3 +420,18 @@ if (! function_exists('disable_module_for_external_users'))
         }
     }
 }
+
+/**
+ * Returns module constant name
+ *
+ * @param     $module     module object instance
+ */
+if (! function_exists('get_constant_name'))
+{
+    function get_constant_name(&$module)
+    {
+        $class_name = preg_replace('/^mod/i', '', get_class($module));
+
+        return 'MAIN_MODULE_'.strtoupper($class_name);
+    }
+}
