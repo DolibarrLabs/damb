@@ -42,6 +42,7 @@ print_subtitle('Setup', 'title_setup.png', $linkback);
 
 $tabs = array(
     array('title' => 'Setup', 'url' => 'damb/admin/setup.php?mainmenu=home', 'active' => true),
+    array('title' => 'Changelog', 'url' => 'damb/admin/changelog.php?mainmenu=home'),
     array('title' => 'About', 'url' => 'damb/admin/about.php?mainmenu=home')
 );
 print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb');

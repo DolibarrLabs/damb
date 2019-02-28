@@ -15,8 +15,8 @@
  */
 
 // Load Dolibarr environment (mandatory)
-if (false === (@include_once '../main.inc.php')) { // From htdocs directory
-    require_once '../../main.inc.php'; // From "custom" directory
+if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
+    require_once '../../../main.inc.php'; // From "custom" directory
 }
 
 // Load page lib
@@ -40,8 +40,8 @@ print_header('AdvancedModuleBuilder', 'damb@damb');
 print_subtitle('AdvancedModuleBuilder', 'title_setup.png');
 
 $tabs = array(
-    array('title' => 'Module', 'url' => 'damb/module.php', 'active' => true),
-    array('title' => 'Widget', 'url' => 'damb/widget.php')
+    array('title' => 'Module', 'url' => 'damb/builder/module.php', 'active' => true),
+    array('title' => 'Widget', 'url' => 'damb/builder/widget.php')
 );
 print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb');
 

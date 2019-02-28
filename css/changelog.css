@@ -1,0 +1,41 @@
+
+/**
+ * This file is a part of DAMB
+ *
+ * An advanced module builder for Dolibarr ERP/CRM
+ *
+ *
+ * @package     DAMB
+ * @author      AXeL
+ * @copyright   Copyright (c) 2019 - 2020, AXeL-dev
+ * @license     GPL
+ * @link        https://github.com/AXeL-dev/damb
+ *
+ */
+
+.release-details {
+    padding: 5px 0px;
+}
+
+.badge {
+    margin-right: 5px;
+    border-radius: 2px;
+    min-width: 50px;
+    padding: 4px;
+}
+
+.badge.new {
+    background-color: #2ecc71;
+}
+
+.badge.upgrade, .badge.experimental {
+    background-color: #f1c40f;
+}
+
+.badge.fix {
+    background-color: #e74c3c;
+}
+
+.badge.other {
+    background-color: #3498db;
+}

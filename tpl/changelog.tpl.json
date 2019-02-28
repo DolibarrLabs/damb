@@ -1,0 +1,11 @@
+{
+    "releases": [
+        {
+            "version": "${version}",
+            "date": "${current_date}",
+            "details": [
+                { "badge": "", "text": "Initial release" }
+            ]
+        }
+    ]
+}

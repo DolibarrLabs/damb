@@ -1,0 +1,11 @@
+{
+    "releases": [
+        {
+            "version": "1.0.0",
+            "date": "25/02/2019",
+            "details": [
+                { "badge": "", "text": "Initial release" }
+            ]
+        }
+    ]
+}
