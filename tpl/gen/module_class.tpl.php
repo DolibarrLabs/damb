@@ -30,7 +30,7 @@ class mod${module_class_name} extends DolibarrModules
         $this->db              = $db;
         $this->editor_name     = '${author_name}';
         $this->editor_url      = '${author_url}';
-        $this->numero          = '${module_number}';
+        $this->numero          = ${module_number};
         $this->rights_class    = '${module_rights_class}';
         $this->family          = '${module_family}';
         $this->module_position = ${module_position};

@@ -22,7 +22,7 @@ class modDAMB extends DolibarrModules
         $this->db              = $db;
         $this->editor_name     = '<b>AXeL</b>';
         $this->editor_url      = 'https://github.com/AXeL-dev';
-        $this->numero          = '686577660';
+        $this->numero          = 686577660;
         $this->rights_class    = 'damb';
         $this->family          = 'base';
         $this->module_position = 500;
