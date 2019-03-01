@@ -1,0 +1,22 @@
+# ${module_name} MODULE - en_US
+#
+# Copyright (C) ${current_year} ${author_name}
+
+#
+# Generic
+#
+${module_name_translation}
+${module_desc_translation}
+
+#
+# Permissions
+#
+${permissions_translation}
+
+#
+# Validation
+#
+ErrorFieldMustBeGreaterThan = Field '%s' must be greater than %s
+ErrorFieldMustBeLessThan = Field '%s' must be less than %s
+ErrorFieldMustHaveMinLength = Field '%s' must have a minimum length of %s characters
+ErrorFieldMustHaveMaxLength = Field '%s' must have a maximum length of %s characters

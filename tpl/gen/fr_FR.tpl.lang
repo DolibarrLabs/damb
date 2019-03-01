@@ -1,0 +1,22 @@
+# ${module_name} MODULE - fr_FR
+#
+# Copyright (C) ${current_year} ${author_name}
+
+#
+# Generic
+#
+${module_name_translation}
+${module_desc_translation}
+
+#
+# Permissions
+#
+${permissions_translation}
+
+#
+# Validation
+#
+ErrorFieldMustBeGreaterThan = Le champ '%s' doit avoir une valeur supérieur à %s
+ErrorFieldMustBeLessThan = Le champ '%s' doit avoir une valeur inférieur à %s
+ErrorFieldMustHaveMinLength = Le champ '%s' doit avoir une longueur minimale de %s caractères
+ErrorFieldMustHaveMaxLength = Le champ '%s' doit avoir une longueur maximale de %s caractères
