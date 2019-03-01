@@ -29,7 +29,7 @@ control_access('$user->admin');
  * View
  */
 
-print_header('Changelog', array('changelog_page@damb', 'damb@damb'), array('damb/css/changelog.css'));
+print_header('Changelog', array('admin', 'damb@damb'), array('damb/css/changelog.css'));
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.print_trans('BackToModuleList', false).'</a>';
 print_subtitle('Changelog', 'title_generic.png', $linkback);

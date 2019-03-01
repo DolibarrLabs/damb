@@ -33,7 +33,7 @@ control_access('$user->admin');
  * View
  */
 
-print_header('Setup', array('admin', 'setup_page@${module_folder}', '${lang_file}@${module_folder}'));
+print_header('Setup', array('admin', '${lang_file}@${module_folder}'));
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.print_trans('BackToModuleList', false).'</a>';
 print_subtitle('Setup', 'title_setup.png', $linkback);

@@ -2,5 +2,63 @@
 #
 # Copyright (C) 2019 AXeL
 
+#
+# Generic
+#
 AdvancedModuleBuilder = Advanced Module Builder
 AdvancedModuleBuilderDesc = An advanced module builder for Dolibarr
+
+#
+# Permissions
+#
+UseAdvancedModuleBuilder = Use Advanced Module Builder
+
+#
+# Setup
+#
+Setup = Setup
+Settings = Settings
+Changelog = Changelog
+About = About
+Option = Option
+Value = Value
+NumberingModels = Numbering models
+DocumentModels = Document models
+DocModelAzurDescription = PDF template Azur. A complete document model (recommended template)
+DocModelCrabeDescription = PDF template Crabe. A complete document model (logo...)
+NoSetupAvailable = No setup available.
+
+#
+# About
+#
+DevelopedBy = Developed by
+DolibaseVersion = This module use Dolibase version
+ForAnyQuestions = For any questions or feedback, please send an e-mail to
+FindMyModules = Find my other modules on
+Dolistore = Dolistore
+ReportBug = Report a bug
+TechnicalInformations = Technical informations
+DolibarrVersion = Dolibarr version
+ModuleVersion = Module version
+PHPVersion = PHP version
+DatabaseVersion = Database version
+WebServerVersion = Web server version
+ReportBugNotice = The technical informations below should be provided in your bug report, in addition of file %s to increase the chance of fixing the bug quickly.
+EnableLogModule = Debug Logs module is not enabled %s
+ClickToEnable = Click to enable
+
+#
+# Changelog
+#
+Version = Version
+PublicationDate = Publication Date
+Details = Details
+NoChangelogAvailable = No changelog available.
+
+#
+# Validation
+#
+ErrorFieldMustBeGreaterThan = Field '%s' must be greater than %s
+ErrorFieldMustBeLessThan = Field '%s' must be less than %s
+ErrorFieldMustHaveMinLength = Field '%s' must have a minimum length of %s characters
+ErrorFieldMustHaveMaxLength = Field '%s' must have a maximum length of %s characters

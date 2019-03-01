@@ -2,5 +2,63 @@
 #
 # Copyright (C) 2019 AXeL
 
+#
+# Generic
+#
 AdvancedModuleBuilder = Constructeur de modules avancés
 AdvancedModuleBuilderDesc = Un constructeur de modules avancé pour Dolibarr
+
+#
+# Permissions
+#
+UseAdvancedModuleBuilder = Utiliser le constructeur de modules avancés
+
+#
+# Setup
+#
+Setup = Configuration
+Settings = Paramètres
+Changelog = Changelog
+About = À propos
+Option = Option
+Value = Valeur
+NumberingModels = Modèles de numérotation
+DocumentModels = Modèles de document
+DocModelAzurDescription = Modèle PDF Azur. Modèle de document complet (modèle recommandé)
+DocModelCrabeDescription = Modèle PDF Crabe. Modèle de document complet (logo...)
+NoSetupAvailable = Pas de configuration nécessaire.
+
+#
+# About
+#
+DevelopedBy = Développé par
+DolibaseVersion = Ce module utilise la version Dolibase
+ForAnyQuestions = Pour toute question ou commentaire, envoyez moi un e-mail sur
+FindMyModules = Retrouvez mes autres modules sur
+Dolistore = Dolistore
+ReportBug = Signaler un bug
+TechnicalInformations = Informations techniques
+DolibarrVersion = Version Dolibarr
+ModuleVersion = Version du module
+PHPVersion = Version PHP
+DatabaseVersion = Version de la base de données
+WebServerVersion = Version du serveur web
+ReportBugNotice = Les informations techniques ci-dessous devraient être fournies dans votre rapport de bug, en plus du fichier %s pour augmenter les chances de corriger le bug rapidement.
+EnableLogModule = Le module Journaux de débogage n'est pas activé %s
+ClickToEnable = Cliquez pour activer
+
+#
+# Changelog
+#
+Version = Version
+PublicationDate = Date de publication
+Details = Détails
+NoChangelogAvailable = Aucun changelog n'est disponible.
+
+#
+# Validation
+#
+ErrorFieldMustBeGreaterThan = Le champ '%s' doit avoir une valeur supérieur à %s
+ErrorFieldMustBeLessThan = Le champ '%s' doit avoir une valeur inférieur à %s
+ErrorFieldMustHaveMinLength = Le champ '%s' doit avoir une longueur minimale de %s caractères
+ErrorFieldMustHaveMaxLength = Le champ '%s' doit avoir une longueur maximale de %s caractères

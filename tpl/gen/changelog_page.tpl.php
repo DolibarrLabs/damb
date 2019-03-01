@@ -23,7 +23,7 @@ control_access('$user->admin');
  * View
  */
 
-print_header('Changelog', array('changelog_page@${module_folder}', '${lang_file}@${module_folder}'), array('{module_folder}/css/changelog.css'));
+print_header('Changelog', array('admin', '${lang_file}@${module_folder}'), array('{module_folder}/css/changelog.css'));
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.print_trans('BackToModuleList', false).'</a>';
 print_subtitle('Changelog', 'title_generic.png', $linkback);

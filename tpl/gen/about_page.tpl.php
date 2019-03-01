@@ -26,7 +26,7 @@ control_access('$user->admin');
  * View
  */
 
-print_header('About', array('about_page@${module_folder}', '${lang_file}@${module_folder}'));
+print_header('About', array('admin', '${lang_file}@${module_folder}'));
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.print_trans('BackToModuleList', false).'</a>';
 print_subtitle('About', 'title_generic.png', $linkback);
