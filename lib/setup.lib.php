@@ -75,11 +75,11 @@ if (! function_exists('load_default_actions'))
         // Update numbering model mask
         else if ($action == 'updateMask')
         {
-            $maskconst = GETPOST('maskconst','alpha');
-            $mask = GETPOST('mask','alpha');
+            $maskconst = GETPOST('maskconst', 'alpha');
+            $mask = GETPOST('mask', 'alpha');
             $error = 0;
 
-            if ($maskconst) $res = dolibarr_set_const($db, $maskconst, $mask,'chaine', 0, '', $conf->entity);
+            if ($maskconst) $res = dolibarr_set_const($db, $maskconst, $mask, 'chaine', 0, '', $conf->entity);
 
             if (! $res > 0) $error++;
 
