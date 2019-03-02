@@ -496,19 +496,20 @@ if (! function_exists('print_doc_models'))
  * Print a table with options
  *
  * @param     $options     options array as [
-   array(
-       'name'   (*) => 'MYMODULE_OPTION',
-       'type'   (*) => 'switch', // or 'text', 'number', 'range', 'date', 'select', 'multiselect', 'color'
-       'desc'   (*) => 'My option description', // description will be displayed on the left of the row
-       'value'      => $conf->global->MYMODULE_OPTION, // or any specific value
-       'values' (*) => array(0 => 'value 1', 1 => 'value 2'), // for type select & multiselect only
-       'use_ajax'   => true, // for type switch only,
-       'desc_right' => '', // used to display something else on the right of the description
-       'width'      => '50%', // to make an input more large for example
-       'size'       => 8, // useful for text inputs
-       'min'        => 0, // work with number & range inputs
-       'max'        => 100 // for number & range inputs too
-   )]
+ * array(
+ *     'name'   (*) => 'MYMODULE_OPTION',
+ *     'type'   (*) => 'switch', // or 'text', 'number', 'range', 'date', 'select', 'multiselect', 'color'
+ *     'desc'   (*) => 'My option description', // description will be displayed on the left of the row
+ *     'value'      => $conf->global->MYMODULE_OPTION, // or any specific value
+ *     'values' (*) => array(0 => 'value 1', 1 => 'value 2'), // for type select & multiselect only
+ *     'enabled'    => '$conf->module->enabled', // condition to enable option
+ *     'use_ajax'   => true, // for type switch only
+ *     'desc_right' => '', // used to display something else on the right of the description
+ *     'width'      => '50%', // to make an input more large for example
+ *     'size'       => 8, // useful for text inputs
+ *     'min'        => 0, // work with number & range inputs
+ *     'max'        => 100 // for number & range inputs too
+ * )]
  * array keys with (*) are required
  */
 if (! function_exists('print_options'))
@@ -539,81 +540,84 @@ if (! function_exists('print_options'))
         {
             if (is_array($option))
             {
-                $odd = !$odd;
-                $desc_right = isset($option['desc_right']) ? $option['desc_right'] : '';
-                $width = isset($option['width']) ? $option['width'] : '350';
-                $value = isset($option['value']) ? $option['value'] : $conf->global->{$option['name']};
-
-                echo '<tr '.$bc[$odd].'><td>'.$langs->trans($option['desc']).$desc_right.'</td>'."\n";
-                echo '<td align="right" width="'.$width.'">'."\n";
-
-                // Switch
-                if ($option['type'] == 'switch')
+                if (! isset($option['enabled']) || empty($option['enabled']) || verifCond($option['enabled']))
                 {
-                    if (isset($option['use_ajax']) && $option['use_ajax'] && ! empty($conf->use_javascript_ajax) && function_exists('ajax_constantonoff'))
+                    $odd = !$odd;
+                    $desc_right = isset($option['desc_right']) ? $option['desc_right'] : '';
+                    $width = isset($option['width']) ? $option['width'] : '350';
+                    $value = isset($option['value']) ? $option['value'] : $conf->global->{$option['name']};
+
+                    echo '<tr '.$bc[$odd].'><td>'.$langs->trans($option['desc']).$desc_right.'</td>'."\n";
+                    echo '<td align="right" width="'.$width.'">'."\n";
+
+                    // Switch
+                    if ($option['type'] == 'switch')
                     {
-                        echo ajax_constantonoff($option['name']);
-                    }
-                    else
-                    {
-                        if (empty($value))
+                        if (isset($option['use_ajax']) && $option['use_ajax'] && ! empty($conf->use_javascript_ajax) && function_exists('ajax_constantonoff'))
                         {
-                            echo '<a href="'.$_SERVER['PHP_SELF'].'?action=set_'.$option['name'].'">'.img_picto($langs->trans('Disabled'), 'switch_off').'</a>'."\n";
+                            echo ajax_constantonoff($option['name']);
                         }
                         else
                         {
-                            echo '<a href="'.$_SERVER['PHP_SELF'].'?action=del_'.$option['name'].'">'.img_picto($langs->trans('Enabled'), 'switch_on').'</a>'."\n";
+                            if (empty($value))
+                            {
+                                echo '<a href="'.$_SERVER['PHP_SELF'].'?action=set_'.$option['name'].'">'.img_picto($langs->trans('Disabled'), 'switch_off').'</a>'."\n";
+                            }
+                            else
+                            {
+                                echo '<a href="'.$_SERVER['PHP_SELF'].'?action=del_'.$option['name'].'">'.img_picto($langs->trans('Enabled'), 'switch_on').'</a>'."\n";
+                            }
                         }
+                        echo '&nbsp;&nbsp;&nbsp;&nbsp;';
                     }
-                    echo '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    else
+                    {
+                        echo '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
+                        echo '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'" />'."\n";
+                        echo '<input type="hidden" name="action" value="set_'.$option['name'].'" />'."\n";
+                        echo '<input type="hidden" name="mainmenu" value="home" />'."\n";
+
+                        // Text, number, range
+                        if (in_array($option['type'], array('text', 'number', 'range')))
+                        {
+                            $class = 'flat';
+                            if ($option['type'] == 'range') {
+                                $class .= ' valignmiddle';
+                            }
+                            echo '<input type="'.$option['type'].'"'.(isset($option['min']) ? ' min="'.$option['min'].'"' : '').(isset($option['max']) ? ' max="'.$option['max'].'"' : '').(isset($option['size']) ? ' size="'.$option['size'].'"' : '').' class="'.$class.'" name="'.$option['name'].'" value="'.$value.'">'."\n";
+                        }
+                        // Date
+                        else if ($option['type'] == 'date')
+                        {
+                            echo '<input type="hidden" name="option_type" value="date" />'."\n";
+                            echo $form->select_date($value, $option['name'], 0, 0, 1, '', 1, 1, 1);
+                        }
+                        // Select
+                        else if ($option['type'] == 'select')
+                        {
+                            echo $form->selectarray($option['name'], $option['values'], $value, 0, 0, 0, '', 1);
+                        }
+                        // Multi select
+                        else if ($option['type'] == 'multiselect')
+                        {
+                            if (! is_array($value)) {
+                                $value = explode(',', $value);
+                            }
+                            echo '<input type="hidden" name="option_type" value="multiselect" />'."\n";
+                            echo $form->multiselectarray($option['name'], $option['values'], $value, 0, 0, '', 1, '60%');
+                        }
+                        // Color
+                        else if ($option['type'] == 'color')
+                        {
+                            echo $formother->selectColor(colorArrayToHex(colorStringToArray($value, array()), ''), $option['name']);
+                        }
+
+                        echo '&nbsp;&nbsp;<input type="submit" class="button" value="'.$langs->trans('Modify').'">&nbsp;&nbsp;'."\n";
+                        echo "</form>\n";
+                    }
+
+                    echo "</td>\n</tr>\n";
                 }
-                else
-                {
-                    echo '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
-                    echo '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'" />'."\n";
-                    echo '<input type="hidden" name="action" value="set_'.$option['name'].'" />'."\n";
-                    echo '<input type="hidden" name="mainmenu" value="home" />'."\n";
-
-                    // Text, number, range
-                    if (in_array($option['type'], array('text', 'number', 'range')))
-                    {
-                        $class = 'flat';
-                        if ($option['type'] == 'range') {
-                            $class .= ' valignmiddle';
-                        }
-                        echo '<input type="'.$option['type'].'"'.(isset($option['min']) ? ' min="'.$option['min'].'"' : '').(isset($option['max']) ? ' max="'.$option['max'].'"' : '').(isset($option['size']) ? ' size="'.$option['size'].'"' : '').' class="'.$class.'" name="'.$option['name'].'" value="'.$value.'">'."\n";
-                    }
-                    // Date
-                    else if ($option['type'] == 'date')
-                    {
-                        echo '<input type="hidden" name="option_type" value="date" />'."\n";
-                        echo $form->select_date($value, $option['name'], 0, 0, 1, '', 1, 1, 1);
-                    }
-                    // Select
-                    else if ($option['type'] == 'select')
-                    {
-                        echo $form->selectarray($option['name'], $option['values'], $value, 0, 0, 0, '', 1);
-                    }
-                    // Multi select
-                    else if ($option['type'] == 'multiselect')
-                    {
-                        if (! is_array($value)) {
-                            $value = explode(',', $value);
-                        }
-                        echo '<input type="hidden" name="option_type" value="multiselect" />'."\n";
-                        echo $form->multiselectarray($option['name'], $option['values'], $value, 0, 0, '', 1, '60%');
-                    }
-                    // Color
-                    else if ($option['type'] == 'color')
-                    {
-                        echo $formother->selectColor(colorArrayToHex(colorStringToArray($value, array()), ''), $option['name']);
-                    }
-
-                    echo '&nbsp;&nbsp;<input type="submit" class="button" value="'.$langs->trans('Modify').'">&nbsp;&nbsp;'."\n";
-                    echo "</form>\n";
-                }
-
-                echo "</td>\n</tr>\n";
             }
         }
 

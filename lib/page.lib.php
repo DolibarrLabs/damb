@@ -133,15 +133,22 @@ if (! function_exists('print_subtitle'))
 /**
  * Print tabs
  *
- * @param     $tabs         tabs array as [['title' => 'MyTab', 'url' => 'mymodule/page.php', 'active' => true, 'permission' => '$user->admin']]
+ * @param     $tabs         tabs array as [
+ * array(
+ *     'title'   => 'MyTab',
+ *     'url'     => 'mymodule/page.php',
+ *     'active'  => true,
+ *     'enabled' => '$user->admin'
+ * )]
  * @param     $title        tabs main title
  * @param     $picture      tabs picture (picture file should have the prefix 'object_')
  * @param     $noheader     -1 or 0=Add tab header, 1=no tab header. If you set this to 1, using dol_fiche_end() to close tab is not required.
- * @param     $type         used to display tabs from other modules, e.: 'mymodule'
+ * @param     $object       used to display tabs from other modules, e.: $myobject
+ * @param     $type         also used to display tabs from other modules, e.: 'mymodule'
  */
 if (! function_exists('print_tabs'))
 {
-    function print_tabs($tabs, $title = '', $picture = '', $noheader = 0, $type = '')
+    function print_tabs($tabs, $title = '', $picture = '', $noheader = 0, $object = null, $type = '')
     {
         global $conf, $langs;
 
@@ -155,7 +162,7 @@ if (! function_exists('print_tabs'))
             {
                 if (is_array($tab))
                 {
-                    if (! isset($tab['permission']) || empty($tab['permission']) || verifCond($tab['permission']))
+                    if (! isset($tab['enabled']) || empty($tab['enabled']) || verifCond($tab['enabled']))
                     {
                         $tab_id = count($links) + 1;
                         $tab_name = 'tab_'.$tab_id;
@@ -179,7 +186,7 @@ if (! function_exists('print_tabs'))
         // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
         // $this->tabs = array('entity:-tabname);                                                   to remove a tab
         if (! empty($type)) {
-            complete_head_from_modules($conf, $langs, null, $links, count($links), $type);
+            complete_head_from_modules($conf, $langs, $object, $links, count($links), $type);
         }
 
         // Generate tabs
