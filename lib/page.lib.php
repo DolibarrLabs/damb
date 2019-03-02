@@ -143,12 +143,12 @@ if (! function_exists('print_subtitle'))
  * @param     $title        tabs main title
  * @param     $picture      tabs picture (picture file should have the prefix 'object_')
  * @param     $noheader     -1 or 0=Add tab header, 1=no tab header. If you set this to 1, using dol_fiche_end() to close tab is not required.
- * @param     $object       used to display tabs from other modules, e.: $myobject
- * @param     $type         also used to display tabs from other modules, e.: 'mymodule'
+ * @param     $type         used to display tabs from other modules, e.: 'mymodule'
+ * @param     $object       also used to display tabs from other modules, e.: $myobject
  */
 if (! function_exists('print_tabs'))
 {
-    function print_tabs($tabs, $title = '', $picture = '', $noheader = 0, $object = null, $type = '')
+    function print_tabs($tabs, $title = '', $picture = '', $noheader = 0, $type = '', $object = null)
     {
         global $conf, $langs;
 
