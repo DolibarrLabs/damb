@@ -37,7 +37,7 @@ class modDAMB extends DolibarrModules
         $this->module_parts    = array(
             'css'   => array(),
             'js'    => array(),
-            'hooks' => array(),
+            'hooks' => array('toprightmenu'),
             //'triggers' => 1,
         );
 
@@ -51,6 +51,9 @@ class modDAMB extends DolibarrModules
         $this->requiredby            = array();
         $this->conflictwith          = array();
         $this->langfiles             = array('damb@damb');
+
+        // Permissions
+        add_permission($this, 'use', 'UseAdvancedModuleBuilder');
     }
 
     /**
