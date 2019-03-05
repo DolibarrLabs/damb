@@ -230,7 +230,7 @@ if (! function_exists('print_num_models'))
     {
         global $db, $conf, $langs;
 
-        echo '<table class="noborder" width="100%">';
+        echo '<table class="noborder allwidth">';
         echo '<tr class="liste_titre">';
         echo '<td>'.$langs->trans('Name').'</td>';
         echo '<td>'.$langs->trans('Description').'</td>';
@@ -371,7 +371,7 @@ if (! function_exists('print_doc_models'))
             dol_print_error($db);
         }
 
-        echo '<table class="noborder" width="100%">';
+        echo '<table class="noborder allwidth">';
         echo '<tr class="liste_titre">';
         echo '<td>'.$langs->trans('Name').'</td>';
         echo '<td>'.$langs->trans('Description').'</td>';

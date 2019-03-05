@@ -44,6 +44,7 @@ load_template('${module_folder}/tpl/about.tpl.php', array(
     'module_desc' => $module->description,
     'module_picture' => '${module_picture}@${module_folder}',
     'module_version' => $module->version,
+    'module_url' => '#',
     'author_name' => $module->editor_name,
     'author_url' => $module->editor_url,
     'author_email' => '${author_email}',

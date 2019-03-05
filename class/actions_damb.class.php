@@ -24,13 +24,13 @@ class ActionsDAMB
         // Do something only for the context 'toprightmenu'
         if (in_array('toprightmenu', explode(':', $parameters['context'])))
         {
-            if ($user->rights->damb->use)
+            if ($user->admin)
             {
                 // Builder shortcut
                 $langs->load('damb@damb');
 
                 $title = $langs->trans('AdvancedModuleBuilder');
-                $text = '<a href="'.dol_buildpath('damb/builder/module.php', 1).'">';
+                $text = '<a href="'.dol_buildpath('damb/builder/new.php', 1).'">';
                 $dol_version = explode('.', DOL_VERSION);
 
                 if ((int)$dol_version[0] >= 6) {

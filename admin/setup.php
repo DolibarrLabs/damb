@@ -51,8 +51,6 @@ $tabs = array(
 );
 print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1);
 
-//print_trans('NoSetupAvailable');
-
 print_subtitle('AuthorSettings');
 
 print_options(array(
@@ -61,16 +59,5 @@ print_options(array(
     array('name' => 'DAMB_AUTHOR_EMAIL', 'type' => 'text', 'desc' => 'AuthorEmail'),
     array('name' => 'DAMB_AUTHOR_DOLISTORE_URL', 'type' => 'text', 'desc' => 'AuthorDolistoreUrl')
 ));
-/*
-print_options(array(
-    array('name' => 'DAMB_SELECT', 'type' => 'select', 'desc' => 'Select', 'values' => array('aaa', 'bbb')),
-    array('name' => 'DAMB_MULTI_SELECT', 'type' => 'multiselect', 'desc' => 'Multi Select', 'values' => array('1' => 'aaa', '2' => 'bbb')),
-    array('name' => 'DAMB_SWITCH', 'type' => 'switch', 'desc' => 'Switch'),
-    array('name' => 'DAMB_TEST', 'type' => 'range', 'desc' => 'Test', 'min' => 0, 'max' => 10)
-));
 
-print_num_models('', 'DAMB_ADDON');
-
-print_doc_models('', '', 'DAMB_ADDON_PDF', 'package.png@damb');
-*/
 print_footer(true);

@@ -7,11 +7,7 @@
 #
 AdvancedModuleBuilder = Constructeur de modules avancés
 AdvancedModuleBuilderDesc = Un constructeur de modules avancé pour Dolibarr
-
-#
-# Permissions
-#
-UseAdvancedModuleBuilder = Utiliser le constructeur de modules avancés
+ModuleBuilder = Constructeur de modules
 
 #
 # Setup
@@ -27,6 +23,11 @@ DocumentModels = Modèles de document
 DocModelAzurDescription = Modèle PDF Azur. Modèle de document complet (modèle recommandé)
 DocModelCrabeDescription = Modèle PDF Crabe. Modèle de document complet (logo...)
 NoSetupAvailable = Pas de configuration nécessaire.
+AuthorSettings = Paramètres d'auteur
+AuthorName = Nom
+AuthorUrl = Url
+AuthorEmail = Email
+AuthorDolistoreUrl = Url Dolistore
 
 #
 # About

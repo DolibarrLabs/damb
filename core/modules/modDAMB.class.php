@@ -20,7 +20,7 @@ class modDAMB extends DolibarrModules
     {
         // Module configuration
         $this->db              = $db;
-        $this->editor_name     = '<b>AXeL</b>';
+        $this->editor_name     = 'AXeL';
         $this->editor_url      = 'https://github.com/AXeL-dev';
         $this->numero          = 686577660;
         $this->rights_class    = 'damb';
@@ -52,8 +52,12 @@ class modDAMB extends DolibarrModules
         $this->conflictwith          = array();
         $this->langfiles             = array('damb@damb');
 
-        // Permissions
-        add_permission($this, 'use', 'UseAdvancedModuleBuilder');
+        // Constants
+        global $user;
+        add_constant($this, 'DAMB_AUTHOR_NAME', $user->lastname);
+        add_constant($this, 'DAMB_AUTHOR_URL', '#');
+        add_constant($this, 'DAMB_AUTHOR_EMAIL', $user->email);
+        add_constant($this, 'DAMB_AUTHOR_DOLISTORE_URL', '#');
     }
 
     /**

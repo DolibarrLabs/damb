@@ -20,6 +20,7 @@
  * $module_desc
  * $module_picture
  * $module_version
+ * $module_url
  * $author_name
  * $author_url
  * $author_email
@@ -36,15 +37,13 @@ global $langs, $conf, $db;
 </div>
 <div>
     <div>
-        <a href="<?php echo $module_url; ?>" target="_blank">
-            <b><?php echo $langs->trans($module_name); ?></b>
-        </a>
+        <a href="<?php echo $module_url; ?>" target="_blank"><b><?php echo $langs->trans($module_name); ?></b></a>
         <span><?php echo ' : '.$langs->trans($module_desc); ?></span>
     </div>
     <br>
     <div>
         <span><?php echo $langs->trans('DevelopedBy'); ?></span>
-        <a href="<?php echo $author_url; ?>" target="_blank"><?php echo $author_name; ?></a>
+        <a href="<?php echo $author_url; ?>" target="_blank"><b><?php echo $author_name; ?></b></a>
     </div>
     <br>
     <div>

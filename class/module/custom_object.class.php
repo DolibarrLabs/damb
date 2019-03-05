@@ -105,6 +105,7 @@ class CustomObject extends CommonObject
         global $db;
 
         $this->db = $db;
+        $this->triggers_prefix = strtoupper($this->element);
     }
 
     /**

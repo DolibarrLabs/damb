@@ -15,6 +15,30 @@
  */
 
 /**
+ * Load lang files
+ *
+ * @param     $lang_files    String|Array of lang files to load
+ */
+if (! function_exists('load_langs'))
+{
+    function load_langs($lang_files = array())
+    {
+        global $langs;
+
+        if (is_array($lang_files))
+        {
+            foreach ($lang_files as $file) {
+                $langs->load($file);
+            }
+        }
+        else if (! empty($lang_files))
+        {
+            $langs->load($lang_files);
+        }
+    }
+}
+
+/**
  * Print page header
  *
  * @param     $title         Page title
@@ -35,16 +59,7 @@ if (! function_exists('print_header'))
         }
 
         // Load translations
-        if (is_array($lang_files))
-        {
-            foreach ($lang_files as $file) {
-                $langs->load($file);
-            }
-        }
-        else if (! empty($lang_files))
-        {
-            $langs->load($lang_files);
-        }
+        load_langs($lang_files);
 
         // Load Page Header (Dolibarr header, menus, ...)
         llxHeader($head, $langs->trans($title), '', '', 0, 0, $js_files, $css_files);
@@ -133,22 +148,23 @@ if (! function_exists('print_subtitle'))
 /**
  * Print tabs
  *
- * @param     $tabs         tabs array as [
+ * @param     $tabs     tabs array as [
  * array(
  *     'title'   => 'MyTab',
  *     'url'     => 'mymodule/page.php',
  *     'active'  => true,
  *     'enabled' => '$user->admin'
  * )]
- * @param     $title        tabs main title
- * @param     $picture      tabs picture (picture file should have the prefix 'object_')
- * @param     $noheader     -1 or 0=Add tab header, 1=no tab header. If you set this to 1, using dol_fiche_end() to close tab is not required.
- * @param     $type         used to display tabs from other modules, e.: 'mymodule'
- * @param     $object       also used to display tabs from other modules, e.: $myobject
+ * @param     $title             tabs main title
+ * @param     $picture           tabs picture (picture file should have the prefix 'object_')
+ * @param     $noheader          -1 or 0=Add tab header, 1=no tab header. If you set this to 1, using dol_fiche_end() to close tab is not required.
+ * @param     $morehtmlright     more html to display on the right of tabs
+ * @param     $type              used to display tabs from other modules, e.: 'mymodule'
+ * @param     $object            also used to display tabs from other modules, e.: $myobject
  */
 if (! function_exists('print_tabs'))
 {
-    function print_tabs($tabs, $title = '', $picture = '', $noheader = 0, $type = '', $object = null)
+    function print_tabs($tabs, $title = '', $picture = '', $noheader = 0, $morehtmlright = '', $type = '', $object = null)
     {
         global $conf, $langs;
 
@@ -190,7 +206,7 @@ if (! function_exists('print_tabs'))
         }
 
         // Generate tabs
-        dol_fiche_head($links, $active_link, $langs->trans($title), $noheader, $picture);
+        dol_fiche_head($links, $active_link, $langs->trans($title), $noheader, $picture, 0, $morehtmlright);
     }
 }
 
@@ -235,16 +251,28 @@ if (! function_exists('load_template'))
  * Note: message rendering will be done by print_footer() or more exactly llxFooter() function
  *
  * @param     $message       Message
+ * @param     $parameters    Message parameter or an array of message parameters (max 4)
  * @param     $translate     Translate the message or not
  */
 if (! function_exists('success_message'))
 {
-    function success_message($message, $translate = true)
+    function success_message($message, $parameters = array(), $translate = true)
     {
         global $langs;
 
-        if ($translate) {
-            $message = $langs->trans($message);
+        if ($translate)
+        {
+            if (is_array($parameters)) {
+                $param1 = isset($parameters[0]) ? $parameters[0] : '';
+                $param2 = isset($parameters[1]) ? $parameters[1] : '';
+                $param3 = isset($parameters[2]) ? $parameters[2] : '';
+                $param4 = isset($parameters[3]) ? $parameters[3] : '';
+            }
+            else {
+                $param1 = $parameters;
+                $param2 = $param3 = $param4 = '';
+            }
+            $message = $langs->trans($message, $param1, $param2, $param3, $param4);
         }
 
         setEventMessage($message, 'mesgs');
@@ -256,16 +284,28 @@ if (! function_exists('success_message'))
  * Note: message rendering will be done by print_footer() or more exactly llxFooter() function
  *
  * @param     $message       Message
+ * @param     $parameters    Message parameter or an array of message parameters (max 4)
  * @param     $translate     Translate the message or not
  */
 if (! function_exists('error_message'))
 {
-    function error_message($message, $translate = true)
+    function error_message($message, $parameters = array(), $translate = true)
     {
         global $langs;
 
-        if ($translate) {
-            $message = $langs->trans($message);
+        if ($translate)
+        {
+            if (is_array($parameters)) {
+                $param1 = isset($parameters[0]) ? $parameters[0] : '';
+                $param2 = isset($parameters[1]) ? $parameters[1] : '';
+                $param3 = isset($parameters[2]) ? $parameters[2] : '';
+                $param4 = isset($parameters[3]) ? $parameters[3] : '';
+            }
+            else {
+                $param1 = $parameters;
+                $param2 = $param3 = $param4 = '';
+            }
+            $message = $langs->trans($message, $param1, $param2, $param3, $param4);
         }
 
         setEventMessage($message, 'errors');
@@ -277,16 +317,28 @@ if (! function_exists('error_message'))
  * Note: message rendering will be done by print_footer() or more exactly llxFooter() function
  *
  * @param     $message       Message
+ * @param     $parameters    Message parameter or an array of message parameters (max 4)
  * @param     $translate     Translate the message or not
  */
 if (! function_exists('warning_message'))
 {
-    function warning_message($message, $translate = true)
+    function warning_message($message, $parameters = array(), $translate = true)
     {
         global $langs;
 
-        if ($translate) {
-            $message = $langs->trans($message);
+        if ($translate)
+        {
+            if (is_array($parameters)) {
+                $param1 = isset($parameters[0]) ? $parameters[0] : '';
+                $param2 = isset($parameters[1]) ? $parameters[1] : '';
+                $param3 = isset($parameters[2]) ? $parameters[2] : '';
+                $param4 = isset($parameters[3]) ? $parameters[3] : '';
+            }
+            else {
+                $param1 = $parameters;
+                $param2 = $param3 = $param4 = '';
+            }
+            $message = $langs->trans($message, $param1, $param2, $param3, $param4);
         }
 
         setEventMessage($message, 'warnings');

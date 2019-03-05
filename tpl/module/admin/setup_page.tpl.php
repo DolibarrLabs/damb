@@ -44,6 +44,21 @@ $tabs = array(
 );
 print_tabs($tabs, '${module_name}', '${module_picture}@${module_folder}', -1);
 
-print_trans('NoSetupAvailable');
+${settings}
+
+/*
+print_subtitle('Settings');
+
+print_options(array(
+    array('name' => 'MY_TEXT', 'type' => 'text', 'desc' => 'Text'),
+    array('name' => 'MY_NUMBER', 'type' => 'number', 'desc' => 'Number'),
+    array('name' => 'MY_SELECT', 'type' => 'select', 'desc' => 'Select', 'values' => array('Choice 1', 'Choice 2')),
+    array('name' => 'MY_MULTI_SELECT', 'type' => 'multiselect', 'desc' => 'Multi Select', 'values' => array('1' => 'Choice 1', '2' => 'Choice 2')),
+    array('name' => 'MY_COLOR', 'type' => 'color', 'desc' => 'Color'),
+    array('name' => 'MY_DATE', 'type' => 'date', 'desc' => 'Date'),
+    array('name' => 'MY_SWITCH', 'type' => 'switch', 'desc' => 'Switch'),
+    array('name' => 'MY_RANGE', 'type' => 'range', 'desc' => 'Range', 'min' => 0, 'max' => 10)
+));
+*/
 
 print_footer(true);

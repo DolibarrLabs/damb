@@ -51,6 +51,7 @@ load_template('damb/tpl/about.tpl.php', array(
     'module_desc' => $module->description,
     'module_picture' => 'package.png@damb',
     'module_version' => $module->version,
+    'module_url' => '#',
     'author_name' => $module->editor_name,
     'author_url' => $module->editor_url,
     'author_email' => 'contact.axel.dev@gmail.com',

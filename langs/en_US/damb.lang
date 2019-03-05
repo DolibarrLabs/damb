@@ -7,11 +7,43 @@
 #
 AdvancedModuleBuilder = Advanced Module Builder
 AdvancedModuleBuilderDesc = An advanced module builder for Dolibarr
-
-#
-# Permissions
-#
-UseAdvancedModuleBuilder = Use Advanced Module Builder
+ModuleBuilder = Module Builder
+NewModule = New
+EditModule = Edit
+DeployModule = Deploy
+ModuleConfiguration = Module Configuration
+ModuleName = Name
+ModuleVersion = Version
+ModuleVersionHelp = possible values: 'development', 'experimental', 'dolibarr' or version
+ModuleNumber = Number
+ModuleNumberHelp = use a unique number & avoid small numbers because they are used for core modules
+ModuleFamily = Family
+ModulePosition = Position
+ModuleRightsClass = Rights Class
+ModuleRightsClassHelp = key to reference module (for permissions, menus, etc.)
+ModuleFolderName = Folder Name
+ModuleFolderNameHelp = advice: never use underscores in module folder name to avoid many problems especially with top menu icon, module widgets etc..
+ModulePicture = Picture
+ModulePictureHelp = preferred size (128 x 128)
+AddNumberingModels = Add Numbering Models
+AddNumberingModelsHelp = adds saphir & marbre numbering models to module core & setup page
+AddDocumentModels = Add Document Models
+AddDocumentModelsHelp = adds azur & crabe document models to module core & setup page
+NumberingModelsConfiguration = Numbering Models Configuration
+TableName = Table Name
+TableNameHelp = without table prefix (llx_)
+TableFieldName = Table Field Name
+TableFieldNameHelp = table field that will be associated with the numbering models
+NumModelPrefix = Model Prefix
+NumModelPrefixHelp = used in marbre numbering model
+AddExtrafields = Add Extrafields
+AddExtrafieldsHelp = adds an extrafields table to sql folder & extrafields page to admin pages
+AddChangelog = Add Changelog
+AddChangelogHelp = adds a changelog.json file to module folder & a changelog page to admin pages
+CreateModule = Create
+BuilderSettings = Builder Settings
+ModuleExists = Module folder <strong>%s</strong> already exists.
+ModuleCreated = Module <strong>%s</strong> successfully created into <strong>%s</strong> directory.
 
 #
 # Setup
@@ -27,6 +59,11 @@ DocumentModels = Document models
 DocModelAzurDescription = PDF template Azur. A complete document model (recommended template)
 DocModelCrabeDescription = PDF template Crabe. A complete document model (logo...)
 NoSetupAvailable = No setup available.
+AuthorSettings = Author Settings
+AuthorName = Name
+AuthorUrl = Url
+AuthorEmail = Email
+AuthorDolistoreUrl = Dolistore url
 
 #
 # About

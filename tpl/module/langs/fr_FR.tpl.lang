@@ -14,6 +14,11 @@ ${module_desc_translation}
 ${permissions_translation}
 
 #
+# Menus
+#
+${menus_translation}
+
+#
 # Setup
 #
 Setup = Configuration

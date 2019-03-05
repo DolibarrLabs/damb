@@ -42,10 +42,10 @@ include_once DOL_DOCUMENT_ROOT.'/core/actions_extrafields.inc.php';
  * View
  */
 
-print_header('Setup', array('admin', 'extrafields_page@${module_folder}'));
+print_header('ExtraFields', array('admin', 'extrafields_page@${module_folder}'));
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.print_trans('BackToModuleList', false).'</a>';
-print_subtitle('Setup', 'title_generic.png', $linkback);
+print_subtitle('ExtraFields', 'title_generic.png', $linkback);
 
 $tabs = array(
     array('title' => 'Setup', 'url' => '${module_folder}/admin/setup.php?mainmenu=home'),
