@@ -136,3 +136,61 @@ if (! function_exists('sanitize_string'))
         return $sanitized_str;
     }
 }
+
+// --------------------------------------------------------------------
+
+if (! function_exists('directory_files_list'))
+{
+    /**
+     * Return a list of directory files
+     *
+     * @param  string   $pattern   directory path or pattern
+     * @param  boolean  $no_path   do not return path with results
+     * @param  boolean  $dir_only  return only directories (files will be ignored)
+     * @return array               list of directory files
+     */
+    function directory_files_list($pattern, $no_path = false, $dir_only = false)
+    {
+        $list = array();
+        $files = glob($pattern);
+
+        if (is_array($files))
+        {
+            foreach($files as $filename)
+            {
+                if ($dir_only && ! is_dir($filename)) {
+                    continue;
+                }
+
+                $list[] = ($no_path ? basename($filename) : $filename);
+            }
+        }
+
+        return $list;
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('get_module_class'))
+{
+    /**
+     * Return module class file & name
+     *
+     * @param  string   $module_path   module path
+     * @return array                   array as ['file' => 'modxxx.class.php', 'name' => 'modxxx'] or empty array if not found
+     */
+    function get_module_class($module_path)
+    {
+        $result = array();
+        $module_class = glob($module_path.'/core/modules/mod*.class.php');
+
+        if (is_array($module_class) && ! empty($module_class))
+        {
+            $result['file'] = basename($module_class[0]);
+            $result['name'] = substr($result['file'], 0 , (strpos($result['file'], ".")));
+        }
+
+        return $result;
+    }
+}

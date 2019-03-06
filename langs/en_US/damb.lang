@@ -10,7 +10,10 @@ AdvancedModuleBuilderDesc = An advanced module builder for Dolibarr
 ModuleBuilder = Module Builder
 NewModule = New
 EditModule = Edit
-DeployModule = Deploy
+
+#
+# New Tab
+#
 ModuleConfiguration = Module Configuration
 ModuleName = Name
 ModuleVersion = Version
@@ -46,6 +49,26 @@ ModuleExists = Module folder <strong>%s</strong> already exists.
 ModuleCreated = Module <strong>%s</strong> successfully created into <strong>%s</strong> directory.
 
 #
+# Edit Tab
+#
+Modules = Modules
+Refresh = Refresh
+Files = Files
+SelectModule = Select a module...
+ModuleInformations = Module Informations
+ModuleSettings = Module Settings
+ModuleStatus = Status
+Widgets = Widgets
+AddWidget = Add Widget
+EditFile = Edit File
+Packages = Packages
+BuildPackage = Build Package
+DeleteModule = Delete Module
+ConfirmDeleteModule = Delete selected module?
+ModuleDeleted = Module <strong>%s</strong> deleted.
+ModulesList = Modules List
+
+#
 # Setup
 #
 Setup = Setup
@@ -59,6 +82,8 @@ DocumentModels = Document models
 DocModelAzurDescription = PDF template Azur. A complete document model (recommended template)
 DocModelCrabeDescription = PDF template Crabe. A complete document model (logo...)
 NoSetupAvailable = No setup available.
+GeneralSettings = General Settings
+AllowModuleDelete = Allow deleting modules on edit page
 AuthorSettings = Author Settings
 AuthorName = Name
 AuthorUrl = Url

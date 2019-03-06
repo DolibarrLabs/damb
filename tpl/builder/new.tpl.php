@@ -1,8 +1,22 @@
 <?php
 
+/**
+ * This file is a part of DAMB
+ *
+ * An advanced module builder for Dolibarr ERP/CRM
+ *
+ *
+ * @package     DAMB
+ * @author      AXeL
+ * @copyright   Copyright (c) 2019 - 2020, AXeL-dev
+ * @license     GPL
+ * @link        https://gitlab.com/AXeL-dev/damb
+ *
+ */
+
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
-global $db, $langs, $conf;
+global $db, $langs;
 
 $form = new Form($db);
 

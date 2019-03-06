@@ -51,6 +51,12 @@ $tabs = array(
 );
 print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1);
 
+print_subtitle('GeneralSettings');
+
+print_options(array(
+    array('name' => 'DAMB_ALLOW_MODULE_DELETE', 'type' => 'switch', 'desc' => 'AllowModuleDelete')
+));
+
 print_subtitle('AuthorSettings');
 
 print_options(array(
