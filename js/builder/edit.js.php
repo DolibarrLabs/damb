@@ -34,21 +34,24 @@ $(document).ready(function() {
         var href = $(this).attr('href');
         $('<div title="<?php echo $langs->trans('DeleteModule'); ?>"><?php echo img_help('', '').' '.$langs->trans('ConfirmDeleteModule'); ?></div>').dialog({
             autoOpen: true,
-            open: function() {
-                $(this).parent().find('button.ui-button:eq(2)').focus();
-            },
             resizable: false,
             height: 200,
             width: 400,
             modal: true,
             closeOnEscape: false,
+            open: function() {
+                $(this).parent().find('button.ui-button:eq(2)').focus();
+            },
+            close: function() {
+                $(this).dialog('destroy');
+            },
             buttons: {
                 "<?php echo $langs->trans('Yes'); ?>": function() {
                     location.href = href;
                     $(this).dialog('close');
                 },
                 "<?php echo $langs->trans('No'); ?>": function() {
-                    $(this).dialog('destroy');
+                    $(this).dialog('close');
                 }
             }
         });
@@ -60,21 +63,24 @@ $(document).ready(function() {
         var href = $(this).attr('href');
         $('<div title="<?php echo $langs->trans('DeleteFileFolder'); ?>"><?php echo img_help('', '').' '.$langs->trans('ConfirmDeleteFileFolder'); ?></div>').dialog({
             autoOpen: true,
-            open: function() {
-                $(this).parent().find('button.ui-button:eq(2)').focus();
-            },
             resizable: false,
             height: 200,
             width: 400,
             modal: true,
             closeOnEscape: false,
+            open: function() {
+                $(this).parent().find('button.ui-button:eq(2)').focus();
+            },
+            close: function() {
+                $(this).dialog('destroy');
+            },
             buttons: {
                 "<?php echo $langs->trans('Yes'); ?>": function() {
                     location.href = href;
                     $(this).dialog('close');
                 },
                 "<?php echo $langs->trans('No'); ?>": function() {
-                    $(this).dialog('destroy');
+                    $(this).dialog('close');
                 }
             }
         });
@@ -98,14 +104,17 @@ $(document).ready(function() {
             </table>
         </div>`).dialog({
             autoOpen: true,
-            open: function() {
-                $(this).find('input[name="name"]').focus();
-            },
             resizable: false,
             height: 200,
             width: 400,
             modal: true,
             closeOnEscape: false,
+            open: function() {
+                $(this).find('input[name="name"]').focus();
+            },
+            close: function() {
+                $(this).dialog('destroy');
+            },
             buttons: {
                 "<?php echo $langs->trans('Create'); ?>": function() {
                     var type = $(this).find('input[name="type"]:checked').val();
@@ -114,7 +123,46 @@ $(document).ready(function() {
                     $(this).dialog('close');
                 },
                 "<?php echo $langs->trans('Cancel'); ?>": function() {
-                    $(this).dialog('destroy');
+                    $(this).dialog('close');
+                }
+            }
+        });
+    });
+
+    // View image
+    $('a.view_image').on('click', function(e) {
+        e.preventDefault();
+        var image_name = $(this).text();
+        var image_src = $(this).attr('href');
+        $('<div title="' + image_name + '" class="center"><img src="' + image_src + '"></div>').dialog({
+            autoOpen: true,
+            resizable: false,
+            height: 'auto',
+            width: 300,
+            modal: true,
+            closeOnEscape: false,
+            open: function() {
+                var dialog = $(this);
+                $(this).find('img').on('load', function() {
+                    var img_width = $(this).width();
+                    var img_height = $(this).height();
+                    if (img_width > 800) {
+                        dialog.dialog('option', 'width', 800);
+                    }
+                    else if (img_width > 300) {
+                        dialog.dialog('option', 'width', 'auto');
+                    }
+                    if (img_height > 500) {
+                        dialog.dialog('option', 'height', 500);
+                    }
+                });
+            },
+            close: function() {
+                $(this).dialog('destroy');
+            },
+            buttons: {
+                "<?php echo $langs->trans('Close'); ?>": function() {
+                    $(this).dialog('close');
                 }
             }
         });

@@ -75,12 +75,15 @@ File = File
 Folder = Folder
 Create = Create
 Cancel = Cancel
+Save = Save
+Close = Close
 FileCreated = File <strong>%s</strong> created.
 FolderCreated = Folder <strong>%s</strong> created.
 FileDeleted = File <strong>%s</strong> deleted.
 FolderDeleted = Folder <strong>%s</strong> deleted.
 DeleteFileFolder = Delete File/Folder
 ConfirmDeleteFileFolder = Delete selected file/folder?
+FileSaved = File <strong>%s</strong> saved.
 
 #
 # Setup

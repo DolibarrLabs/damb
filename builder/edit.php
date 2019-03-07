@@ -23,6 +23,9 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
+// Load DolEditor class
+require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+
 // Load page & builder lib
 dol_include_once('damb/lib/page.lib.php');
 dol_include_once('damb/lib/builder.lib.php');
@@ -36,6 +39,7 @@ load_langs(array('admin', 'damb@damb'));
 // Get parameters
 $action = GETPOST('action', 'alpha');
 $module = GETPOST('module', 'alpha');
+$cancel = GETPOST('cancel', 'alpha');
 $file = GETPOST('file', 'alpha');
 $path = GETPOST('path', 'alpha');
 $type = GETPOST('type', 'alpha');
@@ -113,11 +117,26 @@ else if ($action == 'deletefile' && ! empty($module))
     redirect('edit.php?module='.$module.'&path='.$path);
 }
 
+// Save file
+else if ($action == 'savefile' && empty($cancel))
+{
+    $content = GETPOST('editfilecontent', 'none');
+
+    if (! empty($file))
+    {
+        if (file_put_contents($file, $content) !== false) {
+            success_message('FileSaved', basename($file));
+        }
+    }
+
+    redirect('edit.php?module='.$module.'&path='.$path);
+}
+
 /**
  * View
  */
 
-print_header('ModuleBuilder', array(), array('damb/css/builder/edit.css.php'), array('damb/js/builder/edit.js.php'));
+print_header('ModuleBuilder', array(), array('damb/css/builder/edit.css.php'), array('damb/js/builder/edit.js.php', 'includes/ace/ace.js', 'includes/ace/ext-statusbar.js'));
 
 print_subtitle('ModuleBuilder', 'title_setup.png');
 
@@ -131,7 +150,9 @@ print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1, (empty($modul
 
 load_template('damb/tpl/builder/edit.tpl.php', array(
     'module_folder' => $module,
-    'current_path' => $path
+    'current_path' => $path,
+    'action' => $action,
+    'file' => $file
 ));
 
 print_footer(true);
