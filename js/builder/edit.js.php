@@ -58,7 +58,7 @@ $(document).ready(function() {
     $('a.delete_file').on('click', function(e) {
         e.preventDefault();
         var href = $(this).attr('href');
-        $('<div title="<?php echo $langs->trans('DeleteFile'); ?>"><?php echo img_help('', '').' '.$langs->trans('ConfirmDeleteFile'); ?></div>').dialog({
+        $('<div title="<?php echo $langs->trans('DeleteFileFolder'); ?>"><?php echo img_help('', '').' '.$langs->trans('ConfirmDeleteFileFolder'); ?></div>').dialog({
             autoOpen: true,
             open: function() {
                 $(this).parent().find('button.ui-button:eq(2)').focus();
@@ -110,7 +110,7 @@ $(document).ready(function() {
                 "<?php echo $langs->trans('Create'); ?>": function() {
                     var type = $(this).find('input[name="type"]:checked').val();
                     var name = $(this).find('input[name="name"]').val();
-                    location.href = href + '&action=new_file&type=' + type + '&name=' + name;
+                    location.href = href + '&action=newfile&type=' + type + '&name=' + name;
                     $(this).dialog('close');
                 },
                 "<?php echo $langs->trans('Cancel'); ?>": function() {

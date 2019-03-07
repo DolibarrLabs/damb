@@ -45,6 +45,7 @@ $name = GETPOST('name', 'alpha');
  * Actions
  */
 
+// Activate/Deactivate
 if (in_array($action, array('activate', 'deactivate')) && ! empty($module))
 {
     $module_class = get_module_class(DOL_DOCUMENT_ROOT.'/custom/'.$module);
@@ -62,33 +63,20 @@ if (in_array($action, array('activate', 'deactivate')) && ! empty($module))
     }
 }
 
+// Delete module
 else if ($action == 'delete' && ! empty($module))
 {
     global $conf;
 
-    if (! empty($file) && $conf->global->DAMB_ALLOW_FILE_DELETE)
-    {
-        if (is_dir($file))
-        {
-            if (dol_delete_dir_recursive($file)) {
-                success_message('FolderDeleted', basename($file));
-            }
-        }
-        else if (unlink($file)) {
-            success_message('FileDeleted', basename($file));
-        }
-
-        redirect('edit.php?module='.$module.'&path='.$path);
-    }
-
-    else if (empty($file) && $conf->global->DAMB_ALLOW_MODULE_DELETE && dol_delete_dir_recursive(DOL_DOCUMENT_ROOT.'/custom/'.$module)) {
+    if ($conf->global->DAMB_ALLOW_MODULE_DELETE && dol_delete_dir_recursive(DOL_DOCUMENT_ROOT.'/custom/'.$module)) {
         success_message('ModuleDeleted', $module);
     }
 
     redirect('edit.php');
 }
 
-else if ($action == 'new_file' && ! empty($module))
+// New file/folder
+else if ($action == 'newfile' && ! empty($module))
 {
     if (empty($path)) {
         $path = DOL_DOCUMENT_ROOT.'/custom/'.$module;
@@ -99,6 +87,27 @@ else if ($action == 'new_file' && ! empty($module))
     }
     else if ($type == 'folder' && mkdir($path.'/'.$name)) {
         success_message('FolderCreated', $name);
+    }
+
+    redirect('edit.php?module='.$module.'&path='.$path);
+}
+
+// Delete file
+else if ($action == 'deletefile' && ! empty($module))
+{
+    global $conf;
+
+    if ($conf->global->DAMB_ALLOW_FILE_DELETE && ! empty($file))
+    {
+        if (is_dir($file))
+        {
+            if (dol_delete_dir_recursive($file)) {
+                success_message('FolderDeleted', basename($file));
+            }
+        }
+        else if (unlink($file)) {
+            success_message('FileDeleted', basename($file));
+        }
     }
 
     redirect('edit.php?module='.$module.'&path='.$path);

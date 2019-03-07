@@ -172,7 +172,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                             <a href="#"><?php echo img_edit($langs->trans('Edit'), false, 'class="inline-block valignmiddle"'); ?></a>
                                         <?php } ?>
                                         <?php if ($conf->global->DAMB_ALLOW_FILE_DELETE) { ?>
-                                            <a class="delete_file" href="<?php echo dol_buildpath('damb/builder/edit.php?action=delete&module='.$module_folder.'&path='.dirname($file).'&file='.$file, 1); ?>"><?php echo img_delete($langs->trans('Delete'), 'class="inline-block valignmiddle"'); ?></a>
+                                            <a class="delete_file" href="<?php echo dol_buildpath('damb/builder/edit.php?action=deletefile&module='.$module_folder.'&path='.dirname($file).'&file='.$file, 1); ?>"><?php echo img_delete($langs->trans('Delete'), 'class="inline-block valignmiddle"'); ?></a>
                                         <?php } ?>
                                     </div>
                                 </li>

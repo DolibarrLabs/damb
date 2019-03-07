@@ -79,8 +79,8 @@ FileCreated = File <strong>%s</strong> created.
 FolderCreated = Folder <strong>%s</strong> created.
 FileDeleted = File <strong>%s</strong> deleted.
 FolderDeleted = Folder <strong>%s</strong> deleted.
-DeleteFile = Delete File
-ConfirmDeleteFile = Delete selected file/folder?
+DeleteFileFolder = Delete File/Folder
+ConfirmDeleteFileFolder = Delete selected file/folder?
 
 #
 # Setup
