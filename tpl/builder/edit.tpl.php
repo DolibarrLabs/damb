@@ -100,8 +100,23 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
             </table>
         <?php } else { ?>
             <table class="liste allwidth noborderbottom">
+                <?php
+                    // Retrieve modules list
+                    $modules_list = array();
+                    foreach (directory_files_list(DOL_DOCUMENT_ROOT.'/custom/*') as $module_path)
+                    {
+                        $module_class = get_module_class($module_path);
+                        if (! empty($module_class))
+                        {
+                            $modules_list[] = array(
+                                'path' => $module_path,
+                                'class' => $module_class
+                            );
+                        }
+                    }
+                ?>
                 <tr class="liste_titre">
-                    <th><?php echo $langs->trans('Modules'); ?></th>
+                    <th><?php echo $langs->trans('Modules').' (<strong>'.count($modules_list).'</strong>)'; ?></th>
                     <th align="right">
                         <a href="<?php echo dol_buildpath('damb/builder/edit.php', 1); ?>"><?php echo img_picto($langs->trans('Refresh'), 'refresh.png'); ?></a>
                     </th>
@@ -110,14 +125,11 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                     <td colspan="2">
                         <ul class="ecmjqft">
                             <?php
-                                foreach (directory_files_list(DOL_DOCUMENT_ROOT.'/custom/*') as $module_path)
+                                foreach ($modules_list as $module_data)
                                 {
-                                    $module_class = get_module_class($module_path);
-                                    if (! empty($module_class))
-                                    {
-                                        $module_folder_name = basename($module_path);
-                                        dol_include_once($module_folder_name.'/core/modules/'.$module_class['file']);
-                                        $module = new $module_class['name']($db);
+                                    $module_folder_name = basename($module_data['path']);
+                                    dol_include_once($module_folder_name.'/core/modules/'.$module_data['class']['file']);
+                                    $module = new $module_data['class']['name']($db);
                             ?>
                                 <li class="directory">
                                     <a href="<?php echo dol_buildpath('damb/builder/edit.php?module='.$module_folder_name, 1); ?>"><?php echo $module_folder_name; ?></a>
@@ -135,10 +147,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                         <?php } ?>
                                     </div>
                                 </li>
-                            <?php
-                                    }
-                                }
-                            ?>
+                            <?php } ?>
                         </ul>
                     </td>
                 </tr>
