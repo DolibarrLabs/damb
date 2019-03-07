@@ -190,12 +190,16 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                 <?php foreach (directory_files_list((empty($current_path) ? $root_path : $current_path).'/*') as $file) {
                                     $is_dir = is_dir($file);
                                     $is_image = $is_dir ? false : in_array(pathinfo($file, PATHINFO_EXTENSION), array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'ico'));
+                                    $file_name = basename($file);
                                     $link = $is_dir ? dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$file, 1) : ($is_image ? str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file) : dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$file, 1));
                                 ?>
                                     <li class="<?php echo $is_dir ? 'directory' : 'file'; ?>">
-                                        <a href="<?php echo $link.($is_image ? '" class="view_image' : ''); ?>"><?php echo basename($file); ?></a>
+                                        <a href="<?php echo $link.($is_image ? '" class="view_image' : ''); ?>"><?php echo $file_name; ?></a>
                                         <div class="ecmjqft">
                                             <?php if (! $is_dir && ! $is_image) { ?>
+                                                <?php if (preg_match('/^[a-zA-Z0-9]+\.php$/', $file_name)) { ?>
+                                                    <a href="<?php echo str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file); ?>" target="_blank"><?php echo img_picto($langs->trans('View'), 'play.png', 'class="inline-block valignmiddle"'); ?></a>
+                                                <?php } ?>
                                                 <a href="<?php echo $link; ?>"><?php echo img_edit($langs->trans('Edit'), false, 'class="inline-block valignmiddle"'); ?></a>
                                             <?php } ?>
                                             <?php if ($conf->global->DAMB_ALLOW_FILE_DELETE) { ?>
