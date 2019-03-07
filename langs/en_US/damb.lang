@@ -67,6 +67,15 @@ DeleteModule = Delete Module
 ConfirmDeleteModule = Delete selected module?
 ModuleDeleted = Module <strong>%s</strong> deleted.
 ModulesList = Modules List
+NewFile = New File
+FileType = Type
+FileName = Name
+File = File
+Folder = Folder
+Create = Create
+Cancel = Cancel
+FileCreated = File <strong>%s</strong> created.
+FolderCreated = Folder <strong>%s</strong> created.
 
 #
 # Setup

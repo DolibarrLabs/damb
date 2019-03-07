@@ -36,6 +36,9 @@ load_langs(array('admin', 'damb@damb'));
 // Get parameters
 $action = GETPOST('action', 'alpha');
 $module = GETPOST('module', 'alpha');
+$path = GETPOST('path', 'alpha');
+$type = GETPOST('type', 'alpha');
+$name = GETPOST('name', 'alpha');
 
 /**
  * Actions
@@ -67,6 +70,22 @@ else if ($action == 'delete' && ! empty($module))
     redirect('edit.php');
 }
 
+else if ($action == 'new_file' && ! empty($module))
+{
+    if (empty($path)) {
+        $path = DOL_DOCUMENT_ROOT.'/custom/'.$module;
+    }
+
+    if ($type == 'file' && file_put_contents($path.'/'.$name, '') !== false) {
+        success_message('FileCreated', $name);
+    }
+    else if ($type == 'folder' && mkdir($path.'/'.$name)) {
+        success_message('FolderCreated', $name);
+    }
+
+    redirect('edit.php?module='.$module.'&path='.$path);
+}
+
 /**
  * View
  */
@@ -84,7 +103,8 @@ $modules_list_link = '<a href="'.dol_buildpath('damb/builder/edit.php', 1).'" cl
 print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1, (empty($module) ? $settings_link : $modules_list_link));
 
 load_template('damb/tpl/builder/edit.tpl.php', array(
-    'module_folder' => $module
+    'module_folder' => $module,
+    'module_path' => $path
 ));
 
 print_footer(true);

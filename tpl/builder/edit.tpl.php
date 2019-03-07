@@ -17,6 +17,7 @@
 /**
  * The following variables are required for this template:
  * $module_folder
+ * $module_path
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
@@ -24,7 +25,6 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 global $db, $langs, $conf;
 
 $form = new Form($db);
-$path = GETPOST('path', 'alpha');
 $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
 
 ?>
@@ -141,11 +141,14 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
     <div id="ecm-layout-center" class="inline-block">
         <table class="liste allwidth noborderbottom">
             <tr class="liste_titre">
-                <th><?php echo $langs->trans('Files'); ?></th>
-                <th align="right">
-                    <?php if (! empty($module_folder) && ! empty($path) && $path != $root_path) { ?>
-                        <a href="<?php echo dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.dirname($path), 1); ?>"><?php echo img_previous(); ?></a>
+                <th>
+                    <?php if (! empty($module_folder) && ! empty($module_path) && $module_path != $root_path) { ?>
+                        <a href="<?php echo dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.dirname($module_path), 1); ?>"><?php echo img_previous(); ?></a>
                     <?php } ?>
+                    <?php echo $langs->trans('Files'); ?>
+                </th>
+                <th align="right">
+                    <a id="new_file" href="<?php echo dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$module_path, 1); ?>"><?php echo img_edit_add($langs->trans('NewFile')); ?></a>
                 </th>
             </tr>
             <tr>
@@ -154,7 +157,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 <?php } else { ?>
                     <td colspan="2">
                         <ul class="ecmjqft">
-                            <?php foreach (directory_files_list((empty($path) ? $root_path : $path).'/*') as $file) { ?>
+                            <?php foreach (directory_files_list((empty($module_path) ? $root_path : $module_path).'/*') as $file) { ?>
                                 <li class="nocellnopadd">
                                     <?php if (is_dir($file)) { ?>
                                         <?php echo img_picto_common('', 'treemenu/folder2.png').' '; ?>
