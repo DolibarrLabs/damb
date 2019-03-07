@@ -36,6 +36,7 @@ load_langs(array('admin', 'damb@damb'));
 // Get parameters
 $action = GETPOST('action', 'alpha');
 $module = GETPOST('module', 'alpha');
+$file = GETPOST('file', 'alpha');
 $path = GETPOST('path', 'alpha');
 $type = GETPOST('type', 'alpha');
 $name = GETPOST('name', 'alpha');
@@ -63,7 +64,24 @@ if (in_array($action, array('activate', 'deactivate')) && ! empty($module))
 
 else if ($action == 'delete' && ! empty($module))
 {
-    if (dol_delete_dir_recursive(DOL_DOCUMENT_ROOT.'/custom/'.$module)) {
+    global $conf;
+
+    if (! empty($file) && $conf->global->DAMB_ALLOW_FILE_DELETE)
+    {
+        if (is_dir($file))
+        {
+            if (dol_delete_dir_recursive($file)) {
+                success_message('FolderDeleted', basename($file));
+            }
+        }
+        else if (unlink($file)) {
+            success_message('FileDeleted', basename($file));
+        }
+
+        redirect('edit.php?module='.$module.'&path='.$path);
+    }
+
+    else if (empty($file) && $conf->global->DAMB_ALLOW_MODULE_DELETE && dol_delete_dir_recursive(DOL_DOCUMENT_ROOT.'/custom/'.$module)) {
         success_message('ModuleDeleted', $module);
     }
 
@@ -90,7 +108,7 @@ else if ($action == 'new_file' && ! empty($module))
  * View
  */
 
-print_header('ModuleBuilder', array(), array(), array('damb/js/builder/edit.js.php'));
+print_header('ModuleBuilder', array(), array('damb/css/builder/edit.css.php'), array('damb/js/builder/edit.js.php'));
 
 print_subtitle('ModuleBuilder', 'title_setup.png');
 
@@ -104,7 +122,7 @@ print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1, (empty($modul
 
 load_template('damb/tpl/builder/edit.tpl.php', array(
     'module_folder' => $module,
-    'module_path' => $path
+    'current_path' => $path
 ));
 
 print_footer(true);

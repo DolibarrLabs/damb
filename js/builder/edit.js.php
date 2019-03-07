@@ -28,6 +28,7 @@ header('Content-Type: application/javascript');
 ?>
 
 $(document).ready(function() {
+    // Delete module
     $('a.delete_module').on('click', function(e) {
         e.preventDefault();
         var href = $(this).attr('href');
@@ -53,6 +54,33 @@ $(document).ready(function() {
         });
     });
 
+    // Delete file
+    $('a.delete_file').on('click', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        $('<div title="<?php echo $langs->trans('DeleteFile'); ?>"><?php echo img_help('', '').' '.$langs->trans('ConfirmDeleteFile'); ?></div>').dialog({
+            autoOpen: true,
+            open: function() {
+                $(this).parent().find('button.ui-button:eq(2)').focus();
+            },
+            resizable: false,
+            height: 200,
+            width: 400,
+            modal: true,
+            closeOnEscape: false,
+            buttons: {
+                "<?php echo $langs->trans('Yes'); ?>": function() {
+                    location.href = href;
+                    $(this).dialog('close');
+                },
+                "<?php echo $langs->trans('No'); ?>": function() {
+                    $(this).dialog('destroy');
+                }
+            }
+        });
+    });
+
+    // Create new file
     $('a#new_file').on('click', function(e) {
         e.preventDefault();
         var href = $(this).attr('href');
