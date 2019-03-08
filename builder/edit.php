@@ -82,15 +82,23 @@ else if ($action == 'delete' && ! empty($module))
 // New file/folder
 else if ($action == 'newfile' && ! empty($module))
 {
+    $success = false;
+
     if (empty($path)) {
         $path = DOL_DOCUMENT_ROOT.'/custom/'.$module;
     }
 
     if ($type == 'file' && file_put_contents($path.'/'.$name, '') !== false) {
         success_message('FileCreated', $name);
+        $success = true;
     }
     else if ($type == 'folder' && mkdir($path.'/'.$name)) {
         success_message('FolderCreated', $name);
+        $success = true;
+    }
+
+    if ($success) {
+        @chmod($path.'/'.$name, 0777);
     }
 
     redirect('edit.php?module='.$module.'&path='.$path);
