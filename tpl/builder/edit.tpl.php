@@ -103,7 +103,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 <?php
                     // Retrieve modules list
                     $modules_list = array();
-                    foreach (directory_files_list(DOL_DOCUMENT_ROOT.'/custom/*') as $module_path)
+                    foreach (directory_files_list(DOL_DOCUMENT_ROOT.'/custom/*', false, true) as $module_path)
                     {
                         $module_class = get_module_class($module_path);
                         if (! empty($module_class))
@@ -139,7 +139,8 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                             $htmltooltip = '<b>'.$langs->trans('ModuleName').'</b>: '.$module->name.'<br>';
                                             $htmltooltip.= '<b>'.$langs->trans('ModuleNumber').'</b>: '.$module->numero.'<br>';
                                             $htmltooltip.= '<b>'.$langs->trans('ModuleFamily').'</b>: '.$module->family.'<br>';
-                                            $htmltooltip.= '<b>'.$langs->trans('ModuleVersion').'</b>: '.$module->version;
+                                            $htmltooltip.= '<b>'.$langs->trans('ModuleVersion').'</b>: '.$module->version.'<br>';
+                                            $htmltooltip.= '<b>'.$langs->trans('ModuleStatus').'</b>: '.(empty($conf->{$module->rights_class}->enabled) ? img_picto($langs->trans('Disabled'), 'switch_off') : img_picto($langs->trans('Enabled'), 'switch_on'));
                                             echo $form->textwithpicto('', $htmltooltip, 1, 'info');
                                         ?>
                                         <?php if ($conf->global->DAMB_ALLOW_MODULE_DELETE) { ?>

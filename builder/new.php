@@ -41,6 +41,8 @@ $action = GETPOST('action', 'alpha');
 
 if ($action == 'create')
 {
+    global $conf;
+
     // Get data
     $module_name = GETPOST('name', 'alpha');
     $module_picture_extension = pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION);
@@ -102,7 +104,6 @@ if ($action == 'create')
         copy($picture_target_file, $picture_target_dir.pathinfo($data['module_picture'], PATHINFO_FILENAME).'_over.'.$module_picture_extension);
 
         // Create module class
-        global $conf;
         $lang_file = $data['module_folder']; // module folder name used as lang file name
         $module_class_data = array(
             'module_class_name' => sanitize_string(ucfirst($module_name)),
