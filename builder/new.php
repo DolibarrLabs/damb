@@ -45,6 +45,9 @@ if ($action == 'create')
 
     // Get data
     $module_name = GETPOST('name', 'alpha');
+    $module_name_toupper = sanitize_string(strtoupper($module_name));
+    $module_name_tolower = sanitize_string(strtolower($module_name));
+    $module_name_ucfirst = sanitize_string(ucfirst($module_name));
     $module_picture_extension = pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION);
     $data = array(
         'module_name' => $module_name,
@@ -54,7 +57,7 @@ if ($action == 'create')
         'module_position' => GETPOST('position', 'int'),
         'module_rights_class' => GETPOST('rights_class', 'alpha'),
         'module_folder' => GETPOST('folder_name', 'alpha'),
-        'module_picture' => sanitize_string(strtolower($module_name)).'.'.$module_picture_extension
+        'module_picture' => $module_name_tolower.'.'.$module_picture_extension
     );
     $add_extrafields = GETPOST('add_extrafields', 'int');
     $add_changelog = GETPOST('add_changelog', 'int');
@@ -113,7 +116,7 @@ if ($action == 'create')
         // Create module class
         $lang_file = $data['module_folder']; // module folder name used as lang file name
         $module_class_data = array(
-            'module_class_name' => sanitize_string(ucfirst($module_name)),
+            'module_class_name' => $module_name_ucfirst,
             'module_setup_page' => 'setup.php',
             'module_desc' => $module_name.'Description',
             'author_name' => $conf->global->DAMB_AUTHOR_NAME,
@@ -140,15 +143,15 @@ if ($action == 'create')
         $default_actions_parameters = '';
         if ($add_num_models) {
             $settings.= "print_subtitle('NumberingModels');\n";
-            $settings.= "print_num_models('".$data['module_folder']."/core/num_models', '".sanitize_string(strtoupper($module_name))."_ADDON');";
-            $default_actions_parameters.= ", '".sanitize_string(strtoupper($module_name))."_ADDON'";
+            $settings.= "print_num_models('".$data['module_folder']."/core/num_models', '".$module_name_toupper."_ADDON');";
+            $default_actions_parameters.= ", '".$module_name_toupper."_ADDON'";
         }
         if ($add_doc_models) {
             if ($add_num_models) $settings.= "\n\n";
             else $default_actions_parameters = "''";
             $settings.= "print_subtitle('DocumentModels');\n";
-            $settings.= "print_doc_models('".$data['module_folder']."/core/doc_models', '".$data['module_folder']."', '".sanitize_string(strtoupper($module_name))."_ADDON_PDF', '".$data['module_picture']."@".$data['module_folder']."');";
-            $default_actions_parameters.= ", '".sanitize_string(strtolower($module_name))."', '".sanitize_string(strtoupper($module_name))."_ADDON_PDF', '".$data['module_folder']."/core/doc_models', '".$data['module_folder']."'";
+            $settings.= "print_doc_models('".$data['module_folder']."/core/doc_models', '".$data['module_folder']."', '".$module_name_toupper."_ADDON_PDF', '".$data['module_picture']."@".$data['module_folder']."');";
+            $default_actions_parameters.= ", '".$module_name_tolower."', '".$module_name_toupper."_ADDON_PDF', '".$data['module_folder']."/core/doc_models', '".$data['module_folder']."'";
         }
         $setup_page_data = array(
             'module_name' => $module_name,
@@ -182,7 +185,7 @@ if ($action == 'create')
         // Create extrafields page
         if ($add_extrafields)
         {
-            $element_type = sanitize_string(strtolower($module_name));
+            $element_type = $module_name_tolower;
             $extrafields_page_data = array(
                 'module_name' => $module_name,
                 'module_picture' => $data['module_picture'],
@@ -234,7 +237,7 @@ if ($action == 'create')
         // Create lang files
         foreach ($translations as $translation_name) {
             $lang_data = array(
-                'module_name' => strtoupper($module_name),
+                'module_name' => $module_name_toupper,
                 'current_year' => date('Y'),
                 'author_name' => $module_class_data['author_name'],
                 'module_name_translation' => 'Module'.$data['module_number'].'Name = '.$module_name,
@@ -261,7 +264,7 @@ if ($action == 'create')
         {
             $num_models_data = array(
                 'module_folder' => $data['module_folder'],
-                'model_const_prefix' => sanitize_string(strtoupper($module_name)),
+                'model_const_prefix' => $module_name_toupper,
                 'table_name' => GETPOST('num_models_table_name', 'alpha'),
                 'table_field_name' => GETPOST('num_models_table_field', 'alpha'),
                 'model_prefix' => GETPOST('num_models_prefix', 'alpha'),
@@ -285,8 +288,8 @@ if ($action == 'create')
         {
             $doc_models_data = array(
                 'module_folder' => $data['module_folder'],
-                'doc_model_class_name' => sanitize_string(ucfirst($module_name)),
-                'model_const_prefix' => sanitize_string(strtoupper($module_name))
+                'doc_model_class_name' => $module_name_ucfirst,
+                'model_const_prefix' => $module_name_toupper
             );
             $doc_models = array(
                 'pdf_azur',
@@ -299,7 +302,7 @@ if ($action == 'create')
             // Create document models class
             $doc_model_class_data = array(
                 'doc_model_class_name' => $doc_models_data['doc_model_class_name'],
-                'doc_model_type' => sanitize_string(strtolower($module_name))
+                'doc_model_type' => $module_name_tolower
             );
             $template = get_template($source_path.'/tpl/module/core/doc_model_class.tpl.php', $doc_model_class_data);
             file_put_contents($module_path.'/core/modules/'.$data['module_folder'].'/modules_'.$data['module_folder'].'.php', $template);
