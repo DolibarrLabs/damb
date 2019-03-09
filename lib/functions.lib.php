@@ -14,29 +14,33 @@
  *
  */
 
-/**
- * Check if a value have been submitted by GET or POST method
- *
- * @param      $value_name       value name
- * @return     boolean           true or false
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('is_submitted'))
 {
+    /**
+     * Check if a value have been submitted by GET or POST method
+     *
+     * @param   string   $value_name   value name
+     * @return  boolean                true or false
+     */
     function is_submitted($value_name)
     {
         return isset($_GET[$value_name]) || isset($_POST[$value_name]);
     }
 }
 
-/**
- * Return posted date
- *
- * @param      $date_input_name       date input name
- * @param      $convert_to_db_format  should convert the date to database format or not
- * @return     string                 date in your db format, null if error/empty
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('GETPOSTDATE'))
 {
+    /**
+     * Return posted date
+     *
+     * @param   string    $date_input_name        date input name
+     * @param   boolean   $convert_to_db_format   should convert the date to database format or not
+     * @return  string                            date in your db format, null if error/empty
+     */
     function GETPOSTDATE($date_input_name, $convert_to_db_format = false)
     {
         if (is_submitted($date_input_name.'month') && is_submitted($date_input_name.'day') && is_submitted($date_input_name.'year')) {
@@ -57,15 +61,17 @@ if (! function_exists('GETPOSTDATE'))
     }
 }
 
-/**
- * Return posted datetime
- *
- * @param      $datetime_input_name   datetime input name
- * @param      $convert_to_db_format  should convert the datetime to database format or not
- * @return     string                 datetime in your db format, null if error/empty
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('GETPOSTDATETIME'))
 {
+    /**
+     * Return posted datetime
+     *
+     * @param   string    $datetime_input_name    datetime input name
+     * @param   boolean   $convert_to_db_format   should convert the datetime to database format or not
+     * @return  string                            datetime in your db format, null if error/empty
+     */
     function GETPOSTDATETIME($datetime_input_name, $convert_to_db_format = false)
     {
         if (is_submitted($datetime_input_name.'hour') && is_submitted($datetime_input_name.'min') && is_submitted($datetime_input_name.'month') && is_submitted($datetime_input_name.'day') && is_submitted($datetime_input_name.'year')) {
@@ -86,29 +92,33 @@ if (! function_exists('GETPOSTDATETIME'))
     }
 }
 
-/**
- * Convert empty values to null
- *
- * @param      $value          value to convert
- * @param      $minus_one_also consider -1 also as an empty value
- * @return     null|string     null or initial value
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('empty_to_null'))
 {
+    /**
+     * Convert empty values to null
+     *
+     * @param   string|int   $value            value to convert
+     * @param   boolean      $minus_one_also   consider -1 also as an empty value
+     * @return  null|string                    null or initial value
+     */
     function empty_to_null($value, $minus_one_also = false)
     {
         return empty($value) || ($minus_one_also && $value == -1) ? null : $value;
     }
 }
 
-/**
- * Return current date & time
- *
- * @param      $convert_to_db_format  should convert the date to database format or not
- * @return     string                 current date in your db format
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('now'))
 {
+    /**
+     * Return current date & time
+     *
+     * @param   boolean   $convert_to_db_format   should convert the date to database format or not
+     * @return  string                            current date in your db format
+     */
     function now($convert_to_db_format = false)
     {
         global $db;
@@ -119,21 +129,23 @@ if (! function_exists('now'))
     }
 }
 
-/**
- * Output date in a string format
- *
- * @param      $date            date in db format or GM Timestamps date if $convert_to_tms is false
- * @param      $format          output date format (tag of strftime function)
- *                              "%d %b %Y",
- *                              "%d/%m/%Y %H:%M",
- *                              "%d/%m/%Y %H:%M:%S",
- *                              "%B"=Long text of month, "%A"=Long text of day, "%b"=Short text of month, "%a"=Short text of day
- *                              "day", "daytext", "dayhour", "dayhourldap", "dayhourtext", "dayrfc", "dayhourrfc", "...reduceformat"
- * @param      $convert_to_tms  convert the $date parameter to timestamp or not
- * @return     string           formated date or '' if date is null
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('print_date'))
 {
+    /**
+     * Output date in a string format
+     *
+     * @param   string   $date     date in db format or GM Timestamps date if $convert_to_tms is false
+     * @param   string   $format   output date format (tag of strftime function)
+     *                             "%d %b %Y",
+     *                             "%d/%m/%Y %H:%M",
+     *                             "%d/%m/%Y %H:%M:%S",
+     *                             "%B"=Long text of month, "%A"=Long text of day, "%b"=Short text of month, "%a"=Short text of day
+     *                             "day", "daytext", "dayhour", "dayhourldap", "dayhourtext", "dayrfc", "dayhourrfc", "...reduceformat"
+     * @param   boolean   $convert_to_tms   convert the $date parameter to timestamp or not
+     * @return  string                      formated date or '' if date is null
+     */
     function print_date($date, $format, $convert_to_tms = true)
     {
         global $db;
@@ -144,14 +156,16 @@ if (! function_exists('print_date'))
     }
 }
 
-/**
- * Escape a string from ' or " to avoid errors when dealing with database
- *
- * @param      $str       string to escape
- * @return     string     escaped string
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('str_escape'))
 {
+    /**
+     * Escape a string from ' or " to avoid errors when dealing with database
+     *
+     * @param   string   $str   string to escape
+     * @return  string          escaped string
+     */
     function str_escape($str)
     {
         global $db;
@@ -160,28 +174,32 @@ if (! function_exists('str_escape'))
     }
 }
 
-/**
- * Return price with currency
- *
- * @param      $price       price
- * @return     string       price with currency
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('price_with_currency'))
 {
+    /**
+     * Return price with currency
+     *
+     * @param   int|float   $price   price
+     * @return  string               price with currency
+     */
     function price_with_currency($price, $currency = 'auto')
     {
         return price($price, 0, '', 1, -1, -1, $currency);
     }
 }
 
-/**
- * Return function output as a string
- *
- * @param      $func       function name
- * @param      $args       function arguments
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('get_func_output'))
 {
+    /**
+     * Return function output as a string
+     *
+     * @param   string   $func   function name
+     * @param   array    $args   function arguments
+     */
     function get_func_output($func, $args = array())
     {
         ob_start();
@@ -193,15 +211,17 @@ if (! function_exists('get_func_output'))
     }
 }
 
-/**
- * Dumps all the object propreties and its associations recursively into an array
- *
- * @see       http://php.net/manual/fr/function.get-object-vars.php#62470
- * @param     $obj     Object
- * @return    array    Object as an array
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('object_to_array'))
 {
+    /**
+     * Dumps all the object propreties and its associations recursively into an array
+     *
+     * @see     http://php.net/manual/fr/function.get-object-vars.php#62470
+     * @param   Object   $obj   Object
+     * @return  array           Object as an array
+     */
     function object_to_array($obj)
     {
         $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
@@ -216,15 +236,17 @@ if (! function_exists('object_to_array'))
     }
 }
 
-/**
- * Create an HTML table from a two-dimensional array
- *
- * @param     $array           array
- * @param     $show_header     show table header or not
- * @return    string           HTML table
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('array_to_table'))
 {
+    /**
+     * Create an HTML table from a two-dimensional array
+     *
+     * @param   array     $array          array
+     * @param   boolean   $show_header    show table header or not
+     * @return  string                    HTML table
+     */
     function array_to_table($array, $show_header = true)
     {
         $out = '<table class="liste">';
@@ -256,30 +278,34 @@ if (! function_exists('array_to_table'))
     }
 }
 
-/**
- * Converts an array values to string separated by a delimiter
- *
- * @param     $array     Array
- * @param     $delimiter Values delimiter
- * @return    string     array values string separated by the delimiter or empty string if array is empty
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('array_to_string'))
 {
+    /**
+     * Converts an array values to string separated by a delimiter
+     *
+     * @param   array    $array       Array
+     * @param   string   $delimiter   Values delimiter
+     * @return  string                array values string separated by the delimiter or empty string if array is empty
+     */
     function array_to_string($array, $delimiter = ',')
     {
         return (is_array($array) && ! empty($array) ? join($delimiter, $array) : '');
     }
 }
 
-/**
- * Converts a string into an array using a delimiter to separate/get the values
- *
- * @param     $str       String
- * @param     $delimiter Values delimiter
- * @return    array      array filled with values from string as ['value' => 'value'] or empty array if string is empty
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('string_to_array'))
 {
+    /**
+     * Converts a string into an array using a delimiter to separate/get the values
+     *
+     * @param   string   $str         String
+     * @param   string   $delimiter   Values delimiter
+     * @return  array                 array filled with values from string as ['value' => 'value'] or empty array if string is empty
+     */
     function string_to_array($str, $delimiter = ',')
     {
         $arr = array();
@@ -296,13 +322,15 @@ if (! function_exists('string_to_array'))
     }
 }
 
-/**
- * Returns if javascript/jquery is enabled
- *
- * @return    boolean    true if javascript is enabled, else false
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('js_enabled'))
 {
+    /**
+     * Returns if javascript/jquery is enabled
+     *
+     * @return   boolean   true if javascript is enabled, else false
+     */
     function js_enabled()
     {
         global $conf;

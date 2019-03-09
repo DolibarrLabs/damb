@@ -14,14 +14,16 @@
  *
  */
 
-/**
- * Get module version from dolistore url
- * 
- * @param     $module_url     url of the module on dolistore
- * @return    string|NULL     module version as 'x.x.x' or NULL
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('get_module_version'))
 {
+    /**
+     * Get module version from dolistore url
+     * 
+     * @param   string   $module_url   url of the module on dolistore
+     * @return  string|null            module version as 'x.x.x' or null
+     */
     function get_module_version($module_url)
     {
         if (! empty($module_url) && $module_url != '#')
@@ -41,6 +43,6 @@ if (! function_exists('get_module_version'))
             }
         }
 
-        return isset($module_version[1]) ? $module_version[1] : NULL;
+        return isset($module_version[1]) ? $module_version[1] : null;
     }
 }

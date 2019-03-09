@@ -14,16 +14,18 @@
  *
  */
 
-/**
- * Loops on an array values & check if a value matches the pattern using preg_match
- *
- * @param     $pattern   Regular expression pattern
- * @param     $array     Array to check
- * @param     $matches   Pattern matches
- * @return    int|bool   1 if the pattern matches given array, 0 if it does not, or FALSE if an error occurred.
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('array_match'))
 {
+    /**
+     * Loops on an array values & check if a value matches the pattern using preg_match
+     *
+     * @param   string   $pattern   Regular expression pattern
+     * @param   array    $array     Array to check
+     * @param   array    $matches   Pattern matches
+     * @return  int|bool            1 if the pattern matches given array, 0 if it does not, or FALSE if an error occurred.
+     */
     function array_match($pattern, $array, &$matches)
     {
         foreach ($array as $value)
@@ -38,17 +40,19 @@ if (! function_exists('array_match'))
     }
 }
 
-/**
- * Check/validate specified field
- *
- * @param      $field_name                 field name
- * @param      $field_label                field label
- * @param      $field_validation_rules     field validatin rules
- * @param      $return_error_number        return errors number or boolean value
- * @return     boolean|int                 true/false | errors number
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('validate_field'))
 {
+    /**
+     * Check/validate specified field
+     *
+     * @param   string    $field_name               field name
+     * @param   string    $field_label              field label
+     * @param   string    $field_validation_rules   field validatin rules
+     * @param   boolean   $return_error_number      return errors number or boolean value
+     * @return  boolean|int                         true/false | errors number
+     */
     function validate_field($field_name, $field_label, $field_validation_rules, $return_error_number = false)
     {
         global $langs;
@@ -136,21 +140,23 @@ if (! function_exists('validate_field'))
     }
 }
 
-/**
- * Check/validate fields
- *
- * @param      $fields     array of fields as [
- * array(
- *     'name'             (*) => 'my_field', // used to get field value
- *     'label'            (*) => 'MyField', // will be displayed on validation error message
- *     'validation_rules' (*) => 'required', // possible values: 'required|numeric|string|validEmail|validTel|validUrl|validID|greaterThan()|lessThan()|minLength()|maxLength()'
- *     'enabled'              => '$conf->module->enabled' // condition to enable field validation
- * )]
- * array keys with (*) are required
- * @return     boolean     true or false
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('validate_fields'))
 {
+    /**
+     * Check/validate fields
+     *
+     * @param   array   $fields   array of fields as [
+     * array(
+     *     'name'             (*) => 'my_field', // used to get field value
+     *     'label'            (*) => 'MyField', // will be displayed on validation error message
+     *     'validation_rules' (*) => 'required', // possible values: 'required|numeric|string|validEmail|validTel|validUrl|validID|greaterThan()|lessThan()|minLength()|maxLength()'
+     *     'enabled'              => '$conf->module->enabled' // condition to enable field validation
+     * )]
+     * array keys with (*) are required
+     * @return  boolean   true or false
+     */
     function validate_fields($fields)
     {
         $error = 0;
@@ -166,15 +172,17 @@ if (! function_exists('validate_fields'))
     }
 }
 
-/**
- * Check/validate a field by its name
- *
- * @param      $field_name     field name
- * @param      $fields         array of fields where $field_name should exist
- * @return     boolean         true or false
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('validate_field_by_name'))
 {
+    /**
+     * Check/validate a field by its name
+     *
+     * @param   string   $field_name   field name
+     * @param   array    $fields       array of fields where $field_name should exist
+     * @return  boolean                true or false
+     */
     function validate_field_by_name($field_name, $fields)
     {
         foreach($fields as $field) {

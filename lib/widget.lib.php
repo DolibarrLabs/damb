@@ -14,15 +14,17 @@
  *
  */
 
-/**
- * Set widget title
- *
- * @param     $widget    widget object instance
- * @param     $title     widget title
- * @param     $max       maximum number of rows to show (will be added to translated title if so)
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('set_title'))
 {
+    /**
+     * Set widget title
+     *
+     * @param   ModeleBoxes   $widget   widget object instance
+     * @param   string        $title    widget title
+     * @param   int           $max      maximum number of rows to show (will be added to translated title if so)
+     */
     function set_title(&$widget, $title, $max = 5)
     {
         global $langs;
@@ -52,18 +54,20 @@ if (! function_exists('set_title'))
     }
 }
 
-/**
- * Set widget link
- *
- * @param     $widget    widget object instance
- * @param     $link      widget link
- * @param     $picture   link picture
- * @param     $tooltip   tooltip text
- * @param     $target    link target, use '' or '_blank' to open in a new window / tab
- * @param     $class     link css class
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('set_link'))
 {
+    /**
+     * Set widget link
+     *
+     * @param   ModeleBoxes   $widget    widget object instance
+     * @param   string        $link      widget link
+     * @param   string        $picture   link picture
+     * @param   string        $tooltip   tooltip text
+     * @param   string        $target    link target, use '' or '_blank' to open in a new window / tab
+     * @param   string        $class     link css class
+     */
     function set_link(&$widget, $link, $picture, $tooltip = '', $target = '_self', $class = 'boxhandle')
     {
         global $langs;
@@ -80,18 +84,20 @@ if (! function_exists('set_link'))
     }
 }
 
-/**
- * Add content to widget
- *
- * @param     $widget              widget object instance
- * @param     $text                text to show
- * @param     $attr                element attributes (align, colspan, ...)
- * @param     $clean_text          allow HTML cleaning & truncation
- * @param     $max_length          maximum text length (0 = disabled)
- * @param     $first_col_attr      first column attributes
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('add_content'))
 {
+    /**
+     * Add content to widget
+     *
+     * @param   ModeleBoxes   $widget           widget object instance
+     * @param   string        $text             text to show
+     * @param   string        $attr             element attributes (align, colspan, ...)
+     * @param   boolean       $clean_text       allow HTML cleaning & truncation
+     * @param   int           $max_length       maximum text length (0 = disabled)
+     * @param   string        $first_col_attr   first column attributes
+     */
     function add_content(&$widget, $text, $attr = '', $clean_text = false, $max_length = 0, $first_col_attr = '')
     {
         $lines_count = count($widget->info_box_contents);
@@ -130,13 +136,15 @@ if (! function_exists('add_content'))
     }
 }
 
-/**
- * Add a new line to widget content
- *
- * @param     $widget    widget object instance
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('new_line'))
 {
+    /**
+     * Add a new line to widget content
+     *
+     * @param   ModeleBoxes   $widget   widget object instance
+     */
     function new_line(&$widget)
     {
         $new_line = count($widget->info_box_contents);

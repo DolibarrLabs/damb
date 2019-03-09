@@ -14,14 +14,16 @@
  *
  */
 
-/**
- * Add a message to Debug bar
- *
- * @param     $message     Message
- * @param     $label       Label, possible values: 'info', 'error', 'warning', ...
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('debug'))
 {
+    /**
+     * Add a message to Debug bar
+     *
+     * @param   string   $message   Message
+     * @param   string   $label     Label, possible values: 'info', 'error', 'warning', ...
+     */
     function debug($message, $label = 'info')
     {
         global $debugbar;
@@ -32,13 +34,15 @@ if (! function_exists('debug'))
     }
 }
 
-/**
- * Add an exception to Debug bar
- *
- * @param     $exception     Exception object
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('exception'))
 {
+    /**
+     * Add an exception to Debug bar
+     *
+     * @param   Exception   $exception   Exception object
+     */
     function exception($exception)
     {
         global $debugbar;
@@ -49,15 +53,17 @@ if (! function_exists('exception'))
     }
 }
 
-/**
- * Start time measure, that will appear later on Debug bar Timeline
- *
- * @param     $name        measure name, used to stop measure later
- * @param     $label       measure label, will appear on Timeline
- * @param     $stop_name   name of measure to stop before starting the new one, leave empty if not
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('start_time_measure'))
 {
+    /**
+     * Start time measure, that will appear later on Debug bar Timeline
+     *
+     * @param   string   $name        measure name, used to stop measure later
+     * @param   string   $label       measure label, will appear on Timeline
+     * @param   string   $stop_name   name of measure to stop before starting the new one, leave empty if not
+     */
     function start_time_measure($name, $label = '', $stop_name = '')
     {
         global $debugbar;
@@ -72,13 +78,15 @@ if (! function_exists('start_time_measure'))
     }
 }
 
-/**
- * Stop time measure
- *
- * @param     $name        measure name
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('stop_time_measure'))
 {
+    /**
+     * Stop time measure
+     *
+     * @param   string   $name   measure name
+     */
     function stop_time_measure($name)
     {
         global $debugbar;

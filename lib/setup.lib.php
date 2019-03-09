@@ -14,20 +14,22 @@
  *
  */
 
-/**
- * Load default actions
- *
- * @param     $action                      action parameter, e.: GETPOST('action', 'alpha')
- * @param     $num_model_const_name        constant name for numbering model, e.: 'MYMODULE_ADDON'
- * @param     $doc_model_type              document model type, e.: 'mytype'
- * @param     $doc_model_const_name        document model constant name, e.: 'MYMODULE_ADDON_PDF'
- * @param     $doc_model_template_path     document templates path, e.: 'mymodule/core/doc_models'
- * @param     $modulepart                  name of folder used to store documents in dolibarr/documents, e.: 'mymodule'
- * @param     $object_class_name           object class name, e.: 'MyObject'
- * @param     $object_class_file           object class file, e.: 'mymodule/class/myobject.class.php'
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('load_default_actions'))
 {
+    /**
+     * Load default actions
+     *
+     * @param   string   $action                    action parameter, e.: GETPOST('action', 'alpha')
+     * @param   string   $num_model_const_name      constant name for numbering model, e.: 'MYMODULE_ADDON'
+     * @param   string   $doc_model_type            document model type, e.: 'mytype'
+     * @param   string   $doc_model_const_name      document model constant name, e.: 'MYMODULE_ADDON_PDF'
+     * @param   string   $doc_model_template_path   document templates path, e.: 'mymodule/core/doc_models'
+     * @param   string   $modulepart                name of folder used to store documents in dolibarr/documents, e.: 'mymodule'
+     * @param   string   $object_class_name         object class name, e.: 'MyObject'
+     * @param   string   $object_class_file         object class file, e.: 'mymodule/class/myobject.class.php'
+     */
     function load_default_actions($action, $num_model_const_name = '', $doc_model_type = '', $doc_model_const_name = '', $doc_model_template_path = '', $modulepart = '', $object_class_name = '', $object_class_file = '')
     {
         global $conf, $db, $langs;
@@ -218,14 +220,16 @@ if (! function_exists('load_default_actions'))
     }
 }
 
-/**
- * Print numbering models
- *
- * @param     $template_path     numbering models template(s) path, e.: 'mymodule/core/num_models'
- * @param     $const_name        numbering models constant name, e.: 'MYMODULE_ADDON'
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('print_num_models'))
 {
+    /**
+     * Print numbering models
+     *
+     * @param   string   $template_path   numbering models template(s) path, e.: 'mymodule/core/num_models'
+     * @param   string   $const_name      numbering models constant name, e.: 'MYMODULE_ADDON'
+     */
     function print_num_models($template_path, $const_name)
     {
         global $db, $conf, $langs;
@@ -334,16 +338,18 @@ if (! function_exists('print_num_models'))
     }
 }
 
-/**
- * Print document models
- *
- * @param     $template_path     document models template(s) path, e.: 'mymodule/core/doc_models'
- * @param     $type              document models type, e.: 'mytype'
- * @param     $const_name        document models constant name, e.: 'MYMODULE_ADDON'
- * @param     $picture           document models preview link picture, e.: 'picture.png@mymodule'
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('print_doc_models'))
 {
+    /**
+     * Print document models
+     *
+     * @param   string   $template_path   document models template(s) path, e.: 'mymodule/core/doc_models'
+     * @param   string   $type            document models type, e.: 'mytype'
+     * @param   string   $const_name      document models constant name, e.: 'MYMODULE_ADDON'
+     * @param   string   $picture         document models preview link picture, e.: 'picture.png@mymodule'
+     */
     function print_doc_models($template_path, $type, $const_name, $picture)
     {
         global $db, $conf, $langs;
@@ -492,28 +498,30 @@ if (! function_exists('print_doc_models'))
     }
 }
 
-/**
- * Print a table with options
- *
- * @param     $options     options array as [
- * array(
- *     'name'   (*) => 'MYMODULE_OPTION',
- *     'type'   (*) => 'switch', // or 'text', 'number', 'range', 'date', 'select', 'multiselect', 'color'
- *     'desc'   (*) => 'My option description', // description will be displayed on the left of the row
- *     'value'      => $conf->global->MYMODULE_OPTION, // or any specific value
- *     'values' (*) => array(0 => 'value 1', 1 => 'value 2'), // for type select & multiselect only
- *     'enabled'    => '$conf->module->enabled', // condition to enable option
- *     'use_ajax'   => true, // for type switch only
- *     'desc_right' => '', // used to display something else on the right of the description
- *     'width'      => '50%', // to make an input more large for example
- *     'size'       => 8, // useful for text inputs
- *     'min'        => 0, // work with number & range inputs
- *     'max'        => 100 // for number & range inputs too
- * )]
- * array keys with (*) are required
- */
+// --------------------------------------------------------------------
+
 if (! function_exists('print_options'))
 {
+    /**
+     * Print a table with options
+     *
+     * @param   array   $options   options array as [
+     * array(
+     *     'name'   (*) => 'MYMODULE_OPTION',
+     *     'type'   (*) => 'switch', // or 'text', 'number', 'range', 'date', 'select', 'multiselect', 'color'
+     *     'desc'   (*) => 'My option description', // description will be displayed on the left of the row
+     *     'value'      => $conf->global->MYMODULE_OPTION, // or any specific value
+     *     'values' (*) => array(0 => 'value 1', 1 => 'value 2'), // for type select & multiselect only
+     *     'enabled'    => '$conf->module->enabled', // condition to enable option
+     *     'use_ajax'   => true, // for type switch only
+     *     'desc_right' => '', // used to display something else on the right of the description
+     *     'width'      => '50%', // to make an input more large for example
+     *     'size'       => 8, // useful for text inputs
+     *     'min'        => 0, // work with number & range inputs
+     *     'max'        => 100 // for number & range inputs too
+     * )]
+     * array keys with (*) are required
+     */
     function print_options($options)
     {
         global $db, $conf, $langs, $bc;
