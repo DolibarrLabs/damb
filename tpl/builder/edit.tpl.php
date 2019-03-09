@@ -144,7 +144,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                             echo $form->textwithpicto('', $htmltooltip, 1, 'info');
                                         ?>
                                         <?php if ($conf->global->DAMB_ALLOW_MODULE_DELETE) { ?>
-                                            <a class="delete_module" href="<?php echo dol_buildpath('damb/builder/edit.php?action=delete&module='.$module_folder_name, 1); ?>"><?php echo img_delete($langs->trans('DeleteModule'), 'class="inline-block valignmiddle"'); ?></a>
+                                            <a class="delete_module" href="<?php echo dol_buildpath('damb/builder/edit.php?action=delete&module='.$module_folder_name, 1); ?>"><?php echo img_delete($langs->trans('Delete'), 'class="inline-block valignmiddle"'); ?></a>
                                         <?php } ?>
                                     </div>
                                 </li>
@@ -208,7 +208,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                         <div class="ecmjqft">
                                             <?php if (! $is_dir && ! $is_image) { ?>
                                                 <?php if (preg_match('/^[a-zA-Z0-9]+\.php$/', $file_name)) { ?>
-                                                    <a href="<?php echo str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file); ?>" target="_blank"><?php echo img_picto($langs->trans('View'), 'play.png', 'class="inline-block valignmiddle"'); ?></a>
+                                                    <a href="<?php echo str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file); ?>" target="_blank"><?php echo img_picto($langs->trans('Preview'), 'play.png', 'class="inline-block valignmiddle"'); ?></a>
                                                 <?php } ?>
                                                 <a href="<?php echo $link; ?>"><?php echo img_edit($langs->trans('Edit'), false, 'class="inline-block valignmiddle"'); ?></a>
                                             <?php } ?>

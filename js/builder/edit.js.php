@@ -31,8 +31,10 @@ $(document).ready(function() {
     // Delete module
     $('a.delete_module').on('click', function(e) {
         e.preventDefault();
-        var href = $(this).attr('href');
-        $('<div title="<?php echo $langs->trans('DeleteModule'); ?>"><?php echo img_help('', '').' '.$langs->trans('ConfirmDeleteModule'); ?></div>').dialog({
+        var link = $(this);
+        var href = link.attr('href');
+        $('<div></div>').dialog({
+            title: '<?php echo $langs->trans('DeleteModule'); ?>',
             autoOpen: true,
             resizable: false,
             height: 200,
@@ -40,6 +42,8 @@ $(document).ready(function() {
             modal: true,
             closeOnEscape: false,
             open: function() {
+                var module = link.parent().prev('a').text();
+                $(this).html('<?php echo img_help('', '').' '.$langs->trans('Delete'); ?>' + ' <strong>' + module + '</strong> ?');
                 $(this).parent().find('button.ui-button:eq(2)').focus();
             },
             close: function() {
@@ -60,8 +64,10 @@ $(document).ready(function() {
     // Delete file
     $('a.delete_file').on('click', function(e) {
         e.preventDefault();
-        var href = $(this).attr('href');
-        $('<div title="<?php echo $langs->trans('DeleteFileFolder'); ?>"><?php echo img_help('', '').' '.$langs->trans('ConfirmDeleteFileFolder'); ?></div>').dialog({
+        var link = $(this);
+        var href = link.attr('href');
+        $('<div></div>').dialog({
+            title: '<?php echo $langs->trans('DeleteFileFolder'); ?>',
             autoOpen: true,
             resizable: false,
             height: 200,
@@ -69,6 +75,8 @@ $(document).ready(function() {
             modal: true,
             closeOnEscape: false,
             open: function() {
+                var file = link.parent().prev('a').text();
+                $(this).html('<?php echo img_help('', '').' '.$langs->trans('Delete'); ?>' + ' <strong>' + file + '</strong> ?');
                 $(this).parent().find('button.ui-button:eq(2)').focus();
             },
             close: function() {
@@ -90,7 +98,7 @@ $(document).ready(function() {
     $('a#new_file').on('click', function(e) {
         e.preventDefault();
         var href = $(this).attr('href');
-        $(`<div title="<?php echo $langs->trans('NewFile'); ?>">
+        $(`<div>
             <br>
             <table class="paddingtopbottomonly allwidth">
                 <tr>
@@ -103,6 +111,7 @@ $(document).ready(function() {
                 </tr>
             </table>
         </div>`).dialog({
+            title: '<?php echo $langs->trans('NewFile'); ?>',
             autoOpen: true,
             resizable: false,
             height: 200,
@@ -134,7 +143,8 @@ $(document).ready(function() {
         e.preventDefault();
         var image_name = $(this).text();
         var image_src = $(this).attr('href');
-        $('<div title="' + image_name + '" class="center"><img src="' + image_src + '"></div>').dialog({
+        $('<div class="center"><img src="' + image_src + '"></div>').dialog({
+            title: image_name,
             autoOpen: true,
             resizable: false,
             height: 'auto',
