@@ -240,8 +240,8 @@ if ($action == 'create')
                 'module_name' => $module_name_toupper,
                 'current_year' => date('Y'),
                 'author_name' => $module_class_data['author_name'],
-                'module_name_translation' => 'Module'.$data['module_number'].'Name = '.$module_name,
-                'module_desc_translation' => 'Module'.$data['module_number'].'Desc = '.$module_name,
+                'module_name_translation' => $module_name.' = '.$module_name."\n".'Module'.$data['module_number'].'Name = '.$module_name,
+                'module_desc_translation' => $module_name.'Description = '.$module_name."\n".'Module'.$data['module_number'].'Desc = '.$module_name,
                 'permissions_translation' => '', // TODO
                 'menus_translation' => '' // TODO
             );

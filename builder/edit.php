@@ -111,13 +111,15 @@ else if ($action == 'deletefile' && ! empty($module))
 
     if ($conf->global->DAMB_ALLOW_FILE_DELETE && ! empty($file))
     {
-        if (is_dir($file))
+        $file_path = DOL_DOCUMENT_ROOT.'/custom/'.$file;
+
+        if (is_dir($file_path))
         {
-            if (dol_delete_dir_recursive($file)) {
+            if (dol_delete_dir_recursive($file_path)) {
                 success_message('FolderDeleted', basename($file));
             }
         }
-        else if (unlink($file)) {
+        else if (unlink($file_path)) {
             success_message('FileDeleted', basename($file));
         }
     }
@@ -132,7 +134,9 @@ else if ($action == 'savefile' && empty($cancel))
 
     if (! empty($file))
     {
-        if (file_put_contents($file, $content) !== false) {
+        $file_path = DOL_DOCUMENT_ROOT.'/custom/'.$file;
+
+        if (file_put_contents($file_path, $content) !== false) {
             success_message('FileSaved', basename($file));
         }
     }

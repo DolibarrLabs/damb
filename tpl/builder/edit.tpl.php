@@ -37,17 +37,20 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
             <table class="liste allwidth noborderbottom">
                 <?php
                     $module_class = get_module_class($root_path);
-                    dol_include_once($module_folder.'/core/modules/'.$module_class['file']);
+                    $module_class_path = $module_folder.'/core/modules/'.$module_class['file'];
+                    dol_include_once($module_class_path);
                     $module = new $module_class['name']($db);
                     $setup_page_link = '#';
                     if (is_array($module->config_page_url) && ! empty($module->config_page_url)) {
                         $setup_page = explode('@', $module->config_page_url[0]);
                         $setup_page_link = dol_buildpath($module_folder.'/admin/'.$setup_page[0], 1);
                     }
+                    $edit_module_link = dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$module_class_path, 1);
                 ?>
                 <tr class="liste_titre">
                     <th><?php echo $langs->trans('ModuleInformations'); ?></th>
                     <th align="right">
+                        <a href="<?php echo $edit_module_link; ?>"><?php echo img_edit($langs->trans('Edit')); ?></a>
                         <a href="<?php echo $setup_page_link; ?>" target="_blank"><?php echo img_picto($langs->trans('ModuleSettings'), 'setup.png'); ?></a>
                     </th>
                 </tr>
@@ -116,7 +119,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                     }
                 ?>
                 <tr class="liste_titre">
-                    <th><?php echo $langs->trans('Modules').' (<strong>'.count($modules_list).'</strong>)'; ?></th>
+                    <th><?php echo $langs->trans('ExternalModules').' (<strong>'.count($modules_list).'</strong>)'; ?></th>
                     <th align="right">
                         <a href="<?php echo dol_buildpath('damb/builder/edit.php', 1); ?>"><?php echo img_picto($langs->trans('Refresh'), 'refresh.png'); ?></a>
                     </th>
@@ -161,12 +164,12 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
                 <input type="hidden" name="action" value="savefile">
                 <input type="hidden" name="module" value="<?php echo $module_folder; ?>">
-                <input type="hidden" name="path" value="<?php echo (empty($current_path) ? dirname($file) : $current_path); ?>">
+                <input type="hidden" name="path" value="<?php echo (empty($current_path) ? DOL_DOCUMENT_ROOT.'/custom/'.dirname($file) : $current_path); ?>">
                 <input type="hidden" name="file" value="<?php echo $file; ?>">
                 <?php
-                    $content = file_get_contents($file);
+                    $content = file_get_contents(DOL_DOCUMENT_ROOT.'/custom/'.$file);
                     $doleditor = new DolEditor('editfilecontent', $content, '', '300', 'Full', 'In', true, false, 'ace', 0, '99%', '');
-                    echo $doleditor->Create(1, '', false, $langs->trans('File').' : '.str_replace(DOL_DOCUMENT_ROOT.'/custom/', '', $file), 'html');
+                    echo $doleditor->Create(1, '', false, $langs->trans('File').' : '.$file, 'html');
                 ?>
                 <br>
                 <center>
@@ -201,19 +204,21 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                     $is_dir = is_dir($file);
                                     $is_image = $is_dir ? false : in_array(pathinfo($file, PATHINFO_EXTENSION), array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'ico'));
                                     $file_name = basename($file);
-                                    $link = $is_dir ? dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$file, 1) : ($is_image ? str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file) : dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$file, 1));
+                                    $file_path = str_replace(DOL_DOCUMENT_ROOT.'/custom/', '', $file);
+                                    $file_url = str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file);
+                                    $link = $is_dir ? dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$file, 1) : ($is_image ? $file_url : dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$file_path, 1));
                                 ?>
                                     <li class="<?php echo $is_dir ? 'directory' : 'file'; ?>">
                                         <a href="<?php echo $link.($is_image ? '" class="view_image' : ''); ?>"><?php echo $file_name; ?></a>
                                         <div class="ecmjqft">
                                             <?php if (! $is_dir && ! $is_image) { ?>
                                                 <?php if (preg_match('/^[a-zA-Z0-9]+\.php$/', $file_name)) { ?>
-                                                    <a href="<?php echo str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file); ?>" target="_blank"><?php echo img_picto($langs->trans('Preview'), 'play.png', 'class="inline-block valignmiddle"'); ?></a>
+                                                    <a href="<?php echo $file_url; ?>" target="_blank"><?php echo img_picto($langs->trans('Preview'), 'play.png', 'class="inline-block valignmiddle"'); ?></a>
                                                 <?php } ?>
                                                 <a href="<?php echo $link; ?>"><?php echo img_edit($langs->trans('Edit'), false, 'class="inline-block valignmiddle"'); ?></a>
                                             <?php } ?>
                                             <?php if ($conf->global->DAMB_ALLOW_FILE_DELETE) { ?>
-                                                <a class="delete_file" href="<?php echo dol_buildpath('damb/builder/edit.php?action=deletefile&module='.$module_folder.'&path='.dirname($file).'&file='.$file, 1); ?>"><?php echo img_delete($langs->trans('Delete'), 'class="inline-block valignmiddle"'); ?></a>
+                                                <a class="delete_file" href="<?php echo dol_buildpath('damb/builder/edit.php?action=deletefile&module='.$module_folder.'&path='.dirname($file).'&file='.$file_path, 1); ?>"><?php echo img_delete($langs->trans('Delete'), 'class="inline-block valignmiddle"'); ?></a>
                                             <?php } ?>
                                         </div>
                                     </li>

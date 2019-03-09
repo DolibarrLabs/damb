@@ -51,7 +51,7 @@ ModuleCreated = Module <strong>%s</strong> successfully created into <strong>%s<
 #
 # Edit Tab
 #
-Modules = Modules
+ExternalModules = External Modules
 Refresh = Refresh
 Files = Files
 SelectModule = Select a module...
