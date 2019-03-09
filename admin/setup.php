@@ -41,8 +41,7 @@ load_default_actions($action);
 
 print_header('Setup', array('admin', 'damb@damb'));
 
-$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.print_trans('BackToModuleList', false).'</a>';
-print_subtitle('Setup', 'title_setup.png', $linkback);
+print_subtitle('Setup', 'title_setup.png', 'link:'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home:label:BackToModuleList');
 
 $tabs = array(
     array('title' => 'Setup', 'url' => 'damb/admin/setup.php?mainmenu=home', 'active' => true),

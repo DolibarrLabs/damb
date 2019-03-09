@@ -34,8 +34,7 @@ control_access('$user->admin');
 
 print_header('About', array('admin', 'damb@damb'));
 
-$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.print_trans('BackToModuleList', false).'</a>';
-print_subtitle('About', 'title_generic.png', $linkback);
+print_subtitle('About', 'title_generic.png', 'link:'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home:label:BackToModuleList');
 
 $tabs = array(
     array('title' => 'Setup', 'url' => 'damb/admin/setup.php?mainmenu=home'),

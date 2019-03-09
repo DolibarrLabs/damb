@@ -141,6 +141,11 @@ if (! function_exists('print_subtitle'))
     {
         global $langs;
 
+        // Set $morehtmlright custom values
+        if (preg_match('/^link:(.*?):label:(.*?)$/', $morehtmlright, $values)) {
+            $morehtmlright = '<a href="'.$values[1].'">'.$langs->trans($values[2]).'</a>';
+        }
+
         echo load_fiche_titre($langs->trans($title), $morehtmlright, $picture);
     }
 }
