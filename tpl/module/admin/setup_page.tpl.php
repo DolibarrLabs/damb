@@ -35,7 +35,7 @@ load_default_actions($action${default_actions_parameters});
 
 print_header('Setup', array('admin', '${lang_file}@${module_folder}'));
 
-print_subtitle('Setup', 'title_setup.png', 'link:'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home:label:BackToModuleList');
+print_subtitle('Setup', 'title_setup.png', 'link:modules_list');
 
 $tabs = array(
     array('title' => 'Setup', 'url' => '${module_folder}/admin/setup.php?mainmenu=home', 'active' => true),

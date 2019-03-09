@@ -141,8 +141,11 @@ if (! function_exists('print_subtitle'))
     {
         global $langs;
 
-        // Set $morehtmlright custom values
-        if (preg_match('/^link:(.*?):label:(.*?)$/', $morehtmlright, $values)) {
+        // Handle custom $morehtmlright
+        if ($morehtmlright == 'link:modules_list') {
+            $morehtmlright = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.$langs->trans('BackToModuleList').'</a>';
+        }
+        else if (preg_match('/^link:(.*?):label:(.*?)$/', $morehtmlright, $values)) {
             $morehtmlright = '<a href="'.$values[1].'">'.$langs->trans($values[2]).'</a>';
         }
 

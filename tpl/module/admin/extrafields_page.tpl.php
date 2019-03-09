@@ -44,7 +44,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/actions_extrafields.inc.php';
 
 print_header('ExtraFields', array('admin', 'extrafields_page@${module_folder}'));
 
-print_subtitle('ExtraFields', 'title_generic.png', 'link:'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home:label:BackToModuleList');
+print_subtitle('ExtraFields', 'title_generic.png', 'link:modules_list');
 
 $tabs = array(
     array('title' => 'Setup', 'url' => '${module_folder}/admin/setup.php?mainmenu=home'),

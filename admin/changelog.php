@@ -31,7 +31,7 @@ control_access('$user->admin');
 
 print_header('Changelog', array('admin', 'damb@damb'), array('damb/css/changelog.css'));
 
-print_subtitle('Changelog', 'title_generic.png', 'link:'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home:label:BackToModuleList');
+print_subtitle('Changelog', 'title_generic.png', 'link:modules_list');
 
 $tabs = array(
     array('title' => 'Setup', 'url' => 'damb/admin/setup.php?mainmenu=home'),
