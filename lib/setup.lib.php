@@ -181,7 +181,7 @@ if (! function_exists('load_default_actions'))
 
             foreach ($dirmodels as $dir)
             {
-                $file = $dir.'pdf_'.$model.'.modules.php';
+                $file = rtrim($dir, '/').'/pdf_'.$model.'.modules.php';
                 if (file_exists($file))
                 {
                     $error = 0;

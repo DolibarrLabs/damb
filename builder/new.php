@@ -80,6 +80,13 @@ if ($action == 'create')
     foreach ($translations as $translation_name) {
         $module_folders[] = 'langs/'.$translation_name;
     }
+    if ($add_num_models) {
+        $module_folders[] = 'core/num_models';
+    }
+    if ($add_doc_models) {
+        $module_folders[] = 'core/doc_models';
+        $module_folders[] = 'core/modules/'.$data['module_folder'];
+    }
 
     // Create module folders if not exist
     if (! mkdir_r($module_folders, 0777, $module_path))
@@ -130,12 +137,18 @@ if ($action == 'create')
             $more_tabs.= "array('title' => 'Changelog', 'url' => '".$data['module_folder']."/admin/changelog.php?mainmenu=home'),\n    ";
         }
         $settings = ($add_num_models || $add_doc_models ? '' : "print_trans('NoSetupAvailable');");
+        $default_actions_parameters = '';
         if ($add_num_models) {
-            $settings.= "print_num_models('', '".sanitize_string(strtoupper($module_name))."_ADDON');\n";
+            $settings.= "print_subtitle('NumberingModels');\n";
+            $settings.= "print_num_models('".$data['module_folder']."/core/num_models', '".sanitize_string(strtoupper($module_name))."_ADDON');";
+            $default_actions_parameters.= ", '".sanitize_string(strtoupper($module_name))."_ADDON'";
         }
         if ($add_doc_models) {
-            if ($add_num_models) $settings.= "\n";
-            $settings.= "print_doc_models('', '', '".sanitize_string(strtoupper($module_name))."_ADDON_PDF', '".$data['module_picture']."@".$data['module_folder']."');\n";
+            if ($add_num_models) $settings.= "\n\n";
+            else $default_actions_parameters = "''";
+            $settings.= "print_subtitle('DocumentModels');\n";
+            $settings.= "print_doc_models('".$data['module_folder']."/core/doc_models', '".$data['module_folder']."', '".sanitize_string(strtoupper($module_name))."_ADDON_PDF', '".$data['module_picture']."@".$data['module_folder']."');";
+            $default_actions_parameters.= ", '".sanitize_string(strtolower($module_name))."', '".sanitize_string(strtoupper($module_name))."_ADDON_PDF', '".$data['module_folder']."/core/doc_models', '".$data['module_folder']."'";
         }
         $setup_page_data = array(
             'module_name' => $module_name,
@@ -143,7 +156,8 @@ if ($action == 'create')
             'module_folder' => $data['module_folder'],
             'lang_file' => $lang_file,
             'more_tabs' => $more_tabs,
-            'settings' => $settings
+            'settings' => $settings,
+            'default_actions_parameters' => $default_actions_parameters
         );
         $template = get_template($source_path.'/tpl/module/admin/setup_page.tpl.php', $setup_page_data);
         file_put_contents($module_path.'/admin/setup.php', $template);
@@ -243,12 +257,53 @@ if ($action == 'create')
         }
 
         // Create numbering models
+        if ($add_num_models)
+        {
+            $num_models_data = array(
+                'module_folder' => $data['module_folder'],
+                'model_const_prefix' => sanitize_string(strtoupper($module_name)),
+                'table_name' => GETPOST('num_models_table_name', 'alpha'),
+                'table_field_name' => GETPOST('num_models_table_field', 'alpha'),
+                'model_prefix' => GETPOST('num_models_prefix', 'alpha'),
+                'lang_file' => $lang_file,
+                'module_name' => $module_name
+            );
+            $num_models = array(
+                'marbre',
+                'saphir'
+            );
+            foreach ($num_models as $model) {
+                $template = get_template($source_path.'/tpl/module/core/num_models/'.$model.'.tpl.php', $num_models_data);
+                file_put_contents($module_path.'/core/num_models/'.$model.'.php', $template);
+            }
+            // Copy numbering models class
+            copy($source_path.'/class/module/num_model.class.php', $module_path.'/class/num_model.class.php');
+        }
+
         // Create document models
-        /*
-        $num_models_table_name = GETPOST('num_models_table_name', 'alpha');
-        $num_models_table_field = GETPOST('num_models_table_field', 'alpha');
-        $num_models_prefix = GETPOST('num_models_prefix', 'alpha');
-        */
+        if ($add_doc_models)
+        {
+            $doc_models_data = array(
+                'module_folder' => $data['module_folder'],
+                'doc_model_class_name' => sanitize_string(ucfirst($module_name)),
+                'model_const_prefix' => sanitize_string(strtoupper($module_name))
+            );
+            $doc_models = array(
+                'pdf_azur',
+                'pdf_crabe'
+            );
+            foreach ($doc_models as $model) {
+                $template = get_template($source_path.'/tpl/module/core/doc_models/'.$model.'.tpl.php', $doc_models_data);
+                file_put_contents($module_path.'/core/doc_models/'.$model.'.modules.php', $template);
+            }
+            // Create document models class
+            $doc_model_class_data = array(
+                'doc_model_class_name' => $doc_models_data['doc_model_class_name'],
+                'doc_model_type' => sanitize_string(strtolower($module_name))
+            );
+            $template = get_template($source_path.'/tpl/module/core/doc_model_class.tpl.php', $doc_model_class_data);
+            file_put_contents($module_path.'/core/modules/'.$data['module_folder'].'/modules_'.$data['module_folder'].'.php', $template);
+        }
 
         // Set files/folders permissions
         chmod_r($module_path, 0777, 0777);

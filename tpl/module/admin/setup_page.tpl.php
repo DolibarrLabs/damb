@@ -21,13 +21,13 @@ dol_include_once('${module_folder}/lib/setup.lib.php');
 control_access('$user->admin');
 
 // Get parameters
-//$action = GETPOST('action', 'alpha');
+$action = GETPOST('action', 'alpha');
 
 /**
  * Actions
  */
 
-//load_default_actions($action);
+load_default_actions($action${default_actions_parameters});
 
 /**
  * View
