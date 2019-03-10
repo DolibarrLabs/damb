@@ -28,13 +28,24 @@ header('Content-Type: application/javascript');
 ?>
 
 $(document).ready(function() {
-    // Delete module
-    $('a.delete_module').on('click', function(e) {
+    // Delete module/file/package
+    $('a.delete_module, a.delete_file, a.delete_package').on('click', function(e) {
         e.preventDefault();
-        var link = $(this);
-        var href = link.attr('href');
+        var name = $(this).data('name');
+        var href = $(this).attr('href');
+        var lclass = $(this).attr('class');
+        var title = '';
+        if (lclass == 'delete_module') {
+            title = '<?php echo $langs->trans('DeleteModule'); ?>';
+        }
+        else if (lclass == 'delete_file') {
+            title = '<?php echo $langs->trans('DeleteFileFolder'); ?>';
+        }
+        else if (lclass == 'delete_package') {
+            title = '<?php echo $langs->trans('DeletePackage'); ?>';
+        }
         $('<div></div>').dialog({
-            title: '<?php echo $langs->trans('DeleteModule'); ?>',
+            title: title,
             autoOpen: true,
             resizable: false,
             height: 200,
@@ -42,74 +53,7 @@ $(document).ready(function() {
             modal: true,
             closeOnEscape: false,
             open: function() {
-                var module = link.parent().prev('a').text();
-                $(this).html('<?php echo img_help('', '').' '.$langs->trans('Delete'); ?>' + ' <strong>' + module + '</strong> ?');
-                $(this).parent().find('button.ui-button:eq(2)').focus();
-            },
-            close: function() {
-                $(this).dialog('destroy');
-            },
-            buttons: {
-                "<?php echo $langs->trans('Yes'); ?>": function() {
-                    location.href = href;
-                    $(this).dialog('close');
-                },
-                "<?php echo $langs->trans('No'); ?>": function() {
-                    $(this).dialog('close');
-                }
-            }
-        });
-    });
-
-    // Delete file
-    $('a.delete_file').on('click', function(e) {
-        e.preventDefault();
-        var link = $(this);
-        var href = link.attr('href');
-        $('<div></div>').dialog({
-            title: '<?php echo $langs->trans('DeleteFileFolder'); ?>',
-            autoOpen: true,
-            resizable: false,
-            height: 200,
-            width: 400,
-            modal: true,
-            closeOnEscape: false,
-            open: function() {
-                var file = link.parent().prev('a').text();
-                $(this).html('<?php echo img_help('', '').' '.$langs->trans('Delete'); ?>' + ' <strong>' + file + '</strong> ?');
-                $(this).parent().find('button.ui-button:eq(2)').focus();
-            },
-            close: function() {
-                $(this).dialog('destroy');
-            },
-            buttons: {
-                "<?php echo $langs->trans('Yes'); ?>": function() {
-                    location.href = href;
-                    $(this).dialog('close');
-                },
-                "<?php echo $langs->trans('No'); ?>": function() {
-                    $(this).dialog('close');
-                }
-            }
-        });
-    });
-
-    // Delete package
-    $('a.delete_package').on('click', function(e) {
-        e.preventDefault();
-        var link = $(this);
-        var href = link.attr('href');
-        $('<div></div>').dialog({
-            title: '<?php echo $langs->trans('DeletePackage'); ?>',
-            autoOpen: true,
-            resizable: false,
-            height: 200,
-            width: 400,
-            modal: true,
-            closeOnEscape: false,
-            open: function() {
-                var package = link.parent().prev('td').find('a').text();
-                $(this).html('<?php echo img_help('', '').' '.$langs->trans('Delete'); ?>' + ' <strong>' + package + '</strong> ?');
+                $(this).html('<?php echo img_help('', '').' '.$langs->trans('Delete'); ?>' + ' <strong>' + name + '</strong> ?');
                 $(this).parent().find('button.ui-button:eq(2)').focus();
             },
             close: function() {
