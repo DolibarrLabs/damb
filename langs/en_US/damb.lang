@@ -83,6 +83,11 @@ FileDeleted = File <strong>%s</strong> deleted.
 FolderDeleted = Folder <strong>%s</strong> deleted.
 DeleteFileFolder = Delete File/Folder
 FileSaved = File <strong>%s</strong> saved.
+ZipArchiveNotFound = Operations with archives are not available, <strong>ZipArchive</strong> class not found.
+PackageExists = Package <strong>%s</strong> already exists, try changing the module version or delete the old package.
+PackageCreated = Package <strong>%s</strong> created.
+PackageDeleted = Package <strong>%s</strong> deleted.
+DeletePackage = Delete Package
 
 #
 # Setup

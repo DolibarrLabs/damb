@@ -96,10 +96,19 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 <tr class="liste_titre">
                     <th><?php echo $langs->trans('Packages'); ?></th>
                     <th align="right">
-                        <a href="#"><?php echo img_edit_add($langs->trans('BuildPackage')); ?></a>
+                        <a href="<?php echo dol_buildpath('damb/builder/edit.php?action=buildpackage&module='.$module_folder.'&version='.$module->version, 1); ?>"><?php echo img_edit_add($langs->trans('BuildPackage')); ?></a>
                     </th>
                 </tr>
-                <?php // TODO: get packages list ?>
+                <?php foreach (directory_files_list($root_path.'/bin/*.zip', true) as $package) { ?>
+                    <tr>
+                        <td>
+                            <a href="<?php echo dol_buildpath($module_folder.'/bin/'.$package, 1); ?>"><?php echo img_picto('', 'package.png@damb', 'class="inline-block valignmiddle"').' '.$package; ?></a>
+                        </td>
+                        <td align="right">
+                            <a class="delete_package" href="<?php echo dol_buildpath('damb/builder/edit.php?action=deletepackage&module='.$module_folder.'&package='.$package, 1); ?>"><?php echo img_delete($langs->trans('Delete'), 'class="inline-block valignmiddle"'); ?></a>
+                        </td>
+                    </tr>
+                <?php } ?>
             </table>
         <?php } else { ?>
             <table class="liste allwidth noborderbottom">

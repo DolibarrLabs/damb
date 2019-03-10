@@ -38,7 +38,7 @@ $tabs = array(
     array('title' => 'Changelog', 'url' => 'damb/admin/changelog.php?mainmenu=home', 'active' => true),
     array('title' => 'About', 'url' => 'damb/admin/about.php?mainmenu=home')
 );
-print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1);
+print_tabs($tabs, 'AdvancedModuleBuilder', 'module.png@damb', -1);
 
 load_template('damb/tpl/changelog.tpl.php', array(
     'changelog_file' => dol_buildpath('damb/changelog.json')

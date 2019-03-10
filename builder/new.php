@@ -332,7 +332,7 @@ $tabs = array(
     array('title' => 'EditModule', 'url' => 'damb/builder/edit.php')
 );
 $settings_link = '<a href="'.dol_buildpath('damb/admin/setup.php', 1).'" target="_blank" class="inline-block paddingtopbottom">'.img_picto(print_trans('BuilderSettings', false), 'setup.png').'</a>';
-print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1, $settings_link);
+print_tabs($tabs, 'AdvancedModuleBuilder', 'module.png@damb', -1, $settings_link);
 
 load_template('damb/tpl/builder/new.tpl.php');
 

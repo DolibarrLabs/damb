@@ -48,7 +48,7 @@ $tabs = array(
     array('title' => 'Changelog', 'url' => 'damb/admin/changelog.php?mainmenu=home'),
     array('title' => 'About', 'url' => 'damb/admin/about.php?mainmenu=home')
 );
-print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1);
+print_tabs($tabs, 'AdvancedModuleBuilder', 'module.png@damb', -1);
 
 print_subtitle('GeneralSettings');
 

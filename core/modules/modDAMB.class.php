@@ -28,7 +28,7 @@ class modDAMB extends DolibarrModules
         $this->module_position = 500;
         $this->name            = 'AdvancedModuleBuilder';
         $this->description     = 'AdvancedModuleBuilderDesc';
-        $this->picto           = 'package.png@damb';
+        $this->picto           = 'module.png@damb';
         $this->version         = '1.0.0';
         $this->const_name      = get_constant_name($this);
         $this->special         = 0;

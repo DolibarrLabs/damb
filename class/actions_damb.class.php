@@ -37,7 +37,7 @@ class ActionsDAMB
                     $text.= '<span class="fa fa-rocket atoplogin"></span>';
                 }
                 else {
-                    $text.= img_picto($title, 'object_package.png@damb');
+                    $text.= img_picto($title, 'object_module.png@damb');
                 }
 
                 $text.= '</a>';

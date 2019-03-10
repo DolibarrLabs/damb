@@ -41,14 +41,14 @@ $tabs = array(
     array('title' => 'Changelog', 'url' => 'damb/admin/changelog.php?mainmenu=home'),
     array('title' => 'About', 'url' => 'damb/admin/about.php?mainmenu=home', 'active' => true)
 );
-print_tabs($tabs, 'AdvancedModuleBuilder', 'package.png@damb', -1);
+print_tabs($tabs, 'AdvancedModuleBuilder', 'module.png@damb', -1);
 
 $module = new modDAMB(NULL);
 
 load_template('damb/tpl/about.tpl.php', array(
     'module_name' => $module->name,
     'module_desc' => $module->description,
-    'module_picture' => 'package.png@damb',
+    'module_picture' => 'module.png@damb',
     'module_version' => $module->version,
     'module_url' => '#',
     'author_name' => $module->editor_name,

@@ -94,6 +94,39 @@ $(document).ready(function() {
         });
     });
 
+    // Delete package
+    $('a.delete_package').on('click', function(e) {
+        e.preventDefault();
+        var link = $(this);
+        var href = link.attr('href');
+        $('<div></div>').dialog({
+            title: '<?php echo $langs->trans('DeletePackage'); ?>',
+            autoOpen: true,
+            resizable: false,
+            height: 200,
+            width: 400,
+            modal: true,
+            closeOnEscape: false,
+            open: function() {
+                var package = link.parent().prev('td').find('a').text();
+                $(this).html('<?php echo img_help('', '').' '.$langs->trans('Delete'); ?>' + ' <strong>' + package + '</strong> ?');
+                $(this).parent().find('button.ui-button:eq(2)').focus();
+            },
+            close: function() {
+                $(this).dialog('destroy');
+            },
+            buttons: {
+                "<?php echo $langs->trans('Yes'); ?>": function() {
+                    location.href = href;
+                    $(this).dialog('close');
+                },
+                "<?php echo $langs->trans('No'); ?>": function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    });
+
     // Create new file
     $('a#new_file').on('click', function(e) {
         e.preventDefault();
