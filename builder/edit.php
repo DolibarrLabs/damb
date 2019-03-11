@@ -51,7 +51,7 @@ $name = GETPOST('name', 'alpha');
 $package = GETPOST('package', 'alpha');
 
 // Get module class & object
-$custom_dir_path = DOL_DOCUMENT_ROOT.'/custom';
+$custom_dir_path = DOL_DOCUMENT_ROOT.'/custom'; // TODO: retrieve value from dolibarr conf.php file
 if (! empty($module))
 {
     global $db;
@@ -316,6 +316,7 @@ load_template('damb/tpl/builder/edit.tpl.php', array(
     'module_object' => (isset($module_object) ? $module_object : null),
     'module_class' => (isset($module_class) ? $module_class : null),
     'current_path' => $path,
+    'custom_dir_path' => $custom_dir_path,
     'action' => $action,
     'file' => $file
 ));

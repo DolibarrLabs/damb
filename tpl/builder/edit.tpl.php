@@ -20,6 +20,7 @@
  * $module_object
  * $module_class
  * $current_path
+ * $custom_dir_path
  * $action
  * $file
  */
@@ -29,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 global $db, $langs, $conf;
 
 $form = new Form($db);
-$root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
+$root_path = $custom_dir_path.'/'.$module_folder;
 
 ?>
 
@@ -140,7 +141,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 <?php
                     // Retrieve modules list
                     $modules_list = array();
-                    foreach (directory_files_list(DOL_DOCUMENT_ROOT.'/custom/*', false, true) as $path)
+                    foreach (directory_files_list($custom_dir_path.'/*', false, true) as $path)
                     {
                         $class = get_module_class($path);
                         if (! empty($class))
@@ -198,10 +199,10 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
                 <input type="hidden" name="action" value="savefile">
                 <input type="hidden" name="module" value="<?php echo $module_folder; ?>">
-                <input type="hidden" name="path" value="<?php echo (empty($current_path) ? DOL_DOCUMENT_ROOT.'/custom/'.dirname($file) : $current_path); ?>">
+                <input type="hidden" name="path" value="<?php echo (empty($current_path) ? $custom_dir_path.'/'.dirname($file) : $current_path); ?>">
                 <input type="hidden" name="file" value="<?php echo $file; ?>">
                 <?php
-                    $content = file_get_contents(DOL_DOCUMENT_ROOT.'/custom/'.$file);
+                    $content = file_get_contents($custom_dir_path.'/'.$file);
                     $doleditor = new DolEditor('editfilecontent', $content, '', '300', 'Full', 'In', true, false, 'ace', 0, '99%', '');
                     echo $doleditor->Create(1, '', false, $langs->trans('File').' : '.$file, 'html');
                 ?>
@@ -240,7 +241,7 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                                     $is_image = $is_dir ? false : in_array($file_ext, array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'ico', 'svg'));
                                     $is_txt = $is_dir || $is_image ? false : in_array($file_ext, array('php', 'txt', 'json', 'sql', 'csv', 'xml', 'htm', 'html', 'xhtml', 'css', 'js'));
                                     $file_name = basename($file);
-                                    $file_path = str_replace(DOL_DOCUMENT_ROOT.'/custom/', '', $file);
+                                    $file_path = str_replace($custom_dir_path.'/', '', $file);
                                     $file_url = str_replace(DOL_DOCUMENT_ROOT, DOL_URL_ROOT, $file);
                                     $link = $is_dir ? dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$file, 1) : ($is_image || ! $is_txt ? $file_url : dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$file_path, 1));
                                 ?>
