@@ -38,10 +38,10 @@ class ${widget_class_name} extends ModeleBoxes
         // Widget configuration
         $this->db                = $db;
         $this->boxlabel          = $langs->trans('${widget_label}');
-        $this->boximg            = '${widget_image}';
+        $this->boximg            = '${widget_picture}@${module_folder}';
         $this->position          = ${widget_position};
         $this->enabled           = ${enable_widget};
-        $this->depends           = array();
+        $this->depends           = array('${module_folder}');
         $this->info_box_head     = array();
         $this->info_box_contents = array();
     }
@@ -57,5 +57,20 @@ class ${widget_class_name} extends ModeleBoxes
         set_title($this, '${widget_title}');
 
         add_content($this, 'Add some content here..');
+    }
+
+    /**
+     * Method to show box. Called by Dolibarr eatch time it wants to display the box.
+     *
+     * @param   array   $head       Array with properties of box title
+     * @param   array   $contents   Array with properties of box lines
+     * @param   int     $nooutput   No print, only return string
+     * @return  void
+     */
+    public function showBox($head = null, $contents = null, $nooutput = 0)
+    {
+        // You may make your own code here…
+        // … or use the parent's class function using the provided head and contents templates
+        parent::showBox($this->info_box_head, $this->info_box_contents);
     }
 }

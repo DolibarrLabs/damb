@@ -77,16 +77,20 @@ $(document).ready(function() {
         var href = $(this).attr('href');
         $(`<div>
             <br>
-            <table class="paddingtopbottomonly allwidth">
-                <tr>
-                    <td><?php echo $langs->trans('FileType'); ?></td>
-                    <td><input type="radio" name="type" value="file" id="file_radio" class="valignmiddle" checked /> <label for="file_radio"><?php echo $langs->trans('File'); ?></label> <input type="radio" name="type" value="folder" id="folder_radio" class="valignmiddle" /> <label for="folder_radio"><?php echo $langs->trans('Folder'); ?></label></td>
-                </tr>
-                <tr>
-                    <td><?php echo $langs->trans('FileName'); ?></td>
-                    <td><input type="text" name="name" value="" /></td>
-                </tr>
-            </table>
+            <form action="` + href + `" method="post">
+                <input type="hidden" name="action" value="newfile" />
+                <table class="paddingtopbottomonly allwidth">
+                    <tr>
+                        <td><?php echo $langs->trans('FileType'); ?></td>
+                        <td><input type="radio" name="type" value="file" id="file_radio" class="valignmiddle" checked /> <label for="file_radio"><?php echo $langs->trans('File'); ?></label> <input type="radio" name="type" value="folder" id="folder_radio" class="valignmiddle" /> <label for="folder_radio"><?php echo $langs->trans('Folder'); ?></label></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $langs->trans('FileName'); ?></td>
+                        <td><input type="text" name="name" value="" required /></td>
+                    </tr>
+                </table>
+                <input type="submit" style="display: none;" value="Submit" />
+            </form>
         </div>`).dialog({
             title: '<?php echo $langs->trans('NewFile'); ?>',
             autoOpen: true,
@@ -103,10 +107,14 @@ $(document).ready(function() {
             },
             buttons: {
                 "<?php echo $langs->trans('Create'); ?>": function() {
-                    var type = $(this).find('input[name="type"]:checked').val();
-                    var name = $(this).find('input[name="name"]').val();
-                    location.href = href + '&action=newfile&type=' + type + '&name=' + name;
-                    $(this).dialog('close');
+                    var form = $(this).find('form');
+                    if (! form.checkValidity) {
+                        form.find(':submit').click();
+                    }
+                    else {
+                        form.submit();
+                        $(this).dialog('close');
+                    }
                 },
                 "<?php echo $langs->trans('Cancel'); ?>": function() {
                     $(this).dialog('close');
@@ -149,6 +157,57 @@ $(document).ready(function() {
             },
             buttons: {
                 "<?php echo $langs->trans('Close'); ?>": function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    });
+
+    // Add widget
+    $('a#add_widget').on('click', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        $(`<div>
+            <form action="` + href + `" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="addwidget" />
+                <table class="paddingtopbottomonly allwidth">
+                    <tr>
+                        <td><?php echo $langs->trans('WidgetName'); ?></td>
+                        <td><input type="text" name="name" value="" placeholder="MyWidget" required /></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $langs->trans('WidgetPicture'); ?></td>
+                        <td><input type="file" name="picture" required /></td>
+                    </tr>
+                </table>
+                <input type="submit" style="display: none;" value="Submit" />
+            </form>
+        </div>`).dialog({
+            title: '<?php echo $langs->trans('AddWidget'); ?>',
+            autoOpen: true,
+            resizable: false,
+            height: 200,
+            width: 400,
+            modal: true,
+            closeOnEscape: false,
+            open: function() {
+                $(this).find('input[name="name"]').focus();
+            },
+            close: function() {
+                $(this).dialog('destroy');
+            },
+            buttons: {
+                "<?php echo $langs->trans('Create'); ?>": function() {
+                    var form = $(this).find('form');
+                    if (! form.checkValidity) {
+                        form.find(':submit').click();
+                    }
+                    else {
+                        form.submit();
+                        $(this).dialog('close');
+                    }
+                },
+                "<?php echo $langs->trans('Cancel'); ?>": function() {
                     $(this).dialog('close');
                 }
             }

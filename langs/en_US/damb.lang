@@ -67,11 +67,13 @@ Create = Create
 Cancel = Cancel
 Delete = Delete
 Preview = Preview
+Download = Download
 Packages = Packages
 BuildPackage = Build Package
 DeleteModule = Delete Module
 ModuleDeleted = Module <strong>%s</strong> deleted.
 ModulesList = Modules List
+WidgetsList = Widgets List
 NewFile = New File/Folder
 FileType = Type
 FileName = Name
@@ -88,6 +90,12 @@ PackageExists = Package <strong>%s</strong> already exists, try changing the mod
 PackageCreated = Package <strong>%s</strong> created.
 PackageDeleted = Package <strong>%s</strong> deleted.
 DeletePackage = Delete Package
+WidgetName = Name
+WidgetPicture = Picture
+WidgetExists = Widget <strong>%s</strong> already exists.
+WidgetAdded = Widget <strong>%s</strong> added.
+FileExists = File <strong>%s</strong> already exists.
+FolderExists = Folder <strong>%s</strong> already exists.
 
 #
 # Setup

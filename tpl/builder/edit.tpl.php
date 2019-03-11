@@ -17,6 +17,8 @@
 /**
  * The following variables are required for this template:
  * $module_folder
+ * $module_object
+ * $module_class
  * $current_path
  * $action
  * $file
@@ -33,19 +35,15 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
 
 <div id="containerlayout">
     <div id="ecm-layout-west" class="inline-block">
-        <?php if (! empty($module_folder)) { ?>
+        <?php if (! empty($module_folder) && is_object($module_object)) { ?>
             <table class="liste allwidth noborderbottom">
                 <?php
-                    $module_class = get_module_class($root_path);
-                    $module_class_path = $module_folder.'/core/modules/'.$module_class['file'];
-                    dol_include_once($module_class_path);
-                    $module = new $module_class['name']($db);
                     $setup_page_link = '#';
-                    if (is_array($module->config_page_url) && ! empty($module->config_page_url)) {
-                        $setup_page = explode('@', $module->config_page_url[0]);
+                    if (is_array($module_object->config_page_url) && ! empty($module_object->config_page_url)) {
+                        $setup_page = explode('@', $module_object->config_page_url[0]);
                         $setup_page_link = dol_buildpath($module_folder.'/admin/'.$setup_page[0], 1);
                     }
-                    $edit_module_link = dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$module_class_path, 1);
+                    $edit_module_link = dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$module_folder.'/core/modules/'.$module_class['file'], 1);
                 ?>
                 <tr class="liste_titre">
                     <th><?php echo $langs->trans('ModuleInformations'); ?></th>
@@ -56,24 +54,24 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 </tr>
                 <tr>
                     <td><?php echo $langs->trans('ModuleName'); ?></td>
-                    <td><?php echo $module->name; ?></td>
+                    <td><?php echo $module_object->name; ?></td>
                 </tr>
                 <tr>
                     <td><?php echo $langs->trans('ModuleNumber'); ?></td>
-                    <td><?php echo $module->numero; ?></td>
+                    <td><?php echo $module_object->numero; ?></td>
                 </tr>
                 <tr>
                     <td><?php echo $langs->trans('ModuleFamily'); ?></td>
-                    <td><?php echo $module->family; ?></td>
+                    <td><?php echo $module_object->family; ?></td>
                 </tr>
                 <tr>
                     <td><?php echo $langs->trans('ModuleVersion'); ?></td>
-                    <td><?php echo $module->version; ?></td>
+                    <td><?php echo $module_object->version; ?></td>
                 </tr>
                 <tr>
                     <td><?php echo $langs->trans('ModuleStatus'); ?></td>
                     <td>
-                        <?php if (empty($conf->{$module->rights_class}->enabled)) { ?>
+                        <?php if (empty($conf->{$module_object->rights_class}->enabled)) { ?>
                             <a href="<?php echo dol_buildpath('damb/builder/edit.php?action=activate&module='.$module_folder, 1); ?>"><?php echo img_picto($langs->trans('Disabled'), 'switch_off'); ?></a>
                         <?php } else { ?>
                             <a href="<?php echo dol_buildpath('damb/builder/edit.php?action=deactivate&module='.$module_folder, 1); ?>"><?php echo img_picto($langs->trans('Enabled'), 'switch_on'); ?></a>
@@ -84,25 +82,52 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
             <br>
             <table class="liste allwidth noborderbottom">
                 <tr class="liste_titre">
-                    <th><?php echo $langs->trans('Widgets'); ?></th>
+                    <th>
+                        <a href="<?php echo (file_exists($root_path.'/core/boxes') ? dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$root_path.'/core/boxes', 1) : '#'); ?>"><?php echo $langs->trans('Widgets'); ?></a>
+                    </th>
                     <th align="right">
-                        <a href="#"><?php echo img_edit_add($langs->trans('AddWidget')); ?></a>
+                        <a id="add_widget" href="<?php echo dol_buildpath('damb/builder/edit.php?module='.$module_folder, 1); ?>"><?php echo img_edit_add($langs->trans('AddWidget')); ?></a>
                     </th>
                 </tr>
-                <?php // TODO: get widgets list ?>
+                <?php
+                    // Get widgets
+                    foreach ($module_object->boxes as $widget)
+                    {
+                        $widget_file = explode('@', $widget['file']);
+                        $widget_file_name_no_ext = rtrim($widget_file[0], '.php');
+                        $widget_class_name = ucfirst($widget_file_name_no_ext);
+                        $widget_file_name = $widget_file_name_no_ext.'.php';
+                        $widget_file_path = $module_folder.'/core/boxes/'.$widget_file_name;
+                        dol_include_once($widget_file_path);
+                        if (class_exists($widget_class_name))
+                        {
+                            $widget_object = new $widget_class_name($db);
+                ?>
+                    <tr>
+                        <td><?php echo img_object('', $widget_object->boximg, 'class="inline-block valignmiddle"').' '.$widget_file_name; ?></td>
+                        <td align="right">
+                            <a href="<?php echo dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$widget_file_path, 1); ?>"><?php echo img_edit($langs->trans('Edit'), false, 'class="inline-block valignmiddle"'); ?></a>
+                        </td>
+                    </tr>
+                <?php
+                        }
+                    }
+                ?>
             </table>
             <br>
             <table class="liste allwidth noborderbottom">
                 <tr class="liste_titre">
-                    <th><?php echo $langs->trans('Packages'); ?></th>
+                    <th>
+                        <a href="<?php echo (file_exists($root_path.'/bin') ? dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$root_path.'/bin', 1) : '#'); ?>"><?php echo $langs->trans('Packages'); ?></a>
+                    </th>
                     <th align="right">
-                        <a href="<?php echo dol_buildpath('damb/builder/edit.php?action=buildpackage&module='.$module_folder.'&version='.$module->version, 1); ?>"><?php echo img_edit_add($langs->trans('BuildPackage')); ?></a>
+                        <a href="<?php echo dol_buildpath('damb/builder/edit.php?action=buildpackage&module='.$module_folder, 1); ?>"><?php echo img_edit_add($langs->trans('BuildPackage')); ?></a>
                     </th>
                 </tr>
                 <?php foreach (directory_files_list($root_path.'/bin/*.zip', true) as $package) { ?>
                     <tr>
                         <td>
-                            <a href="<?php echo dol_buildpath($module_folder.'/bin/'.$package, 1); ?>"><?php echo img_picto('', 'package.png@damb', 'class="inline-block valignmiddle"').' '.$package; ?></a>
+                            <a href="<?php echo dol_buildpath($module_folder.'/bin/'.$package, 1); ?>" title="<?php echo $langs->trans('Download'); ?>"><?php echo img_picto('', 'package.png@damb', 'class="inline-block valignmiddle"').' '.$package; ?></a>
                         </td>
                         <td align="right">
                             <a class="delete_package" data-name="<?php echo $package; ?>" href="<?php echo dol_buildpath('damb/builder/edit.php?action=deletepackage&module='.$module_folder.'&package='.$package, 1); ?>"><?php echo img_delete($langs->trans('Delete'), 'class="inline-block valignmiddle"'); ?></a>
@@ -115,14 +140,14 @@ $root_path = DOL_DOCUMENT_ROOT.'/custom/'.$module_folder;
                 <?php
                     // Retrieve modules list
                     $modules_list = array();
-                    foreach (directory_files_list(DOL_DOCUMENT_ROOT.'/custom/*', false, true) as $module_path)
+                    foreach (directory_files_list(DOL_DOCUMENT_ROOT.'/custom/*', false, true) as $path)
                     {
-                        $module_class = get_module_class($module_path);
-                        if (! empty($module_class))
+                        $class = get_module_class($path);
+                        if (! empty($class))
                         {
                             $modules_list[] = array(
-                                'path' => $module_path,
-                                'class' => $module_class
+                                'path' => $path,
+                                'class' => $class
                             );
                         }
                     }
