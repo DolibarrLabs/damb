@@ -8,6 +8,94 @@
 AdvancedModuleBuilder = Constructeur de modules avancés
 AdvancedModuleBuilderDesc = Un constructeur de modules avancé pour Dolibarr
 ModuleBuilder = Constructeur de modules
+NewModule = Nouveau
+EditModule = Modifier
+
+#
+# New Tab
+#
+ModuleConfiguration = Configuration du module
+ModuleName = Nom
+ModuleVersion = Version
+ModuleVersionHelp = valeurs possibles: 'development', 'experimental', 'dolibarr' ou bien la version
+ModuleNumber = Nombre
+ModuleNumberHelp = utilisez un numéro unique et évitez les petits nombres car ils sont utilisés pour les modules du noyau
+ModuleFamily = Famille
+ModulePosition = Position
+ModuleRightsClass = Classe de droits
+ModuleRightsClassHelp = utilisé comme référence du module (pour les autorisations, les menus, etc..)
+ModuleFolderName = Nom du dossier
+ModuleFolderNameHelp = conseil: n'utilisez jamais de traits de soulignement dans le nom du dossier du module pour éviter de nombreux problèmes, en particulier avec l'icône du menu supérieur, les widgets de module, etc..
+ModulePicture = Image
+ModulePictureHelp = taille préférée (128 x 128)
+AddNumberingModels = Ajouter des modèles de numérotation
+AddNumberingModelsHelp = ajoute les modèles de numérotation saphir & marbre à la page de base et de configuration du module
+AddDocumentModels = Ajouter des modèles de document
+AddDocumentModelsHelp = ajoute les modèles de document azur & crabe au module et sur la page de configuration
+NumberingModelsConfiguration = Configuration des modèles de numérotation
+TableName = Nom de la table
+TableNameHelp = sans préfixe de table (llx_)
+TableFieldName = Nom du champ de la table
+TableFieldNameHelp = champ de table qui sera associé aux modèles de numérotation
+NumModelPrefix = Préfixe du modèle
+NumModelPrefixHelp = utilisé dans le modèle de numérotation marbre
+AddExtrafields = Ajouter des champs supplémentaires
+AddExtrafieldsHelp = ajoute une table des champs supplémentaires au dossier sql et une page des champs supplémentaires aux pages d'administration
+AddChangelog = Ajouter un Changelog
+AddChangelogHelp = ajoute un fichier changelog.json au dossier du module et une page de changelog aux pages d'administration
+CreateModule = Créer
+BuilderSettings = Paramètres du générateur
+ModuleExists = Le dossier de module <strong>%s</strong> existe déjà.
+ModuleCreated = Le module <strong>%s</strong> a été créé avec succès dans le répertoire <strong>%s</strong>.
+
+#
+# Edit Tab
+#
+ExternalModules = Modules externes
+Refresh = Rafraîchir
+Files = Fichiers
+SelectModule = Sélectionnez un module...
+ModuleInformations = Informations sur le module
+ModuleSettings = Paramètres du module
+ModuleStatus = Statut
+Widgets = Widgets
+AddWidget = Ajouter un Widget
+Edit = Modifier
+Save = Sauvegarder
+Close = Fermer
+Create = Créer
+Cancel = Annuler
+Delete = Supprimer
+Preview = Aperçu
+Download = Télécharger
+Packages = Paquets
+BuildPackage = Empaqueter le module
+DeleteModule = Supprimer le module
+ModuleDeleted = Le module <strong>%s</strong> a été supprimé.
+ModulesList = Liste des modules
+WidgetsList = Liste des widgets
+NewFile = Nouveau fichier/dossier
+FileType = Type
+FileName = Nom
+File = Fichier
+Folder = Dossier
+FileCreated = Le fichier <strong>%s</strong> a été créé.
+FolderCreated = Le dossier <strong>%s</strong> a été créé.
+FileDeleted = Le fichier <strong>%s</strong> a été supprimé.
+FolderDeleted = Le dossier <strong>%s</strong> a été supprimé.
+DeleteFileFolder = Supprimer un fichier/dossier
+FileSaved = Le fichier <strong>%s</strong> a été sauvegardé.
+ZipArchiveNotFound = Les opérations sur les archives ne sont pas disponibles, classe <strong>ZipArchive</strong> non trouvée.
+PackageExists = Le paquet <strong>%s</strong> existe déjà, essayez de changer la version du module ou supprimez l'ancien paquet.
+PackageCreated = Le paquet <strong>%s</strong> a été créé.
+PackageDeleted = Le paquet <strong>%s</strong> a été supprimé.
+DeletePackage = Supprimer le paquet
+WidgetName = Nom
+WidgetPicture = Image
+WidgetExists = Le widget <strong>%s</strong> existe déjà.
+WidgetAdded = Le widget <strong>%s</strong> a été ajouté.
+FileExists = Le fichier <strong>%s</strong> existe déjà.
+FolderExists = Le dossier <strong>%s</strong> existe déjà.
 
 #
 # Setup
