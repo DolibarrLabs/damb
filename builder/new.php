@@ -246,7 +246,7 @@ if ($action == 'create')
                 'menus_translation' => '' // TODO
             );
             $template = get_template($source_path.'/tpl/module/langs/'.$translation_name.'.tpl.lang', $lang_data);
-            file_put_contents($module_path.'/langs/'.$translation_name.'/'.$translation_name.'.lang', $template);
+            file_put_contents($module_path.'/langs/'.$translation_name.'/'.$module_name_tolower.'.lang', $template);
         }
 
         // Copy libraries
