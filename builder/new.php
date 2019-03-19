@@ -41,7 +41,7 @@ $action = GETPOST('action', 'alpha');
 
 if ($action == 'create')
 {
-    global $conf;
+    global $conf, $dolibarr_main_document_root_alt;
 
     // Get data
     $module_name = GETPOST('name', 'alpha');
@@ -63,7 +63,7 @@ if ($action == 'create')
     $add_changelog = GETPOST('add_changelog', 'int');
     $add_num_models = GETPOST('add_num_models', 'int');
     $add_doc_models = GETPOST('add_doc_models', 'int');
-    $module_path = DOL_DOCUMENT_ROOT.'/custom/'.$data['module_folder'];
+    $module_path = $dolibarr_main_document_root_alt.'/'.$data['module_folder'];
     $source_path = dol_buildpath('damb');
     $module_folders = array(
         'admin',

@@ -51,7 +51,8 @@ $name = GETPOST('name', 'alpha');
 $package = GETPOST('package', 'alpha');
 
 // Get module class & object
-$custom_dir_path = DOL_DOCUMENT_ROOT.'/custom'; // TODO: retrieve value from dolibarr conf.php file
+global $dolibarr_main_document_root_alt;
+$custom_dir_path = $dolibarr_main_document_root_alt;
 if (! empty($module))
 {
     global $db;
