@@ -57,7 +57,7 @@ if (! function_exists('mkdir_r'))
      * @see https://stackoverflow.com/questions/3997641/why-cant-php-create-a-directory-with-777-permissions
      *
      * @param  array    $folders       array of folders to create
-     * @param  in       $perm_code     folders permissions
+     * @param  int      $perm_code     folders permissions
      * @param  string   $path_prefix   path prefix for all folders
      * @return boolean                 true if success, false if error
      */
