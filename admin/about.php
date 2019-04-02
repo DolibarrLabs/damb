@@ -19,8 +19,9 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
     require_once '../../../main.inc.php'; // From "custom" directory
 }
 
-// Load page lib
+// Load page & damb lib
 dol_include_once('damb/lib/page.lib.php');
+dol_include_once('damb/lib/damb.lib.php');
 
 // Load module class
 dol_include_once('damb/core/modules/modDAMB.class.php');
@@ -36,12 +37,7 @@ print_header('About', array('admin', 'damb@damb'));
 
 print_subtitle('About', 'title_generic.png', 'link:modules_list');
 
-$tabs = array(
-    array('title' => 'Setup', 'url' => 'damb/admin/setup.php?mainmenu=home'),
-    array('title' => 'Changelog', 'url' => 'damb/admin/changelog.php?mainmenu=home'),
-    array('title' => 'About', 'url' => 'damb/admin/about.php?mainmenu=home', 'active' => true)
-);
-print_tabs($tabs, 'AdvancedModuleBuilder', 'module.png@damb', -1);
+print_admin_tabs('About');
 
 $module = new modDAMB(NULL);
 

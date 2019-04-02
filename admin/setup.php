@@ -19,9 +19,10 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
     require_once '../../../main.inc.php'; // From "custom" directory
 }
 
-// Load page & setup lib
+// Load page, setup & damb lib
 dol_include_once('damb/lib/page.lib.php');
 dol_include_once('damb/lib/setup.lib.php');
+dol_include_once('damb/lib/damb.lib.php');
 
 // Control access to page
 control_access('$user->admin');
@@ -43,12 +44,7 @@ print_header('Setup', array('admin', 'damb@damb'));
 
 print_subtitle('Setup', 'title_setup.png', 'link:modules_list');
 
-$tabs = array(
-    array('title' => 'Setup', 'url' => 'damb/admin/setup.php?mainmenu=home', 'active' => true),
-    array('title' => 'Changelog', 'url' => 'damb/admin/changelog.php?mainmenu=home'),
-    array('title' => 'About', 'url' => 'damb/admin/about.php?mainmenu=home')
-);
-print_tabs($tabs, 'AdvancedModuleBuilder', 'module.png@damb', -1);
+print_admin_tabs('Setup');
 
 print_subtitle('GeneralSettings');
 

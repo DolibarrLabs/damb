@@ -19,8 +19,9 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
     require_once '../../../main.inc.php'; // From "custom" directory
 }
 
-// Load page lib
+// Load page & damb lib
 dol_include_once('damb/lib/page.lib.php');
+dol_include_once('damb/lib/damb.lib.php');
 
 // Control access to page
 control_access('$user->admin');
@@ -33,12 +34,7 @@ print_header('Changelog', array('admin', 'damb@damb'), array('damb/css/changelog
 
 print_subtitle('Changelog', 'title_generic.png', 'link:modules_list');
 
-$tabs = array(
-    array('title' => 'Setup', 'url' => 'damb/admin/setup.php?mainmenu=home'),
-    array('title' => 'Changelog', 'url' => 'damb/admin/changelog.php?mainmenu=home', 'active' => true),
-    array('title' => 'About', 'url' => 'damb/admin/about.php?mainmenu=home')
-);
-print_tabs($tabs, 'AdvancedModuleBuilder', 'module.png@damb', -1);
+print_admin_tabs('Changelog');
 
 load_template('damb/tpl/changelog.tpl.php', array(
     'changelog_file' => dol_buildpath('damb/changelog.json')
