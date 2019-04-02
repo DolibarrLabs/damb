@@ -13,8 +13,9 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
     require_once '../../../main.inc.php'; // From "custom" directory
 }
 
-// Load page lib
+// Load page & ${module_folder} lib
 dol_include_once('${module_folder}/lib/page.lib.php');
+dol_include_once('${module_folder}/lib/${module_folder}.lib.php');
 
 // Load module class
 dol_include_once('${module_folder}/core/modules/${module_class_name}.class.php');
@@ -30,13 +31,9 @@ print_header('About', array('admin', '${lang_file}@${module_folder}'));
 
 print_subtitle('About', 'title_generic.png', 'link:modules_list');
 
-$tabs = array(
-    array('title' => 'Setup', 'url' => '${module_folder}/admin/setup.php?mainmenu=home'),
-    ${more_tabs}array('title' => 'About', 'url' => '${module_folder}/admin/about.php?mainmenu=home', 'active' => true)
-);
-print_tabs($tabs, '${module_name}', '${module_picture}@${module_folder}', -1);
+print_admin_tabs('About');
 
-$module = new ${module_class_name}(NULL);
+$module = new ${module_class_name}(null);
 
 load_template('${module_folder}/tpl/about.tpl.php', array(
     'module_name' => $module->name,

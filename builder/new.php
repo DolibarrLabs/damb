@@ -131,14 +131,24 @@ if ($action == 'create')
         $template = get_template($source_path.'/tpl/module/core/module_class.tpl.php', array_merge($data, $module_class_data));
         file_put_contents($module_path.'/core/modules/mod'.$module_class_data['module_class_name'].'.class.php', $template);
 
-        // Create setup page
+        // Create module lib
         $more_tabs = '';
         if ($add_extrafields) {
-            $more_tabs.= "array('title' => 'ExtraFields', 'url' => '".$data['module_folder']."/admin/extrafields.php?mainmenu=home'),\n    ";
+            $more_tabs.= "array('title' => 'ExtraFields', 'url' => '".$data['module_folder']."/admin/extrafields.php?mainmenu=home'),\n        ";
         }
         if ($add_changelog) {
-            $more_tabs.= "array('title' => 'Changelog', 'url' => '".$data['module_folder']."/admin/changelog.php?mainmenu=home'),\n    ";
+            $more_tabs.= "array('title' => 'Changelog', 'url' => '".$data['module_folder']."/admin/changelog.php?mainmenu=home'),\n        ";
         }
+        $module_lib_data = array(
+            'module_name' => $module_name,
+            'module_picture' => $data['module_picture'],
+            'module_folder' => $data['module_folder'],
+            'more_tabs' => $more_tabs
+        );
+        $template = get_template($source_path.'/tpl/module/lib/module_lib.tpl.php', $module_lib_data);
+        file_put_contents($module_path.'/lib/'.$data['module_folder'].'.lib.php', $template);
+
+        // Create setup page
         $settings = ($add_num_models || $add_doc_models ? '' : "print_trans('NoSetupAvailable');");
         $default_actions_parameters = '';
         if ($add_num_models) {
@@ -154,11 +164,8 @@ if ($action == 'create')
             $default_actions_parameters.= ", '".$module_name_tolower."', '".$module_name_toupper."_ADDON_PDF', '".$data['module_folder']."/core/doc_models', '".$data['module_folder']."'";
         }
         $setup_page_data = array(
-            'module_name' => $module_name,
-            'module_picture' => $data['module_picture'],
             'module_folder' => $data['module_folder'],
             'lang_file' => $lang_file,
-            'more_tabs' => $more_tabs,
             'settings' => $settings,
             'default_actions_parameters' => $default_actions_parameters
         );
@@ -167,12 +174,10 @@ if ($action == 'create')
 
         // Create about page
         $about_page_data = array(
-            'module_name' => $module_name,
             'module_picture' => $data['module_picture'],
             'module_class_name' => 'mod'.$module_class_data['module_class_name'],
             'module_folder' => $data['module_folder'],
             'lang_file' => $lang_file,
-            'more_tabs' => $more_tabs,
             'author_email' => $conf->global->DAMB_AUTHOR_EMAIL,
             'author_dolistore_url' => $conf->global->DAMB_AUTHOR_DOLISTORE_URL
         );
@@ -187,13 +192,10 @@ if ($action == 'create')
         {
             $element_type = $module_name_tolower;
             $extrafields_page_data = array(
-                'module_name' => $module_name,
-                'module_picture' => $data['module_picture'],
                 'module_folder' => $data['module_folder'],
                 'lang_file' => $lang_file,
                 'element_type' => $element_type,
-                'text_object' => $module_name,
-                'more_tabs' => ($add_changelog ? "array('title' => 'Changelog', 'url' => '".$data['module_folder']."/admin/changelog.php?mainmenu=home'),\n    " : '')
+                'text_object' => $module_name
             );
             $template = get_template($source_path.'/tpl/module/admin/extrafields_page.tpl.php', $extrafields_page_data);
             file_put_contents($module_path.'/admin/extrafields.php', $template);
@@ -213,11 +215,8 @@ if ($action == 'create')
         if ($add_changelog)
         {
             $changelog_page_data = array(
-                'module_name' => $module_name,
-                'module_picture' => $data['module_picture'],
                 'module_folder' => $data['module_folder'],
-                'lang_file' => $lang_file,
-                'more_tabs' => ($add_extrafields ? "array('title' => 'ExtraFields', 'url' => '".$data['module_folder']."/admin/extrafields.php?mainmenu=home'),\n    " : '')
+                'lang_file' => $lang_file
             );
             $template = get_template($source_path.'/tpl/module/admin/changelog_page.tpl.php', $changelog_page_data);
             file_put_contents($module_path.'/admin/changelog.php', $template);

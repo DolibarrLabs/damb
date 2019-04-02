@@ -13,8 +13,9 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
     require_once '../../../main.inc.php'; // From "custom" directory
 }
 
-// Load page lib
+// Load page & ${module_folder} lib
 dol_include_once('${module_folder}/lib/page.lib.php');
+dol_include_once('${module_folder}/lib/${module_folder}.lib.php');
 
 // Control access to page
 control_access('$user->admin');
@@ -27,12 +28,7 @@ print_header('Changelog', array('admin', '${lang_file}@${module_folder}'), array
 
 print_subtitle('Changelog', 'title_generic.png', 'link:modules_list');
 
-$tabs = array(
-    array('title' => 'Setup', 'url' => '${module_folder}/admin/setup.php?mainmenu=home'),
-    ${more_tabs}array('title' => 'Changelog', 'url' => '${module_folder}/admin/changelog.php?mainmenu=home', 'active' => true),
-    array('title' => 'About', 'url' => '${module_folder}/admin/about.php?mainmenu=home')
-);
-print_tabs($tabs, '${module_name}', '${module_picture}@${module_folder}', -1);
+print_admin_tabs('Changelog');
 
 load_template('${module_folder}/tpl/changelog.tpl.php', array(
     'changelog_file' => dol_buildpath('${module_folder}/changelog.json')
