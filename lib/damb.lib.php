@@ -15,7 +15,8 @@
  */
 
 /**
- * Print admin tabs
+ * Print admin page(s) tabs
+ * 
  * @param  string $active Active tab title
  */
 function print_admin_tabs($active = 'Setup')
