@@ -106,7 +106,7 @@ $(document).ready(function() {
                 $(this).dialog('destroy');
             },
             buttons: {
-                "<?php echo $langs->trans('Create'); ?>": function() {
+                "<?php echo $langs->transnoentities('Create'); ?>": function() {
                     var form = $(this).find('form');
                     if (! form.checkValidity) {
                         form.find(':submit').click();
@@ -197,7 +197,7 @@ $(document).ready(function() {
                 $(this).dialog('destroy');
             },
             buttons: {
-                "<?php echo $langs->trans('Create'); ?>": function() {
+                "<?php echo $langs->transnoentities('Create'); ?>": function() {
                     var form = $(this).find('form');
                     if (! form.checkValidity) {
                         form.find(':submit').click();

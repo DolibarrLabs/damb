@@ -50,7 +50,7 @@ $root_path = $custom_dir_path.'/'.$module_folder;
                     <th><?php echo $langs->trans('ModuleInformations'); ?></th>
                     <th align="right">
                         <a href="<?php echo $edit_module_link; ?>"><?php echo img_edit($langs->trans('Edit')); ?></a>
-                        <a href="<?php echo $setup_page_link; ?>" target="_blank"><?php echo img_picto($langs->trans('ModuleSettings'), 'setup.png'); ?></a>
+                        <a href="<?php echo $setup_page_link; ?>" target="_blank"><?php echo img_picto($langs->trans('ModuleSettings'), 'setup.png', 'class="inline-block valignmiddle"'); ?></a>
                     </th>
                 </tr>
                 <tr>
@@ -105,7 +105,7 @@ $root_path = $custom_dir_path.'/'.$module_folder;
                             $widget_object = new $widget_class_name($db);
                 ?>
                     <tr>
-                        <td><?php echo img_object('', $widget_object->boximg, 'class="inline-block valignmiddle"').' '.$widget_file_name; ?></td>
+                        <td><?php echo img_object('', $widget_object->boximg, 'class="inline-block valignmiddle" style="width: 16px;"').' '.$widget_file_name; ?></td>
                         <td align="right">
                             <a href="<?php echo dol_buildpath('damb/builder/edit.php?action=editfile&module='.$module_folder.'&file='.$widget_file_path, 1); ?>"><?php echo img_edit($langs->trans('Edit'), false, 'class="inline-block valignmiddle"'); ?></a>
                         </td>
