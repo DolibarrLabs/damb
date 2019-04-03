@@ -225,6 +225,7 @@ $root_path = $custom_dir_path.'/'.$module_folder;
                     </th>
                     <th align="right">
                         <?php if (! empty($module_folder)) { ?>
+                            <a id="new_page" href="<?php echo dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$current_path, 1); ?>"><?php echo img_view($langs->trans('NewPage')); ?></a>
                             <a id="new_file" href="<?php echo dol_buildpath('damb/builder/edit.php?module='.$module_folder.'&path='.$current_path, 1); ?>"><?php echo img_edit_add($langs->trans('NewFile')); ?></a>
                         <?php } ?>
                     </th>

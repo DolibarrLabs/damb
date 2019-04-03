@@ -75,8 +75,10 @@ ModuleDeleted = Le module <strong>%s</strong> a été supprimé.
 ModulesList = Liste des modules
 WidgetsList = Liste des widgets
 NewFile = Nouveau fichier/dossier
+NewPage = Nouvelle page
 FileType = Type
 FileName = Nom
+PageName = Nom
 File = Fichier
 Folder = Dossier
 FileCreated = Le fichier <strong>%s</strong> a été créé.
@@ -96,6 +98,9 @@ WidgetExists = Le widget <strong>%s</strong> existe déjà.
 WidgetAdded = Le widget <strong>%s</strong> a été ajouté.
 FileExists = Le fichier <strong>%s</strong> existe déjà.
 FolderExists = Le dossier <strong>%s</strong> existe déjà.
+PageExists = La page <strong>%s</strong> existe déjà.
+PageCreated = La page <strong>%s</strong> a été ajoutée.
+WritePermissionDenied = Autorisation d'écriture refusée sur le dossier actuel.
 
 #
 # Setup

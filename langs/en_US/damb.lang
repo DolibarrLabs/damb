@@ -75,8 +75,10 @@ ModuleDeleted = Module <strong>%s</strong> deleted.
 ModulesList = Modules List
 WidgetsList = Widgets List
 NewFile = New File/Folder
+NewPage = New Page
 FileType = Type
 FileName = Name
+PageName = Name
 File = File
 Folder = Folder
 FileCreated = File <strong>%s</strong> created.
@@ -96,6 +98,9 @@ WidgetExists = Widget <strong>%s</strong> already exists.
 WidgetAdded = Widget <strong>%s</strong> added.
 FileExists = File <strong>%s</strong> already exists.
 FolderExists = Folder <strong>%s</strong> already exists.
+PageExists = Page <strong>%s</strong> already exists.
+PageCreated = Page <strong>%s</strong> created.
+WritePermissionDenied = Write permission denied on the current folder.
 
 #
 # Setup

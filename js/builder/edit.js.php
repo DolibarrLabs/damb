@@ -60,11 +60,11 @@ $(document).ready(function() {
                 $(this).dialog('destroy');
             },
             buttons: {
-                "<?php echo $langs->trans('Yes'); ?>": function() {
+                "<?php echo $langs->transnoentities('Yes'); ?>": function() {
                     location.href = href;
                     $(this).dialog('close');
                 },
-                "<?php echo $langs->trans('No'); ?>": function() {
+                "<?php echo $langs->transnoentities('No'); ?>": function() {
                     $(this).dialog('close');
                 }
             }
@@ -116,7 +116,55 @@ $(document).ready(function() {
                         $(this).dialog('close');
                     }
                 },
-                "<?php echo $langs->trans('Cancel'); ?>": function() {
+                "<?php echo $langs->transnoentities('Cancel'); ?>": function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    });
+
+    // Create new page
+    $('a#new_page').on('click', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        $(`<div>
+            <br>
+            <form action="` + href + `" method="post">
+                <input type="hidden" name="action" value="newpage" />
+                <table class="paddingtopbottomonly allwidth">
+                    <tr>
+                        <td><?php echo $langs->trans('PageName'); ?></td>
+                        <td><input type="text" name="name" value="" placeholder="Index" required /></td>
+                    </tr>
+                </table>
+                <input type="submit" style="display: none;" value="Submit" />
+            </form>
+        </div>`).dialog({
+            title: '<?php echo $langs->trans('NewPage'); ?>',
+            autoOpen: true,
+            resizable: false,
+            height: 200,
+            width: 400,
+            modal: true,
+            closeOnEscape: false,
+            open: function() {
+                $(this).find('input[name="name"]').focus();
+            },
+            close: function() {
+                $(this).dialog('destroy');
+            },
+            buttons: {
+                "<?php echo $langs->transnoentities('Create'); ?>": function() {
+                    var form = $(this).find('form');
+                    if (! form.checkValidity) {
+                        form.find(':submit').click();
+                    }
+                    else {
+                        form.submit();
+                        $(this).dialog('close');
+                    }
+                },
+                "<?php echo $langs->transnoentities('Cancel'); ?>": function() {
                     $(this).dialog('close');
                 }
             }
@@ -156,7 +204,7 @@ $(document).ready(function() {
                 $(this).dialog('destroy');
             },
             buttons: {
-                "<?php echo $langs->trans('Close'); ?>": function() {
+                "<?php echo $langs->transnoentities('Close'); ?>": function() {
                     $(this).dialog('close');
                 }
             }
@@ -207,7 +255,7 @@ $(document).ready(function() {
                         $(this).dialog('close');
                     }
                 },
-                "<?php echo $langs->trans('Cancel'); ?>": function() {
+                "<?php echo $langs->transnoentities('Cancel'); ?>": function() {
                     $(this).dialog('close');
                 }
             }

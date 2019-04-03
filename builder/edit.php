@@ -123,6 +123,48 @@ else if ($action == 'newfile' && ! empty($module))
     redirect('edit.php?module='.$module.'&path='.$path);
 }
 
+// New page
+else if ($action == 'newpage' && ! empty($module))
+{
+    if (empty($path)) {
+        $path = $custom_dir_path.'/'.$module;
+    }
+
+    $page_name = strtolower($name);
+    $page_path = $path.'/'.rtrim($page_name, '.php').'.php';
+
+    if (file_exists($page_path)) {
+        error_message('PageExists', $page_path);
+    }
+    else {
+        $source_path = dol_buildpath('damb');
+        $include_prefix = '';
+        foreach (array_reverse(explode(DIRECTORY_SEPARATOR, $path)) as $folder) {
+            if ($folder == $module) {
+                break;
+            }
+            $include_prefix.= '../';
+        }
+        $data = array(
+            'include_prefix' => $include_prefix,
+            'module_folder' => $module,
+            'lang_file' => $module,
+            'page_title' => $name
+        );
+        $template = get_template($source_path.'/tpl/module/page.tpl.php', $data);
+        file_put_contents($page_path, $template);
+        if (file_exists($page_path)) {
+            @chmod($page_path, 0777);
+            success_message('PageCreated', $page_path);
+        }
+        else {
+            warning_message('WritePermissionDenied', $page_path);
+        }
+    }
+
+    redirect('edit.php?module='.$module.'&path='.$path);
+}
+
 // Delete file
 else if ($action == 'deletefile' && ! empty($module))
 {
