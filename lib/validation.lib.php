@@ -148,8 +148,7 @@ if (! function_exists('validate_fields'))
      * Check/validate fields
      *
      * @param   array   $fields   array of fields as [
-     * array(
-     *     'name'             (*) => 'my_field', // used to get field value
+     * 'my_field' => array(
      *     'label'            (*) => 'MyField', // will be displayed on validation error message
      *     'validation_rules' (*) => 'required', // possible values: 'required|numeric|string|validEmail|validTel|validUrl|validID|greaterThan()|lessThan()|minLength()|maxLength()'
      *     'enabled'              => '$conf->module->enabled' // condition to enable field validation
@@ -161,10 +160,10 @@ if (! function_exists('validate_fields'))
     {
         $error = 0;
 
-        foreach($fields as $field)
+        foreach($fields as $name => $field)
         {
             if (! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled'])) {
-                $error += validate_field($field['name'], $field['label'], $field['validation_rules'], true);
+                $error += validate_field($name, $field['label'], $field['validation_rules'], true);
             }
         }
 
@@ -185,9 +184,9 @@ if (! function_exists('validate_field_by_name'))
      */
     function validate_field_by_name($field_name, $fields)
     {
-        foreach($fields as $field) {
-            if ($field['name'] == $field_name) {
-                return validate_field($field['name'], $field['label'], $field['validation_rules']);
+        foreach($fields as $name => $field) {
+            if ($name == $field_name) {
+                return validate_field($name, $field['label'], $field['validation_rules']);
             }
         }
 

@@ -855,9 +855,9 @@ class CustomObject extends CommonObject
         // Model to use
         if (! dol_strlen($model))
         {
-            if (! empty($conf->global->{$this->doc_model_constant_name}}))
+            if (! empty($conf->global->{$this->doc_model_constant_name}))
             {
-                $model = $conf->global->{$this->doc_model_constant_name}};
+                $model = $conf->global->{$this->doc_model_constant_name};
             }
             else
             {

@@ -34,10 +34,11 @@ class CustomForm extends Form
     /**
      * Constructor
      *
-     * @param       DoliDB      $db      Database handler
      */
-    public function __construct($db)
+    public function __construct()
     {
+        global $db;
+
         $this->db = $db;
         $this->other = new FormOther($db);
     }

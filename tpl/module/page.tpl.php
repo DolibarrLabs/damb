@@ -19,6 +19,9 @@ dol_include_once('${module_folder}/lib/page.lib.php');
 // Control access to page
 //control_access('$user->admin');
 
+// Load translations
+load_langs(array('${lang_file}@${module_folder}'));
+
 // Get parameters
 $action = GETPOST('action', 'alpha');
 
@@ -35,7 +38,7 @@ if ($action == 'someaction')
  * View
  */
 
-print_header('${page_title}', array('${lang_file}@${module_folder}'));
+print_header('${page_title}');
 
 print_subtitle('${page_title}', 'title_generic.png');
 
