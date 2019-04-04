@@ -43,7 +43,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/actions_extrafields.inc.php';
  * View
  */
 
-print_header('ExtraFields', array('admin', 'extrafields_page@${module_folder}'));
+print_header('ExtraFields', array('admin', '${lang_file}@${module_folder}'));
 
 print_subtitle('ExtraFields', 'title_generic.png', 'link:modules_list');
 
