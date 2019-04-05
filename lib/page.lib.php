@@ -397,3 +397,24 @@ if (! function_exists('print_trans'))
         }
     }
 }
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_alert'))
+{
+    /**
+     * Print an alert message into the page
+     *
+     * @param   string    $message    Alert message
+     * @param   string    $class      Alert div class
+     */
+    function print_alert($message, $class = 'error')
+    {
+        global $langs;
+
+
+        echo '<div class="'.$class.'">';
+        echo $langs->trans($message);
+        echo '</div>';
+    }
+}

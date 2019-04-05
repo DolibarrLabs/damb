@@ -51,7 +51,7 @@ print_admin_tabs('ExtraFields');
 
 // Set required variables
 $form = new Form($db);
-$textobject = '${text_object}'; // object name/text, e.: 'MyObject'
+$textobject = $langs->trans('${text_object}'); // object name/text, e.: 'MyObject'
 
 // List of supported format
 $tmptype2label = ExtraFields::$type2label;

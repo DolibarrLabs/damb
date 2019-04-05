@@ -162,12 +162,37 @@ if (! function_exists('validate_fields'))
 
         foreach($fields as $name => $field)
         {
-            if (! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled'])) {
+            if (isset($field['validation_rules']) && ! empty($field['validation_rules']) && (! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled']))) {
                 $error += validate_field($name, $field['label'], $field['validation_rules'], true);
             }
         }
 
         return $error > 0 ? false : true;
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('validate_extra_fields'))
+{
+    /**
+     * Check/validate extrafields
+     *
+     * @param   object    $object   object instance
+     * @return  boolean             true or false
+     */
+    function validate_extra_fields($object)
+    {
+        global $db;
+
+        // fetch optionals attributes and labels
+        $extrafields = new ExtraFields($db);
+        $extralabels = $extrafields->fetch_name_optionals_label($object->table_element);
+
+        // Fill array 'array_options' with data from add form
+        $result = $extrafields->setOptionalsFromPost($extralabels, $object);
+
+        return $result >= 0 ? true : false;
     }
 }
 
@@ -184,7 +209,8 @@ if (! function_exists('validate_field_by_name'))
      */
     function validate_field_by_name($field_name, $fields)
     {
-        foreach($fields as $name => $field) {
+        foreach($fields as $name => $field)
+        {
             if ($name == $field_name) {
                 return validate_field($name, $field['label'], $field['validation_rules']);
             }

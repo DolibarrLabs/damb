@@ -288,15 +288,16 @@ class CustomForm extends Form
      * @param   $name         list name
      * @param   $value        list value
      * @param   $show_empty   show empty line or not, '1' if yes '' if no, 'Your text' if you wanna show some text
+     * @param   $filter       filter on product type (''=nofilter, 0=product, 1=service)
      * @return  string        list HTML
      */
-    public function productList($name, $value, $show_empty = '1')
+    public function productList($name, $value, $show_empty = '1', $filter = '')
     {
         global $conf;
 
         // To know: select_produits() have no option to return the output instead of print it, so the only way is this
         ob_start();
-        $this->select_produits($value, $name, '', $conf->product->limit_size, 0, 1, 2, '', 1, array(), 0, $show_empty, 0, '', 1);
+        $this->select_produits($value, $name, $filter, $conf->product->limit_size, 0, 1, 2, '', 1, array(), 0, $show_empty, 0, '', 1);
         $out = ob_get_contents();
         ob_end_clean();
 
