@@ -71,5 +71,6 @@ ErrorFieldMustHaveMaxLength = Le champ '%s' doit avoir une longueur maximale de 
 #
 # Card
 #
+ConfirmDelete = Supprimer <b>%s</b> ?
 MailSubject = Envoi du document __REF__
 MailTemplate = Bonjour,\n\nVeuillez trouver ci-joint le document __REF__.\n\nCordialement\n\n__SIGNATURE__

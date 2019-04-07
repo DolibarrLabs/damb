@@ -67,6 +67,10 @@ class CustomObject extends CommonObject
      */
     public $doc_title = '';
     /**
+     * @var string Document date
+     */
+    public $doc_date = '';
+    /**
      * @var array Document lines/rows
      */
     public $doc_lines = array();
@@ -77,23 +81,23 @@ class CustomObject extends CommonObject
     /**
      * @var string Module part
      */
-    protected $modulepart; // e.: 'mymodule'
+    public $modulepart; // e.: 'mymodule'
     /**
      * @var string Numbering model constant name
      */
-    protected $num_model_constant_name; // e.: 'MYMODULE_ADDON'
+    public $num_model_constant_name; // e.: 'MYMODULE_ADDON'
     /**
      * @var string Numbering model template path
      */
-    protected $num_model_template_path; // e.: 'mymodule/core/num_models'
+    public $num_model_template_path; // e.: 'mymodule/core/num_models'
     /**
      * @var string Document model constant name
      */
-    protected $doc_model_constant_name; // e.: 'MYMODULE_ADDON_PDF'
+    public $doc_model_constant_name; // e.: 'MYMODULE_ADDON_PDF'
     /**
      * @var string Document model template path
      */
-    protected $doc_model_template_path; // e.: 'mymodule/core/doc_models'
+    public $doc_model_template_path; // e.: 'mymodule/core/doc_models'
 
 
     /**

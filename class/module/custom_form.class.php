@@ -303,4 +303,23 @@ class CustomForm extends Form
 
         return $out;
     }
+
+    /**
+     * Print a confirmation message
+     *
+     * @param     $url                Page url
+     * @param     $title              Message title
+     * @param     $question           Message question / content
+     * @param     $action             Action to do after confirmation
+     * @param     $question_param     Question parameter
+     * @param     $dialog_id_suffix   Dialog id suffix (used to show the dialog without reloading the page)
+     */
+    public function printConfirm($url, $title, $question, $action, $question_param = '', $dialog_id_suffix = '')
+    {
+        global $langs;
+
+        $use_ajax = (empty($dialog_id_suffix) ? 0 : $dialog_id_suffix);
+
+        echo $this->formconfirm($url, $langs->trans($title), $langs->trans($question, $question_param), $action, '', '', $use_ajax);
+    }
 }

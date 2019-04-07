@@ -327,10 +327,10 @@ class pdf_azur extends Modele${doc_model_class_name}
             $curY = $tab_top + 1;// + 7;
             $i = 0;
 
-            foreach ($object->doc_lines as $line)
+            foreach ($object->doc_lines as $name => $value)
             {
                 $add_separator = ($i == $lines_count - 1 ? 0 : 1);
-                $curY = $this->print_line($pdf, $line['name'], $line['value'], $curY, $outputlangs, $default_font_size, $add_separator);
+                $curY = $this->print_line($pdf, $name, $value, $curY, $outputlangs, $default_font_size, $add_separator);
                 $i++;
             }
         }
@@ -497,7 +497,7 @@ class pdf_azur extends Modele${doc_model_class_name}
         $posy += 5;
         $pdf->SetXY($posx, $posy);
         $pdf->SetTextColor(0, 0, 60);
-        $pdf->MultiCell(100, 3, $outputlangs->transnoentities('Date').' : ' . dol_print_date($object->creation_date, '%d %b %Y', false, $outputlangs, true), '', 'R');
+        $pdf->MultiCell(100, 3, $outputlangs->transnoentities('Date').' : ' . dol_print_date($object->doc_date, '%d %b %Y', false, $outputlangs, true), '', 'R');
 
         if ($showaddress)
         {

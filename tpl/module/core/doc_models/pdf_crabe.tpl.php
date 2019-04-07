@@ -67,10 +67,10 @@ class pdf_crabe extends pdf_azur
             $tab_height = $this->page_hauteur - $tab_top - $heightforinfotot - $heightforfreetext - $heightforfooter;
             $i = 0;
 
-            foreach ($object->doc_lines as $line)
+            foreach ($object->doc_lines as $name => $value)
             {
                 $add_separator = ($i == $cols_count - 1 ? 0 : 1);
-                $col_name = $langs->trans($line['name']);
+                $col_name = $langs->trans($name);
                 $curX = $this->print_column($pdf, $col_name, $curX, $curY, $nexY, $col_width, $tab_top, $tab_height, $outputlangs, $default_font_size, $add_separator);
                 $i++;
             }
@@ -80,9 +80,9 @@ class pdf_crabe extends pdf_azur
             // values
             $curX = $this->marge_gauche + 1;
             $curY = $nexY + 3;
-            foreach ($object->doc_lines as $line)
+            foreach ($object->doc_lines as $name => $value)
             {
-                $curX = $this->print_column($pdf, $line['value'], $curX, $curY, $nexY, $col_width, $tab_top, $tab_height, $outputlangs, $default_font_size);
+                $curX = $this->print_column($pdf, $value, $curX, $curY, $nexY, $col_width, $tab_top, $tab_height, $outputlangs, $default_font_size);
             }
         }
     }

@@ -238,7 +238,7 @@ if (! function_exists('print_card_table'))
         {
             if ($field['type'] == 'ref')
             {
-                continue; // ignore ref fields
+                continue; // ignore ref field
             }
             else if (! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled']))
             {
@@ -404,5 +404,186 @@ if (! function_exists('print_card_table'))
         include_once DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_view.tpl.php';
 
         echo '</table>';
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_card_buttons'))
+{
+    /**
+     * Print card buttons
+     * 
+     * @param  array $buttons array of buttons to show on card as [
+     * array(
+     *     'label'            (*) => 'MyButton',
+     *     'href'                 => 'card.php?id=...',
+     *     'class'                => 'butAction', // or 'butActionDelete'
+     *     'id'                   => 'action-...', // used to display confirmation messages without reloading the page
+     *     'target'               => '_self', // or '_blank' to open in a new window
+     *     'enabled'              => true // true or false
+     * )]
+     * array keys with (*) are required
+     */
+    function print_card_buttons($buttons)
+    {
+        global $langs;
+
+        dol_fiche_end();
+
+        echo '<div class="tabsAction">';
+
+        foreach ($buttons as $button)
+        {
+            if (! isset($button['enabled']) || $button['enabled'])
+            {
+                $href = isset($button['href']) && ! empty($button['href']) ? $button['href'] : '#';
+                $class = isset($button['class']) && ! empty($button['class']) ? $button['class'] : 'butAction';
+                $target = isset($button['target']) && ! empty($button['target']) ? $button['target'] : '_self';
+
+                if (js_enabled() && isset($button['id']) && ! empty($button['id'])) {
+                    echo '<span class="'.$class.'" id="'.$button['id'].'">'.$langs->trans($button['label']).'</span>';
+                }
+                else {
+                    echo '<a class="'.$class.'" href="'.$href.'" target="'.$target.'">'.$langs->trans($button['label']).'</a>';
+                }
+            }
+        }
+
+        echo '</div>';
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_mail_form'))
+{
+    /**
+     * Print mail form
+     * 
+     * @param  object  $object                       Card object
+     * @param  string  $mail_subject                 Mail subject
+     * @param  string  $mail_template                Mail template
+     * @param  array   $mail_substitutions           Mail substitutions array, ex: array('__REF__', $object->ref)
+     * @param  boolean $enable_mail_delivery_receipt Enable mail delivery receipt by default
+     */
+    function print_mail_form($object, $mail_subject = 'MailSubject', $mail_template = 'MailTemplate', $mail_substitutions = array(), $enable_mail_delivery_receipt = false)
+    {
+        if (is_object($object) && isset($object->id))
+        {
+            global $langs, $user, $conf;
+
+            dol_fiche_end();
+
+            echo '<div class="clearboth"></div><br>';
+            echo load_fiche_titre($langs->trans('SendByMail'));
+            dol_fiche_head();
+
+            // Get receivers
+            $receivers = array();
+            if ($object->fetch_thirdparty() > 0)
+            {
+                foreach ($object->thirdparty->thirdparty_and_contact_email_array(1) as $key => $value) {
+                    $receivers[$key] = $value;
+                }
+            }
+
+            // Set substitutions
+            $substitutions = array(
+                '__REF__'       => $object->ref,
+                '__SIGNATURE__' => $user->signature
+            );
+
+            // Add custom substitutions
+            foreach ($mail_substitutions as $key => $value) {
+                $substitutions[$key] = $value;
+            }
+
+            // Set additional parameters
+            $params = array(
+                'id'        => $object->id,
+                'returnurl' => $_SERVER["PHP_SELF"] . '?id=' . $object->id
+            );
+
+            // Get file/attachment
+            $ref = dol_sanitizeFileName($object->ref);
+            require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+            $fileparams = dol_most_recent_file($conf->{$object->modulepart}->dir_output . '/' . $ref, preg_quote($ref, '/').'[^\-]+');
+            $file = $fileparams['fullname'];
+
+            // Show form
+            $trackid  = $object->element.$object->id;
+            $subject  = $langs->trans($mail_subject, '__REF__');
+            $template = $langs->trans($mail_template);
+            echo get_mail_form($trackid, $subject, $template, $substitutions, array($file), $enable_mail_delivery_receipt, $receivers, $params);
+
+            dol_fiche_end();
+        }
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_documents'))
+{
+    /**
+     * Print documents block
+     * 
+     * @param  object  $object     Card object
+     * @param  boolean $genallowed Allow generation
+     * @param  boolean $delallowed Allow deletion
+     */
+    function print_documents($object, $genallowed = true, $delallowed = false)
+    {
+        if (is_object($object) && isset($object->id))
+        {
+            global $db, $conf;
+            
+            require_once DOL_DOCUMENT_ROOT . '/core/class/html.formfile.class.php';
+            
+            $formfile = new FormFile($db);
+
+            echo '<div class="fichecenter"><div class="fichehalfleft">';
+
+            // Documents
+            $ref = dol_sanitizeFileName($object->ref);
+            $file = $conf->{$object->modulepart}->dir_output . '/' . $ref . '/' . $ref . '.pdf';
+            $relativepath = $ref . '/' . $ref . '.pdf';
+            $filedir = $conf->{$object->modulepart}->dir_output . '/' . $ref;
+            $urlsource = $_SERVER['PHP_SELF'] . '?id=' . $object->id;
+            if (empty($object->model_pdf)) {
+                $modelselected = $conf->global->{$object->doc_model_const_name};
+            }
+            else {
+                $modelselected = $object->model_pdf;
+            }
+            echo $formfile->showdocuments($object->modulepart, $ref, $filedir, $urlsource, $genallowed, $delallowed, $modelselected);
+
+            echo '</div></div>';
+        }
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_linked_objects'))
+{
+    function print_linked_objects($object, $form, $action, $allow_delete = false)
+    {
+        if (is_object($object) && isset($object->id) && (isset($object->socid) || isset($object->fk_soc)))
+        {
+            echo '<div class="fichecenter hideonprint"><div class="fichehalfleft">';
+
+            $permissiondellink = $allow_delete; // Used by the include of actions_dellink.inc.php
+            $id = $object->id;
+
+            include DOL_DOCUMENT_ROOT.'/core/actions_dellink.inc.php'; // Must be include, not include_once
+
+            // Show links to link elements
+            $linktoelem = $form->showLinkToObjectBlock($object);
+            $somethingshown = $form->showLinkedObjectBlock($object, $linktoelem);
+
+            echo '</div></div>';
+        }
     }
 }

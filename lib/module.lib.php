@@ -366,19 +366,19 @@ if (! function_exists('set_doc_model'))
      * @param   DolibarrModules   $module         Module object instance
      * @param   string            $name           Model name
      * @param   string            $type           Model type (should be filled in case of submodules)
-     * @param   string            $const_prefix   Prefix to use for constant name (should be filled in case of submodules)
+     * @param   string            $const_name     Model constant name
      */
-    function set_doc_model(&$module, $name, $type = '', $const_prefix = '')
+    function set_doc_model(&$module, $name, $type = '', $const_name = '')
     {
         if (empty($type)) {
             $type = $module->rights_class;
         }
 
-        if (empty($const_prefix)) {
-            $const_prefix = strtoupper($module->rights_class);
+        if (empty($const_name)) {
+            $const_name = strtoupper($module->rights_class).'_ADDON_PDF';
         }
 
-        add_constant($module, $const_prefix.'_ADDON_PDF', $name);
+        add_constant($module, $const_name, $name);
         delDocumentModel($name, $type);
         addDocumentModel($name, $type);
     }
@@ -393,11 +393,15 @@ if (! function_exists('set_num_model'))
      *
      * @param   DolibarrModules   $module         Module object instance
      * @param   string            $name           Model name
-     * @param   string            $const_prefix   Prefix to use for constant name (should be filled in case of submodules)
+     * @param   string            $const_name     Model constant name
      */
-    function set_num_model(&$module, $name, $const_prefix = '')
+    function set_num_model(&$module, $name, $const_name = '')
     {
-        add_constant($module, $const_prefix.'_ADDON', $name);
+        if (empty($const_name)) {
+            $const_name = strtoupper($module->rights_class).'_ADDON';
+        }
+
+        add_constant($module, $const_name, $name);
     }
 }
 
