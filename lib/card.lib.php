@@ -464,7 +464,7 @@ if (! function_exists('print_mail_form'))
      * @param  object  $object                       Card object
      * @param  string  $mail_subject                 Mail subject
      * @param  string  $mail_template                Mail template
-     * @param  array   $mail_substitutions           Mail substitutions array, ex: array('__REF__', $object->ref)
+     * @param  array   $mail_substitutions           Mail substitutions array, ex: array('__REF__' => $object->ref)
      * @param  boolean $enable_mail_delivery_receipt Enable mail delivery receipt by default
      */
     function print_mail_form($object, $mail_subject = 'MailSubject', $mail_template = 'MailTemplate', $mail_substitutions = array(), $enable_mail_delivery_receipt = false)
