@@ -71,6 +71,6 @@ ErrorFieldMustHaveMaxLength = Field '%s' must have a maximum length of %s charac
 #
 # Card
 #
-ConfirmDelete = Delete <b>%s</b> ?
+ConfirmDelete = Do you want to delete <b>%s</b> ?
 MailSubject = Submission of document __REF__
 MailTemplate = Hello,\n\nYou will find here the document __REF__.\n\nSincerely\n\n__SIGNATURE__
