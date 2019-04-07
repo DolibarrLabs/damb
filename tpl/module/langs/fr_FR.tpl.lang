@@ -67,3 +67,9 @@ ErrorFieldMustBeGreaterThan = Le champ '%s' doit avoir une valeur supérieur à 
 ErrorFieldMustBeLessThan = Le champ '%s' doit avoir une valeur inférieur à %s
 ErrorFieldMustHaveMinLength = Le champ '%s' doit avoir une longueur minimale de %s caractères
 ErrorFieldMustHaveMaxLength = Le champ '%s' doit avoir une longueur maximale de %s caractères
+
+#
+# Card
+#
+MailSubject = Envoi du document __REF__
+MailTemplate = Bonjour,\n\nVeuillez trouver ci-joint le document __REF__.\n\nCordialement\n\n__SIGNATURE__
