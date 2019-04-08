@@ -29,7 +29,7 @@ class pdf_crabe extends pdf_azur
 
         global $langs;
 
-        $this->name        = "crabe";
+        $this->name        = 'crabe';
         $this->description = $langs->trans('DocModelCrabeDescription');
     }
 

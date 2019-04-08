@@ -212,7 +212,7 @@ class pdf_azur extends Modele${doc_model_class_name}
                         $tab_top = 88;
 
                         $pdf->SetFont('','', $default_font_size - 1);
-                        $pdf->writeHTMLCell(190, 3, $this->posxdesc-1, $tab_top-1, dol_htmlentitiesbr($desc_incoterms), 0, 1);
+                        $pdf->writeHTMLCell(190, 3, $this->marge_gauche, $tab_top-1, dol_htmlentitiesbr($desc_incoterms), 0, 1);
                         $nexY = $pdf->GetY();
                         $height_incoterms=$nexY-$tab_top;
 
@@ -243,7 +243,7 @@ class pdf_azur extends Modele${doc_model_class_name}
                     $tab_top = 88 + $height_incoterms;
 
                     $pdf->SetFont('','', $default_font_size - 1);
-                    $pdf->writeHTMLCell(190, 3, $this->posxdesc-1, $tab_top, dol_htmlentitiesbr($notetoshow), 0, 1);
+                    $pdf->writeHTMLCell(190, 3, $this->marge_gauche, $tab_top, dol_htmlentitiesbr($notetoshow), 0, 1);
                     $nexY = $pdf->GetY();
                     $height_note = $nexY - $tab_top;
 
