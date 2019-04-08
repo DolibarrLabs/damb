@@ -15,6 +15,7 @@
  */
 
 require_once DOL_DOCUMENT_ROOT . '/core/class/commonobject.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
 
 /**
  * CustomObject class
@@ -98,6 +99,10 @@ class CustomObject extends CommonObject
      * @var string Document model template path
      */
     public $doc_model_template_path; // e.: 'mymodule/core/doc_models'
+    /**
+     * @var object Extrafields
+     */
+    protected $extrafields;
 
 
     /**
@@ -110,6 +115,7 @@ class CustomObject extends CommonObject
 
         $this->db = $db;
         $this->triggers_prefix = strtoupper($this->element);
+        $this->extrafields = new ExtraFields($this->db);
     }
 
     /**
@@ -661,22 +667,46 @@ class CustomObject extends CommonObject
     {
         $result = array();
 
-        require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
-        $extrafields = new ExtraFields($this->db);
-
         // Get extrafields
-        $extralabels = $extrafields->fetch_name_optionals_label($this->table_element, true);
+        $extralabels = $this->extrafields->fetch_name_optionals_label($this->table_element, true);
         $this->fetch_optionals($this->id, $extralabels);
 
         // Fill ['label' => 'value'] array
-        if (! empty($extrafields->attributes[$this->table_element]['label']))
+        if (! empty($this->extrafields->attributes[$this->table_element]['label']))
         {
-            foreach ($extrafields->attributes[$this->table_element]['label'] as $key => $label) {
-                $result[$label] = $extrafields->showOutputField($key, $this->array_options['options_' . $key]);
+            foreach ($this->extrafields->attributes[$this->table_element]['label'] as $key => $label) {
+                $result[$label] = $this->extrafields->showOutputField($key, $this->array_options['options_' . $key]);
             }
         }
 
         return $result;
+    }
+
+    /**
+     * Update extra fields
+     *
+     * @return     int         >0 if KO, 0 if OK
+     */
+    public function updateExtraFields()
+    {
+        $error = 0;
+
+        // Fill array 'array_options' with data from update form
+        $extralabels = $this->extrafields->fetch_name_optionals_label($this->table_element);
+        $this->fetch_optionals($this->id, $extralabels);
+        $ret = $this->extrafields->setOptionalsFromPost($extralabels, $this, GETPOST('attribute'));
+        if ($ret < 0) $error++;
+        if (! $error)
+        {
+            $result = $this->insertExtraFields();
+            if ($result < 0)
+            {
+                setEventMessages($this->error, $this->errors, 'errors');
+                $error++;
+            }
+        }
+
+        return $error;
     }
 
     /**
@@ -887,7 +917,7 @@ class CustomObject extends CommonObject
         }
 
         // Generate document
-        $result = $this->commonGenerateDocument($modelpath, $model, $outputlangs, $hidedetails, $hidedesc, $hideref);
+        $result = @$this->commonGenerateDocument($modelpath, $model, $outputlangs, $hidedetails, $hidedesc, $hideref);
         if ($result <= 0) {
             setEventMessages($this->error, $this->errors, 'errors');
         }
@@ -911,7 +941,7 @@ class CustomObject extends CommonObject
             $langs->load('other');
             $upload_dir = $conf->{$this->modulepart}->dir_output;
             $file = $upload_dir . '/' . GETPOST('file');
-            $result = dol_delete_file($file, 0, 0, 0, $object);
+            $result = dol_delete_file($file, 0, 0, 0, $this);
             if ($result) {
                 setEventMessages($langs->trans('FileWasRemoved', GETPOST('file')), null, 'mesgs');
             }

@@ -129,7 +129,6 @@ AuthorDolistoreUrl = Url Dolistore
 # About
 #
 DevelopedBy = Développé par
-DolibaseVersion = Ce module utilise la version Dolibase
 ForAnyQuestions = Pour toute question ou commentaire, envoyez moi un e-mail sur
 FindMyModules = Retrouvez mes autres modules sur
 Dolistore = Dolistore

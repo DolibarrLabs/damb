@@ -185,7 +185,7 @@ class CustomForm extends Form
      */
     public function listInput($name, $values, $selected, $show_empty = 0, $translate = true)
     {
-        return $this->selectarray($name, $values, $selected, $show_empty, 0, 0, '', $translate, 0, 0, '', 'dolibase_select');
+        return $this->selectarray($name, $values, $selected, $show_empty, 0, 0, '', $translate);
     }
 
     /**
