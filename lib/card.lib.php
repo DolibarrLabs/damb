@@ -31,6 +31,7 @@ if (! function_exists('print_create_form'))
      *     'min'                  => 0, // work with number & range inputs
      *     'max'                  => 100, // for number & range inputs too
      *     'summary'              => 'Field summary..',
+     *     'hidden'               => true, // or false
      *     'enabled'              => '$conf->module->enabled' // condition to enable field
      * )]
      * array keys with (*) are required
@@ -59,7 +60,7 @@ if (! function_exists('print_create_form'))
 
         foreach ($fields as $name => $field)
         {
-            if (! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled']))
+            if ((! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled'])) && ( ! isset($field['hidden']) || ! $field['hidden']))
             {
                 $value = GETPOST($name);
                 $validation_rules = isset($field['validation_rules']) && ! empty($field['validation_rules']) ? explode('|', $field['validation_rules']) : array();
@@ -218,6 +219,7 @@ if (! function_exists('print_card_table'))
      *     'size'                 => 8, // useful for text inputs
      *     'min'                  => 0, // work with number & range inputs
      *     'max'                  => 100, // for number & range inputs too
+     *     'hidden'               => true, // or false
      *     'editable'             => true, // field is editable or not
      *     'enabled'              => '$conf->module->enabled' // condition to enable field
      * )]
@@ -235,11 +237,7 @@ if (! function_exists('print_card_table'))
 
         foreach ($fields as $name => $field)
         {
-            if ($field['type'] == 'ref')
-            {
-                continue; // ignore ref field
-            }
-            else if (! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled']))
+            if ((! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled'])) && ( ! isset($field['hidden']) || ! $field['hidden']))
             {
                 $value = $object->$name;
                 $is_editable = $allow_edit && $action == 'edit_'.$name && (! isset($field['editable']) || $field['editable']);
