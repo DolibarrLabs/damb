@@ -55,7 +55,7 @@ if (! function_exists('print_create_form'))
         }
 
         // Print table
-        echo '<table class="border" width="100%">';
+        echo '<table class="border allwidth">';
 
         foreach ($fields as $name => $field)
         {
@@ -105,7 +105,6 @@ if (! function_exists('print_create_form'))
                     if (! is_array($value)) {
                         $value = explode(',', $value);
                     }
-                    echo '<input type="hidden" name="field_type" value="multiselect" />'."\n";
                     echo $form->multiselectarray($name, $field['values'], $value, 0, 0, '', 1, '60%');
                 }
 
@@ -232,7 +231,7 @@ if (! function_exists('print_card_table'))
         global $langs;
 
         // Print table
-        echo '<table class="border" width="100%">';
+        echo '<table class="border allwidth">';
 
         foreach ($fields as $name => $field)
         {
@@ -247,7 +246,7 @@ if (! function_exists('print_card_table'))
 
                 // Print field
                 echo '<tr>';
-                echo '<td width="25%"><table class="nobordernopadding" width="100%"><tr>';
+                echo '<td width="25%"><table class="nobordernopadding allwidth"><tr>';
                 echo '<td>' . $langs->trans($field['label']) . '</td>';
 
                 if ($allow_edit && isset($field['editable']) && $field['editable'] && $action != 'edit_'.$name) {
@@ -315,17 +314,19 @@ if (! function_exists('print_card_table'))
                 // Multi select
                 else if ($field['type'] == 'multiselect')
                 {
+                    if (! is_array($value)) {
+                        $value = explode(',', $value);
+                    }
+
                     if ($is_editable)
                     {
-                        if (! is_array($value)) {
-                            $value = explode(',', $value);
-                        }
-                        echo '<input type="hidden" name="field_type" value="multiselect" />'."\n";
                         echo $form->multiselectarray($name, $field['values'], $value, 0, 0, '', 1, '60%');
                     }
                     else
                     {
-                        echo $field['values'][$value];
+                        foreach ($value as $val) {
+                            echo $field['values'][$val].'<br>';
+                        }
                     }
                 }
 
@@ -585,5 +586,374 @@ if (! function_exists('print_linked_objects'))
 
             echo '</div></div>';
         }
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_card_lines'))
+{
+    /**
+     * Print card lines
+     * 
+     * @param  object  $form               Form object instance
+     * @param  array   $line_fields        Array of line fields as [
+     * 'my_field' => array(
+     *     'label'            (*) => 'MyField',
+     *     'type'             (*) => 'text', // possible values: 'text', 'number', 'range', 'price', 'percentage', 'date', 'select', 'multiselect', 'textarea', 'texteditor', 'file' or plain html
+     *     'value'            (*) => array(1 => $line->getNomUrl(1)), // used only when type is plain html or select
+     *     'values'           (*) => array(0 => 'value 1', 1 => 'value 2'), // for type select & multiselect only
+     *     'size'                 => 8, // useful for text inputs
+     *     'min'                  => 0, // work with number & range inputs
+     *     'max'                  => 100, // for number & range inputs too
+     *     'editable'             => true, // field is editable or not
+     *     'enabled'              => '$conf->module->enabled' // condition to enable field
+     * )]
+     * array keys with (*) are required
+     * @param  object  $object             Card object instance
+     * @param  string  $action             Action, ex: GETPOST('action')
+     * @param  boolean $allow_edit         Allow lines edition
+     * @param  boolean $allow_delete       Allow lines deletion
+     * @param  string  $update_action_name Update action name
+     * @param  string  $delete_action_name Delete action name
+     * @param  string  $edit_action_name   Edit action name
+     */
+    function print_card_lines($form, $line_fields, $object, $action, $allow_edit = true, $allow_delete = false, $update_action_name = 'updateline', $delete_action_name = 'deleteline', $edit_action_name = 'editline')
+    {
+        global $langs;
+
+        if (is_array($object->lines) && ! empty($object->lines))
+        {
+            echo '<br>';
+            echo '<table class="noborder noshadow allwidth">';
+
+            // Print table header
+            echo '<tr class="liste_titre">';
+
+            foreach ($line_fields as $name => $field) {
+                echo '<td>'.$langs->trans($field['label']).'</td>';
+            }
+
+            echo '<td></td>';
+            echo '</tr>';
+
+            // Print lines
+            foreach ($object->lines as $line)
+            {
+                $line_id = GETPOST('lineid', 'int');
+                $is_editable = $allow_edit && $action == $edit_action_name && $line->id == $line_id;
+
+                echo '<tr class="oddeven">';
+
+                // Open edit form
+                if ($is_editable) {
+                    echo '<form action="' . $_SERVER["PHP_SELF"] . '" method="post">';
+                    echo '<input type="hidden" name="token" value="' . $_SESSION ['newtoken'] . '">';
+                    echo '<input type="hidden" name="mainmenu" value="' . $_SESSION ['mainmenu'] . '">';
+                    echo '<input type="hidden" name="action" value="' . $update_action_name . '">';
+                    echo '<input type="hidden" name="id" value="' . $object->id . '">';
+                    echo '<input type="hidden" name="lineid" value="' . $line_id . '">';
+                }
+
+                foreach ($line_fields as $name => $field)
+                {
+                    echo '<td>';
+
+                    $value = $line->$name;
+
+                    // Text, number, range, price, percentage
+                    if (in_array($field['type'], array('text', 'number', 'range', 'price', 'percentage')))
+                    {
+                        if ($is_editable)
+                        {
+                            $class = 'flat';
+                            if ($field['type'] == 'range') {
+                                $class .= ' valignmiddle';
+                            }
+                            $type = in_array($field['type'], array('price', 'percentage')) ? 'text' : $field['type'];
+                            echo '<input type="'.$type.'"'.(isset($field['min']) ? ' min="'.$field['min'].'"' : '').(isset($field['max']) ? ' max="'.$field['max'].'"' : '').(isset($field['size']) ? ' size="'.$field['size'].'"' : '').' class="'.$class.'" name="'.$name.'" value="'.$value.'">'."\n";
+                        }
+                        else if ($field['type'] == 'price')
+                        {
+                            echo price_with_currency($value);
+                        }
+                        else
+                        {
+                            echo $value;
+                        }
+
+                        if ($field['type'] == 'percentage') {
+                            echo '%';
+                        }
+                    }
+
+                    // Date
+                    else if ($field['type'] == 'date')
+                    {
+                        if ($is_editable)
+                        {
+                            echo $form->select_date($value, $name, 0, 0, 1, '', 1, 1, 1);
+                        }
+                        else
+                        {
+                            echo dol_print_date($value, 'daytext');
+                        }
+                    }
+
+                    // Select
+                    else if ($field['type'] == 'select')
+                    {
+                        if ($is_editable)
+                        {
+                            echo $form->selectarray($name, $field['values'], $value, 0, 0, 0, '', 1);
+                        }
+                        else
+                        {
+                            $key = isset($field['value']) && ! empty($field['value']) ? 'value' : 'values';
+                            echo $field[$key][$value];
+                        }
+                    }
+
+                    // Multi select
+                    else if ($field['type'] == 'multiselect')
+                    {
+                        if (! is_array($value)) {
+                            $value = explode(',', $value);
+                        }
+
+                        if ($is_editable)
+                        {
+                            echo $form->multiselectarray($name, $field['values'], $value, 0, 0, '', 1, '60%');
+                        }
+                        else
+                        {
+                            foreach ($value as $val) {
+                                echo $field['values'][$val].'<br>';
+                            }
+                        }
+                    }
+
+                    // Text Area
+                    else if ($field['type'] == 'textarea')
+                    {
+                        if ($is_editable)
+                        {
+                            echo $form->textArea($name, $value);
+                        }
+                        else
+                        {
+                            echo $value;
+                        }
+                    }
+
+                    // Text Editor
+                    else if ($field['type'] == 'texteditor')
+                    {
+                        if ($is_editable)
+                        {
+                            echo $form->textEditor($name, $value);
+                        }
+                        else
+                        {
+                            echo $value;
+                        }
+                    }
+
+                    // File
+                    else if ($field['type'] == 'file')
+                    {
+                        if ($is_editable)
+                        {
+                            echo $form->fileInput($name);
+                        }
+                        else
+                        {
+                            echo $value;
+                        }
+                    }
+
+                    // Something else
+                    else
+                    {
+                        if ($is_editable)
+                        {
+                            echo $field['type'];
+                        }
+                        else
+                        {
+                            echo $field['value'][$value];
+                        }
+                    }
+
+                    echo '</td>';
+                }
+
+                // Close edit form
+                if ($is_editable)
+                {
+                    echo '<td align="right">';
+                    echo '<input type="submit" class="button" value="'.$langs->trans('Modify').'">';
+                    echo '<a class="button" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'">'.$langs->trans('Cancel').'</a>';
+                    echo '</td>';
+
+                    echo '</form>';
+                }
+                else
+                {
+                    // Print edit & delete links
+                    echo '<td align="right">';
+
+                    if ($allow_edit) {
+                        echo '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action='.$edit_action_name.'&lineid='.$line->id.'">'.img_edit().'</a>';
+                    }
+
+                    if ($allow_delete) {
+                        echo '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action='.$delete_action_name.'&lineid='.$line->id.'">'.img_delete().'</a>';
+                    }
+
+                    echo '</td>';
+                }
+
+                echo '</tr>';
+            }
+
+            echo '</table>';
+        }
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_add_line_form'))
+{
+    /**
+     * Print add line form
+     * 
+     * @param  object $form        Form object instance
+     * @param  array  $line_fields Array of line fields as [
+     * 'my_field' => array(
+     *     'label'            (*) => 'MyField',
+     *     'type'             (*) => 'text', // possible values: 'text', 'number', 'range', 'price', 'percentage', 'date', 'select', 'multiselect', 'textarea', 'texteditor', 'file' or plain html
+     *     'values'           (*) => array(0 => 'value 1', 1 => 'value 2'), // for type select & multiselect only
+     *     'size'                 => 8, // useful for text inputs
+     *     'min'                  => 0, // work with number & range inputs
+     *     'max'                  => 100, // for number & range inputs too
+     *     'editable'             => true, // field is editable or not
+     *     'enabled'              => '$conf->module->enabled' // condition to enable field
+     * )]
+     * array keys with (*) are required
+     * @param  object $object      Card object instance
+     * @param  string $title       Form table title
+     * @param  string $action_name Form action name
+     */
+    function print_add_line_form($form, $line_fields, $object, $title, $action_name = 'addline')
+    {
+        global $langs;
+
+        echo '<br>';
+
+        echo '<form action="' . $_SERVER["PHP_SELF"] . '" method="post">';
+        echo '<input type="hidden" name="token" value="' . $_SESSION ['newtoken'] . '">';
+        echo '<input type="hidden" name="mainmenu" value="' . $_SESSION ['mainmenu'] . '">';
+        echo '<input type="hidden" name="action" value="' . $action_name . '">';
+        echo '<input type="hidden" name="id" value="' . $object->id . '">';
+
+        echo '<table id="tablelines" class="noborder noshadow allwidth">';
+
+        // Print table header
+        echo '<tr class="liste_titre">';
+        echo '<td>'.$langs->trans($title).'</td>';
+
+        $line_fields_shifted = $line_fields;
+        array_shift($line_fields_shifted); // remove the first element of the array (replaced by $title)
+        foreach ($line_fields_shifted as $name => $field) {
+            echo '<td>'.$langs->trans($field['label']).'</td>';
+        }
+
+        echo '<td></td>';
+        echo '</tr>';
+
+        // Print line fields
+        echo '<tr>';
+
+        foreach ($line_fields as $name => $field)
+        {
+            if (! isset($field['enabled']) || empty($field['enabled']) || verifCond($field['enabled']))
+            {
+                $value = GETPOST($name);
+
+                echo '<td>';
+
+                // Text, number, range, price, percentage
+                if (in_array($field['type'], array('text', 'number', 'range', 'price', 'percentage')))
+                {
+                    $class = 'flat';
+                    if ($field['type'] == 'range') {
+                        $class .= ' valignmiddle';
+                    }
+                    $type = in_array($field['type'], array('price', 'percentage')) ? 'text' : $field['type'];
+                    echo '<input type="'.$type.'"'.(isset($field['min']) ? ' min="'.$field['min'].'"' : '').(isset($field['max']) ? ' max="'.$field['max'].'"' : '').(isset($field['size']) ? ' size="'.$field['size'].'"' : '').' class="'.$class.'" name="'.$name.'" value="'.$value.'">'."\n";
+                    if ($field['type'] == 'percentage') {
+                        echo '%';
+                    }
+                }
+
+                // Date
+                else if ($field['type'] == 'date')
+                {
+                    $value = GETPOSTDATE($name);
+                    echo $form->select_date($value, $name, 0, 0, 1, '', 1, 1, 1);
+                }
+
+                // Select
+                else if ($field['type'] == 'select')
+                {
+                    echo $form->selectarray($name, $field['values'], $value, 0, 0, 0, '', 1);
+                }
+
+                // Multi select
+                else if ($field['type'] == 'multiselect')
+                {
+                    if (! is_array($value)) {
+                        $value = explode(',', $value);
+                    }
+                    echo $form->multiselectarray($name, $field['values'], $value, 0, 0, '', 1, '60%');
+                }
+
+                // Text Area
+                else if ($field['type'] == 'textarea')
+                {
+                    echo $form->textArea($name, $value);
+                }
+
+                // Text Editor
+                else if ($field['type'] == 'texteditor')
+                {
+                    echo $form->textEditor($name, $value);
+                }
+
+                // File
+                else if ($field['type'] == 'file')
+                {
+                    echo $form->fileInput($name);
+                }
+
+                // Something else
+                else
+                {
+                    echo $field['type'];
+                }
+
+                echo '</td>';
+            }
+        }
+
+        echo '<td align="center">';
+        echo '<input type="submit" class="button" value="'.$langs->trans('Add').'">';
+        echo '</td>';
+
+        echo '</tr>';
+        echo '</table>';
+        echo '</form>';
     }
 }
