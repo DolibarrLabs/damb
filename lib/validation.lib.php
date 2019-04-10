@@ -186,7 +186,12 @@ if (! function_exists('validate_extra_fields'))
         global $db;
 
         // fetch optionals attributes and labels
-        $extrafields = new ExtraFields($db);
+        if (isset($object->extrafields)) {
+            $extrafields = $object->extrafields;
+        }
+        else {
+            $extrafields = new ExtraFields($db);
+        }
         $extralabels = $extrafields->fetch_name_optionals_label($object->table_element);
 
         // Fill array 'array_options' with data from add form

@@ -102,7 +102,7 @@ class CustomObject extends CommonObject
     /**
      * @var object Extrafields
      */
-    protected $extrafields;
+    public $extrafields;
 
 
     /**
@@ -280,9 +280,10 @@ class CustomObject extends CommonObject
      * Load all object entries in memory from database
      *
      * @param  string  $where        where clause (without 'WHERE')
+     * @param  string  $moresql      more sql to add after where clause
      * @return int                   <0 if KO, >0 if OK
      */
-    public function fetchAll($where = '')
+    public function fetchAll($where = '', $moresql = '')
     {
         // Init rows
         $this->rows = array();
@@ -299,6 +300,7 @@ class CustomObject extends CommonObject
         $sql = substr($sql, 0, -1); // Remove the last ','
         $sql.= " FROM " . MAIN_DB_PREFIX . $this->table_element;
         if (! empty($where)) $sql.= " WHERE " . $where;
+        if (! empty($moresql)) $sql.= " " . $moresql;
 
         dol_syslog(__METHOD__ . " sql=" . $sql, LOG_DEBUG);
         $resql = $this->db->query($sql);
@@ -323,6 +325,162 @@ class CustomObject extends CommonObject
                         }
                         else {
                             $this->rows[$i]->$field = $obj->$field;
+                        }
+                    }
+
+                    // ensure that $this->id is filled because we use it in update/delete/getNomUrl functions
+                    if ($set_id) {
+                        $this->rows[$i]->id = $obj->{$this->pk_name};
+                    }
+
+                    $i++;
+                }
+
+                $this->db->free($resql);
+
+                return 1;
+            }
+            $this->db->free($resql);
+
+            return 0;
+        } else {
+            $this->error = "Error " . $this->db->lasterror();
+            dol_syslog(__METHOD__ . " " . $this->error, LOG_ERR);
+            setEventMessage($this->error, 'errors');
+
+            return -1;
+        }
+    }
+
+    /**
+     * Return object entries count
+     *
+     * @param  string  $where        where clause (without 'WHERE')
+     * @param  string  $moresql      more sql to add after where clause
+     * @return int                   entries count
+     */
+    public function getCount($where = '', $moresql = '')
+    {
+        if (empty($this->fetch_fields)) {
+            return 0;
+        }
+
+        // SELECT request
+        $sql = "SELECT DISTINCT ";
+        foreach ($this->fetch_fields as $field) {
+            $sql.= "t.`" . $field . "`,";
+        }
+        $sql = substr($sql, 0, -1); // Remove the last ','
+        $sql.= " FROM " . MAIN_DB_PREFIX . $this->table_element . ' AS t';
+        if (! empty($where)) $sql.= " WHERE " . $where;
+        if (! empty($moresql)) $sql.= " " . $moresql;
+
+        dol_syslog(__METHOD__ . " sql=" . $sql, LOG_DEBUG);
+        $resql = $this->db->query($sql);
+        if ($resql) {
+            $num = $this->db->num_rows($resql);
+            $this->db->free($resql);
+
+            return $num;
+        } else {
+            $this->error = "Error " . $this->db->lasterror();
+            dol_syslog(__METHOD__ . " " . $this->error, LOG_ERR);
+            setEventMessage($this->error, 'errors');
+
+            return 0;
+        }
+    }
+
+    /**
+     * Load all object entries in memory from database
+     *
+     * @param  string  $where        where clause (without 'WHERE')
+     * @param  string  $moresql      more sql to add after where clause
+     * @return int                   <0 if KO, >0 if OK
+     */
+    public function fetchAllWithExtraFields($where = '', $moresql = '')
+    {
+        // Init rows
+        $this->rows = array();
+
+        if (empty($this->fetch_fields)) {
+            return 0;
+        }
+
+        // Fetch optionals attributes and labels
+        $extralabels = $this->extrafields->fetch_name_optionals_label($this->table_element);
+        $search_array_options = $this->extrafields->getOptionalsFromPost($extralabels, '', 'search_');
+
+        // SELECT request
+        $sql = "SELECT DISTINCT ";
+        foreach ($this->fetch_fields as $field) {
+            $sql.= "t.`" . $field . "`,";
+        }
+        $sql = substr($sql, 0, -1); // Remove the last ','
+        // Add fields from extrafields
+        foreach ($this->extrafields->attribute_label as $key => $val) {
+            $sql.= ($this->extrafields->attribute_type[$key] != 'separate' ? ', ef.'.$key.' as options_'.$key : '');
+        }
+        $sql.= " FROM " . MAIN_DB_PREFIX . $this->table_element . ' AS t';
+        // Join extrafields table
+        if (is_array($this->extrafields->attribute_label) && count($this->extrafields->attribute_label)) {
+            $sql.= ' LEFT JOIN '.MAIN_DB_PREFIX.$this->table_element.'_extrafields as ef ON t.rowid = ef.fk_object';
+        }
+        // Loop to complete the sql search criterias from extrafields
+        if (empty($where)) $where.= '1=1';
+        foreach ($search_array_options as $key => $val)
+        {
+            $tmpkey = preg_replace('/search_options_/', '', $key);
+            $type = $this->extrafields->attribute_type[$tmpkey];
+
+            if (in_array($type, array('date', 'datetime')) && ! empty($val))
+            {
+                $where.= " AND date(ef.".$tmpkey.") = date('".$db->idate($val)."')";
+            }
+            else
+            {
+                $crit = $val;
+                $mode_search = 0;
+
+                if (in_array($type, array('int', 'double', 'real'))) {
+                    $mode_search = 1; // Search on a numeric
+                }
+                else if (in_array($type, array('sellist', 'link', 'chkbxlst', 'checkbox')) && $crit != '0' && $crit != '-1') {
+                    $mode_search = 2; // Search on a foreign key int
+                }
+
+                if ($crit != '' && (! in_array($type, array('select', 'sellist')) || ($crit != '0' && $crit != '-1')) && (! in_array($type, array('link')) || $crit != '-1'))
+                {
+                    $where.= natural_search('ef.'.$tmpkey, $crit, $mode_search);
+                }
+            }
+        }
+        if (! empty($where)) $sql.= " WHERE " . $where;
+        if (! empty($moresql)) $sql.= " " . $moresql;
+
+        dol_syslog(__METHOD__ . " sql=" . $sql, LOG_DEBUG);
+        $resql = $this->db->query($sql);
+        if ($resql) {
+            $num = $this->db->num_rows($resql);
+            if ($num) {
+                $i = 0;
+                $set_id = (! in_array('id', $this->fetch_fields) ? true : false);
+
+                while ($i < $num)
+                {
+                    $obj = $this->db->fetch_object($resql);
+
+                    $classname = get_class($this);
+
+                    $this->rows[$i] = new $classname();
+
+                    foreach (get_object_vars($obj) as $field => $value)
+                    {
+                        if (in_array($field, $this->date_fields)) {
+                            $this->rows[$i]->$field = $this->db->jdate($value); // Fix error: dol_print_date function call with deprecated value of time
+                        }
+                        else {
+                            $this->rows[$i]->$field = $value;
                         }
                     }
 
