@@ -36,10 +36,11 @@ if (! function_exists('print_create_form'))
      * )]
      * array keys with (*) are required
      * @param  object $object Card object instance
+     * @param  string $action Action, ex: GETPOST('action')
      * @param  string $summary Form table summary text
      * @param  string $action_name Form action name
      */
-    function print_create_form($form, $fields, $object, $summary = '', $action_name = 'add')
+    function print_create_form($form, $fields, $object, $action, $summary = '', $action_name = 'add')
     {
         global $langs;
 
@@ -149,10 +150,15 @@ if (! function_exists('print_create_form'))
             }
         }
 
-        global $db, $hookmanager, $action;
+        global $db, $hookmanager;
 
         // fetch optionals attributes and labels
-        $extrafields = new ExtraFields($db);
+        if (isset($object->extrafields)) {
+            $extrafields = $object->extrafields;
+        }
+        else {
+            $extrafields = new ExtraFields($db);
+        }
         $extralabels = $extrafields->fetch_name_optionals_label($object->table_element);
 
         // show attributes
@@ -189,14 +195,15 @@ if (! function_exists('print_banner'))
      * @param     $object         object
      * @param     $list_link      link to list
      * @param     $morehtmlleft   more html in the left
+     * @param     $morehtmlref    more html under the reference
      */
-    function print_banner($object, $list_link = '', $morehtmlleft = '')
+    function print_banner($object, $list_link = '', $morehtmlleft = '', $morehtmlref = '')
     {
         global $langs;
 
         $morehtml = (empty($list_link) ? '' : '<a href="'.dol_buildpath($list_link, 1).'">'.$langs->trans('BackToList').'</a>');
 
-        dol_banner_tab($object, 'ref', $morehtml, 1, 'ref', 'ref', '', '', 0, $morehtmlleft);
+        dol_banner_tab($object, 'ref', $morehtml, 1, 'ref', 'ref', $morehtmlref, '', 0, $morehtmlleft);
 
         echo '<div class="underbanner clearboth"></div>';
     }
@@ -393,7 +400,12 @@ if (! function_exists('print_card_table'))
         global $db, $conf, $hookmanager, $user;
 
         // Fetch optionals attributes and labels
-        $extrafields = new ExtraFields($db);
+        if (isset($object->extrafields)) {
+            $extrafields = $object->extrafields;
+        }
+        else {
+            $extrafields = new ExtraFields($db);
+        }
         $extralabels = $extrafields->fetch_name_optionals_label($object->table_element, true);
         $object->fetch_optionals($object->id, $extralabels);
         if (empty($user->rights->{$object->element}->create)) {

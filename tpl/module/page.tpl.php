@@ -44,4 +44,4 @@ print_subtitle('${page_title}', 'title_generic.png');
 
 echo 'Add some content here..';
 
-print_footer(true);
+print_footer();
