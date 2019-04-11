@@ -16,6 +16,65 @@
 
 // --------------------------------------------------------------------
 
+if (! function_exists('get_list_limit'))
+{
+    /**
+     * Return list limit
+     *
+     * @return int list limit
+     */
+    function get_list_limit()
+    {
+        global $conf;
+
+        return $conf->liste_limit;
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('init_list_hooks'))
+{
+    /**
+     * Initialize list hooks
+     * 
+     * @param  string $contextpage page context
+     */
+    function init_list_hooks($contextpage)
+    {
+        global $hookmanager;
+
+        // Initialize technical object to manage hooks of thirdparties.
+        $hookmanager->initHooks(array($contextpage));
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('load_default_actions'))
+{
+    /**
+     * Load default list actions
+     * 
+     * @param  string $contextpage page context
+     */
+    function load_default_actions($contextpage)
+    {
+        // Selection of new fields
+        global $db, $conf, $user;
+        include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
+
+        // Purge search criteria
+        if (GETPOST('button_removefilter_x') || GETPOST('button_removefilter')) // Both test are required to be compatible with all browsers
+        {
+            $_POST = array();
+            $_GET  = array();
+        }
+    }
+}
+
+// --------------------------------------------------------------------
+
 if (! function_exists('print_list_head'))
 {
     /**
