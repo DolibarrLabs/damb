@@ -513,9 +513,10 @@ class CustomObject extends CommonObject
      *
      * @param  array   $data array, e.: array('my_field_name' => 'my_field_value', 'second_field_name' => 'second_field_value')
      * @param  int     $notrigger 0=launch triggers after, 1=disable triggers
+     * @param  string  $trigger_suffix trigger suffix
      * @return int     <0 if KO, >0 if OK
      */
-    public function update($data, $notrigger = 1)
+    public function update($data, $notrigger = 1, $trigger_suffix = '_MODIFY')
     {
         $error = 0;
 
@@ -538,7 +539,7 @@ class CustomObject extends CommonObject
 
         if (! $error) {
             if (! $notrigger) {
-                $error = $this->run_triggers('_MODIFY');
+                $error = $this->run_triggers($trigger_suffix);
             }
         }
 
