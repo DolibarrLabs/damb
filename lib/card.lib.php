@@ -543,8 +543,9 @@ if (! function_exists('print_documents'))
      * @param  object  $object     Card object
      * @param  boolean $genallowed Allow generation
      * @param  boolean $delallowed Allow deletion
+     * @param  boolean $close_div  Close documents block HTML div
      */
-    function print_documents($object, $genallowed = true, $delallowed = false)
+    function print_documents($object, $genallowed = true, $delallowed = false, $close_div = true)
     {
         if (is_object($object) && isset($object->id))
         {
@@ -570,7 +571,45 @@ if (! function_exists('print_documents'))
             }
             echo $formfile->showdocuments($object->modulepart, $ref, $filedir, $urlsource, $genallowed, $delallowed, $modelselected);
 
+            echo '</div>';
+
+            if ($close_div) {
+                echo '</div>';
+            }
+        }
+    }
+}
+
+// --------------------------------------------------------------------
+
+if (! function_exists('print_events'))
+{
+    /**
+     * Print events block
+     * 
+     * @param  object  $object      Card object
+     * @param  string  $typeelement 'invoice','propal','order','invoice_supplier','order_supplier','fichinter'
+     * @param  boolean $close_div   Close documents block HTML div
+     */
+    function print_events($object, $typeelement, $close_div = false)
+    {
+        if (is_object($object) && isset($object->id))
+        {
+            global $db, $user;
+
+            echo '<div class="fichehalfright"><div class="ficheaddleft">';
+
+            // List of actions on element
+            include_once DOL_DOCUMENT_ROOT . '/core/class/html.formactions.class.php';
+            $formactions = new FormActions($db);
+            $socid = isset($user->societe_id) ? $user->societe_id : 0;
+            $somethingshown = $formactions->showactions($object, $typeelement, $socid, 1);
+
             echo '</div></div>';
+
+            if ($close_div) {
+                echo '</div>';
+            }
         }
     }
 }
@@ -583,7 +622,7 @@ if (! function_exists('print_linked_objects'))
     {
         if (is_object($object) && isset($object->id) && (isset($object->socid) || isset($object->fk_soc)))
         {
-            echo '<div class="fichecenter hideonprint"><div class="fichehalfleft">';
+            echo '<div class="fichecenter"><div class="fichehalfleft">';
 
             $permissiondellink = $allow_delete; // Used by the include of actions_dellink.inc.php
             $id = $object->id;
