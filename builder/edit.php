@@ -234,7 +234,7 @@ else if ($action == 'buildpackage' && ! empty($module) && is_object($module_obje
 
         // Zip/Package module
         $zipper = new Zipper();
-        $result = $zipper->create($package_file, $module, array('bin'));
+        $result = $zipper->create($package_file, $module, array('bin', '.git', '.gitignore'));
 
         if ($result && file_exists($package_file))
         {
