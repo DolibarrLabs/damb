@@ -96,9 +96,10 @@ if (! function_exists('print_stats_graph'))
      * @param   array    $field_values     Table field values, e.: array(0 => 'Status 1', 1 => 'Status 2')
      * @param   string   $graph_type       Type of graph ('pie', 'bars', 'lines')
      * @param   string   $graph_title      Graph title
+     * @param   string   $where            Sql request where clause
      * @param   string   $pk_field_name    Table primary key name
      */
-    function print_stats_graph($table_name, $field_name, $field_values = array(), $graph_type = 'pie', $graph_title = 'Statistics', $pk_field_name = 'rowid')
+    function print_stats_graph($table_name, $field_name, $field_values = array(), $graph_type = 'pie', $graph_title = 'Statistics', $where = '', $pk_field_name = 'rowid')
     {
         global $db, $langs, $conf, $bc, $stats_id;
 
@@ -106,9 +107,10 @@ if (! function_exists('print_stats_graph'))
             $stats_id = 1;
         }
 
-        $sql = "SELECT count(t.".$pk_field_name."), t.".$field_name;
-        $sql.= " FROM ".MAIN_DB_PREFIX.$table_name." as t";
-        $sql.= " GROUP BY t.".$field_name;
+        $sql = 'SELECT count(t.'.$pk_field_name.'), t.'.$field_name;
+        $sql.= ' FROM '.MAIN_DB_PREFIX.$table_name.' as t';
+        if (! empty($where)) $sql.= ' WHERE '.$where;
+        $sql.= ' GROUP BY t.'.$field_name;
 
         $resql = $db->query($sql);
 
