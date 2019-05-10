@@ -49,7 +49,7 @@ $root_path = $custom_dir_path.'/'.$module_folder;
                 <tr class="liste_titre">
                     <th><?php echo $langs->trans('ModuleInformations'); ?></th>
                     <th align="right">
-                        <a href="<?php echo $edit_module_link; ?>"><?php echo img_edit($langs->trans('Edit')); ?></a>
+                        <a href="<?php echo $edit_module_link; ?>"><?php echo img_edit($langs->trans('Edit'), 0, 'class="inline-block valignmiddle"'); ?></a>
                         <a href="<?php echo $setup_page_link; ?>" target="_blank"><?php echo img_picto($langs->trans('ModuleSettings'), 'setup.png', 'class="inline-block valignmiddle"'); ?></a>
                     </th>
                 </tr>
