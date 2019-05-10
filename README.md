@@ -58,7 +58,7 @@ stop_time_measure('my_measure');
 
 ### Installation
 
-~~Download the latest release from [Dolistore](https://www.dolistore.com/en/).~~ No release is yet available, if you want to try DAMB [download](https://gitlab.com/AXeL-dev/damb/-/archive/master/damb-master.zip) & install it manually.
+Download the latest release from [Dolistore](https://www.dolistore.com/en/modules/1121-Advanced-Module-Builder.html).
 
 ### Contributing
 
