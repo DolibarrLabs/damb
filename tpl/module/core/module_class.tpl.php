@@ -34,7 +34,7 @@ class mod${module_class_name} extends DolibarrModules
         $this->rights_class    = '${module_rights_class}';
         $this->family          = '${module_family}';
         $this->module_position = ${module_position};
-        $this->name            = '${module_name}';
+        $this->name            = preg_replace('/^mod/i', '', get_class($this));
         $this->description     = '${module_desc}';
         $this->picto           = '${module_picture}@${module_folder}';
         $this->version         = '${module_version}';
