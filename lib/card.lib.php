@@ -428,6 +428,7 @@ if (! function_exists('print_card_buttons'))
      * @param  array $buttons array of buttons to show on card as [
      * array(
      *     'label'            (*) => 'MyButton',
+     *     'title'                => 'MyButtonTitle',
      *     'href'                 => 'card.php?id=...',
      *     'class'                => 'butAction', // or 'butActionDelete'
      *     'id'                   => 'action-...', // used to display confirmation messages without reloading the page
@@ -448,15 +449,16 @@ if (! function_exists('print_card_buttons'))
         {
             if (! isset($button['enabled']) || $button['enabled'])
             {
+                $title = isset($button['title']) && ! empty($button['title']) ? $langs->trans($button['title']) : '';
                 $href = isset($button['href']) && ! empty($button['href']) ? $button['href'] : '#';
                 $class = isset($button['class']) && ! empty($button['class']) ? $button['class'] : 'butAction';
                 $target = isset($button['target']) && ! empty($button['target']) ? $button['target'] : '_self';
 
                 if (js_enabled() && isset($button['id']) && ! empty($button['id'])) {
-                    echo '<span class="'.$class.'" id="'.$button['id'].'">'.$langs->trans($button['label']).'</span>';
+                    echo '<span class="'.$class.'" id="'.$button['id'].'" title="'.$title.'">'.$langs->trans($button['label']).'</span>';
                 }
                 else {
-                    echo '<a class="'.$class.'" href="'.$href.'" target="'.$target.'">'.$langs->trans($button['label']).'</a>';
+                    echo '<a class="'.$class.'" href="'.$href.'" target="'.$target.'" title="'.$title.'">'.$langs->trans($button['label']).'</a>';
                 }
             }
         }
