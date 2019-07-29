@@ -33,7 +33,7 @@ global $langs, $conf, $db;
 
 <br>
 <div style="float: left; margin-right: 20px;">
-    <?php echo img_picto($module_name, $module_picture); ?>
+    <?php echo img_picto($module_name, $module_picture, 'width="128"'); ?>
 </div>
 <div>
     <div>
