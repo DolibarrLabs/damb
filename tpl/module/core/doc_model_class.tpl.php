@@ -5,7 +5,7 @@
  *
  * @copyright   Copyright (c) 2019 - 2020, AXeL-dev
  * @license     GPL
- * @link        https://gitlab.com/AXeL-dev/damb
+ * @link        https://github.com/AXeL-dev/damb
  */
 
 require_once DOL_DOCUMENT_ROOT . '/core/class/commondocgenerator.class.php';

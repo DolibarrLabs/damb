@@ -5,7 +5,7 @@
  *
  * @copyright   Copyright (c) 2019 - 2020, AXeL-dev
  * @license     GPL
- * @link        https://gitlab.com/AXeL-dev/damb
+ * @link        https://github.com/AXeL-dev/damb
  */
 
 dol_include_once('${module_folder}/class/num_model.class.php');
