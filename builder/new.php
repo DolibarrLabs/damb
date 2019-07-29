@@ -240,9 +240,7 @@ if ($action == 'create')
                 'current_year' => date('Y'),
                 'author_name' => $module_class_data['author_name'],
                 'module_name_translation' => $module_name.' = '.$module_name."\n".'Module'.$data['module_number'].'Name = '.$module_name,
-                'module_desc_translation' => $module_name.'Description = '.$module_name."\n".'Module'.$data['module_number'].'Desc = '.$module_name,
-                'permissions_translation' => '', // TODO
-                'menus_translation' => '' // TODO
+                'module_desc_translation' => $module_name.'Description = '.$module_name."\n".'Module'.$data['module_number'].'Desc = '.$module_name
             );
             $template = get_template($source_path.'/tpl/module/langs/'.$translation_name.'.tpl.lang', $lang_data);
             file_put_contents($module_path.'/langs/'.$translation_name.'/'.$module_name_tolower.'.lang', $template);

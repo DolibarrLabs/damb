@@ -11,12 +11,17 @@ ${module_desc_translation}
 #
 # Permissions
 #
-${permissions_translation}
+ReadPermission = Allow read
+CreatePermission = Allow create
+ModifyPermission = Allow modify
+DeletePermission = Allow delete
 
 #
 # Menus
 #
-${menus_translation}
+Index = Index
+New = New
+List = List
 
 #
 # Setup

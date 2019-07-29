@@ -59,6 +59,19 @@ class mod${module_class_name} extends DolibarrModules
         $this->requiredby            = array(${module_required_by});
         $this->conflictwith          = array(${module_conflict_with});
         $this->langfiles             = array(${module_lang_files});
+
+        // Menus
+        // $top_menu = '${module_rights_class}';
+        // add_top_menu($this, $top_menu, '${module_name}', '/${module_folder}/index.php');
+        // add_left_menu($this, $top_menu, '${module_rights_class}menu', 'Index', '/${module_folder}/index.php');
+        // add_left_submenu($this, $top_menu, '${module_rights_class}menu', '${module_rights_class}new', 'New', '/${module_folder}/card.php?action=create');
+        // add_left_submenu($this, $top_menu, '${module_rights_class}menu', '${module_rights_class}list', 'List', '/${module_folder}/list.php');
+
+        // Permissions
+        // add_permission($this, 'read', 'ReadPermission', 'r');
+        // add_permission($this, 'create', 'CreatePermission', 'c');
+        // add_permission($this, 'modify', 'ModifyPermission', 'm');
+        // add_permission($this, 'delete', 'DeletePermission', 'd');
     }
 
     /**
