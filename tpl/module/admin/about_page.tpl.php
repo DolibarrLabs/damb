@@ -16,6 +16,7 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
 // Load page & ${module_folder} lib
 dol_include_once('${module_folder}/lib/page.lib.php');
 dol_include_once('${module_folder}/lib/${module_folder}.lib.php');
+dol_include_once('${module_folder}/lib/dolistore.lib.php');
 
 // Load module class
 dol_include_once('${module_folder}/core/modules/${module_class_name}.class.php');

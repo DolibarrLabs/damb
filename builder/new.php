@@ -252,7 +252,8 @@ if ($action == 'create')
         $libs = array(
             'module.lib.php',
             'page.lib.php',
-            'setup.lib.php'
+            'setup.lib.php',
+            'dolistore.lib.php'
         );
         foreach ($libs as $lib_name) {
             copy($source_path.'/lib/'.$lib_name, $module_path.'/lib/'.$lib_name);

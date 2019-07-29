@@ -56,6 +56,7 @@ global $langs, $conf, $db;
         <a href="<?php echo $author_dolistore_url; ?>" target="_blank"><?php echo $langs->trans('Dolistore'); ?></a>
     </div>
     <div class="tabsAction" style="text-align: center;">
+        <a href="<?php echo $_SERVER['PHP_SELF'].'?mainmenu=home&action=check_for_updates'; ?>" class="button"><?php echo $langs->trans('CheckForUpdates'); ?></a>
         <a href="<?php echo $_SERVER['PHP_SELF'].'?mainmenu=home&action=report_bug'; ?>" class="buttonDelete"><?php echo $langs->trans('ReportBug'); ?></a>
     </div>
 </div>
@@ -64,7 +65,27 @@ global $langs, $conf, $db;
 
 $action = GETPOST('action', 'alpha');
 
-if ($action == 'report_bug')
+// Check for updates
+if ($action == 'check_for_updates')
+{
+    // Get latest module version from dolistore
+    $latest_module_version = get_module_version($module_url);
+    // Compare it to the current version of the module
+    if ($latest_module_version != null) {
+        if (compare_module_version($latest_module_version, '>', $module_version)) {
+            warning_message('ModuleUpdateAvailable', '<a href="'.$module_url.'" target="_blank">'.$latest_module_version.'</a>');
+        }
+        else {
+            success_message('ModuleIsUpToDate');
+        }
+    }
+    else {
+        error_message('CouldNotCheckForModuleUpdates');
+    }
+}
+
+// Report bug
+else if ($action == 'report_bug')
 {
 
 $log_file_name = basename($conf->global->SYSLOG_FILE);

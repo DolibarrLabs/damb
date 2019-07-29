@@ -142,6 +142,10 @@ WebServerVersion = Web server version
 ReportBugNotice = The technical informations below should be provided in your bug report, in addition of file %s to increase the chance of fixing the bug quickly.
 EnableLogModule = Debug Logs module is not enabled %s
 ClickToEnable = Click to enable
+CheckForUpdates = Check for updates
+ModuleUpdateAvailable = Version %s is available
+ModuleIsUpToDate = Module is up to date
+CouldNotCheckForModuleUpdates = Could not check for module updates
 
 #
 # Changelog

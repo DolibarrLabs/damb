@@ -22,6 +22,7 @@ if (false === (@include_once '../../main.inc.php')) { // From htdocs directory
 // Load page & damb lib
 dol_include_once('damb/lib/page.lib.php');
 dol_include_once('damb/lib/damb.lib.php');
+dol_include_once('damb/lib/dolistore.lib.php');
 
 // Load module class
 dol_include_once('damb/core/modules/modDAMB.class.php');
@@ -46,7 +47,7 @@ load_template('damb/tpl/about.tpl.php', array(
     'module_desc' => $module->description,
     'module_picture' => 'module.png@damb',
     'module_version' => $module->version,
-    'module_url' => '#',
+    'module_url' => 'https://www.dolistore.com/en/modules/1121-Advanced-Module-Builder.html',
     'author_name' => $module->editor_name,
     'author_url' => $module->editor_url,
     'author_email' => 'contact.axel.dev@gmail.com',

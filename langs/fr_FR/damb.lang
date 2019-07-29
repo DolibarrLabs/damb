@@ -142,6 +142,10 @@ WebServerVersion = Version du serveur web
 ReportBugNotice = Les informations techniques ci-dessous devraient être fournies dans votre rapport de bug, en plus du fichier %s pour augmenter les chances de corriger le bug rapidement.
 EnableLogModule = Le module Journaux de débogage n'est pas activé %s
 ClickToEnable = Cliquez pour activer
+CheckForUpdates = Vérifier les mises à jour
+ModuleUpdateAvailable = La version %s est disponible
+ModuleIsUpToDate = Le module est à jour
+CouldNotCheckForModuleUpdates = Echec de la vérification des mises à jour du module
 
 #
 # Changelog
