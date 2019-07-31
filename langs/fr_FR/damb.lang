@@ -5,7 +5,7 @@
 #
 # Generic
 #
-AdvancedModuleBuilder = Constructeur de modules avancés
+AdvancedModuleBuilder = Constructeur de modules avancé
 AdvancedModuleBuilderDesc = Un constructeur de modules avancé pour Dolibarr
 ModuleBuilder = Constructeur de modules
 NewModule = Nouveau
