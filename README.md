@@ -72,6 +72,12 @@ stop_time_measure('my_measure');
 
 Download the latest release from [Dolistore](https://www.dolistore.com/en/modules/1121-Advanced-Module-Builder.html).
 
+### Documentation
+
+Find the documentation [on this link](https://axel-dev.github.io/dolibarr-modules-docs/#/modules/damb/doc).
+
+You can improve it by sending pull requests to [this repository](https://axel-dev.github.io/dolibarr-modules-docs).
+
 ### Contributing
 
 Read [contributing guidelines](CONTRIBUTING.md).
