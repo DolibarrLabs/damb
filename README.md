@@ -74,9 +74,7 @@ Download the latest release from [Dolistore](https://www.dolistore.com/en/module
 
 ### Documentation
 
-Find the documentation [on this link](https://axel-dev.github.io/dolibarr-modules-docs/#/modules/damb/doc).
-
-You can improve it by sending pull requests to [this repository](https://axel-dev.github.io/dolibarr-modules-docs).
+Find the documentation on [this link](https://axel-dev.github.io/dolibarr-modules-docs/#/modules/damb/doc). You can improve it by sending pull requests to [this repository](https://github.com/AXeL-dev/dolibarr-modules-docs).
 
 ### Contributing
 
