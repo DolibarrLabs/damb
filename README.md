@@ -13,7 +13,7 @@ DAMB stands for **D**olibarr **A**dvanced **M**odule **B**uilder, unlike [doliba
 
 ## Pros
 
-- **1) Simplicity over complexity**
+- **Simplicity over complexity**
 
 DAMB comes with multiple libraries containing simple separated functions to allow an easy integration with the other modules, example:
 
@@ -25,9 +25,9 @@ dol_include_once('mymodule/lib/module.lib.php');
 
 Now, you can call any function that you want to use from this library.
 
-**Note**: If you use DAMB directly to create your new modules it will automatically handle all that for you, otherwise you'll need to do it manually.
+**Note**: When using DAMB to create a new module, it will automatically include all the files/libraries required by your module. However, some libraries like the `debug` library still need to be included manually.
 
-- **2) Flexibility**
+- **Flexibility**
 
 In libraries, every function is surrounded by an if condition which verifies its existence before implementing it, so if you are not satisfied with a function behavior, just override it! Example:
 
@@ -44,7 +44,7 @@ All you have to do now is to write your new function(s) inside `page_overrides.l
 
 **Solution**: Just change the overrided function(s) name, example: name your function `my_function_2` instead of `my_function`.
 
-- **3) Easy debugging**
+- **Easy debugging**
 
 There is a `debug` library compatible with the [debugbar module](https://github.com/AXeL-dev/dolibarr-debugbar-module) that you can use to easily debug your modules, example:
 
@@ -70,7 +70,9 @@ stop_time_measure('my_measure');
 
 ## Known Cons
 
-- Libraries files are not centralised, but duplicated/cloned on each new module you create. This can be considered as a good point too, since you don't need any additional module, framework or dependency to handle libraries separately.
+- **Libraries files are not centralised**
+
+Instead of that they are duplicated/cloned on each new module you create. This can be considered as a good point too, since you don't need any additional module, framework or dependency to handle libraries separately.
 
 ## Installation
 
