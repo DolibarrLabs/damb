@@ -72,7 +72,7 @@ stop_time_measure('my_measure');
 
 - **Libraries files are not centralised**
 
-Instead of that they are duplicated/cloned on each new module you create. This can be considered as a good point too, since you don't need any additional module, framework or dependency to handle libraries separately.
+Instead of that they are duplicated/cloned on each new module you create. This can be considered as a good point as well, since you don't need any additional module, framework or dependency to handle libraries separately.
 
 ## Installation
 
@@ -80,7 +80,7 @@ Download the latest release from [Dolistore](https://www.dolistore.com/en/module
 
 ## Documentation
 
-Find the documentation on [this link](https://axel-dev.github.io/dolibarr-modules-docs/#/modules/damb/doc). You can improve it by sending pull requests to [this repository](https://github.com/AXeL-dev/dolibarr-modules-docs).
+Find the documentation [here](https://axel-dev.github.io/dolibarr-modules-docs/#/modules/damb/doc). You can improve it by sending pull requests to [this repository](https://github.com/AXeL-dev/dolibarr-modules-docs).
 
 ## Contributing
 
