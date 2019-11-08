@@ -3,6 +3,8 @@ DAMB
 
 DAMB stands for **D**olibarr **A**dvanced **M**odule **B**uilder, unlike [dolibase](https://github.com/AXeL-dev/dolibase), DAMB don't need any dependencies & integrates with [dolibarr](https://github.com/Dolibarr/dolibarr) as a regular module.
 
+![Screenshot](https://www.dolistore.com/4793/Advanced-Module-Builder.jpg)
+
 ## Features
 
 - Simple & easy to use.
