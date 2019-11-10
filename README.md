@@ -72,9 +72,9 @@ stop_time_measure('my_measure');
 
 ## Known Cons
 
-- **Libraries files are not centralised**
+- **Lib files are not centralised**
 
-Instead of that they are duplicated/cloned on each new module you create. This can be considered as a good point as well, since you don't need any additional module, framework or dependency to handle libraries separately.
+Instead of that they are duplicated/cloned on each new module you create. This can also be considered as a good point, since you don't need any additional module, framework or dependency to handle libraries separately.
 
 ## Installation
 
