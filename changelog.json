@@ -1,6 +1,13 @@
 {
     "releases": [
         {
+            "version": "1.0.2",
+            "date": "28/03/2020",
+            "details": [
+                { "badge": "Fix", "text": "Ace editor issue on dolibarr 11.x" }
+            ]
+        },
+        {
             "version": "1.0.1",
             "date": "29/07/2019",
             "details": [
