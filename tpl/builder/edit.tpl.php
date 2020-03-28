@@ -203,8 +203,16 @@ $root_path = $custom_dir_path.'/'.$module_folder;
                 <input type="hidden" name="file" value="<?php echo $file; ?>">
                 <?php
                     $content = file_get_contents($custom_dir_path.'/'.$file);
+                    $format = pathinfo($file, PATHINFO_EXTENSION);
+                    $formats = array(
+                        'php'  => 'php',
+                        'html' => 'html',
+                        'json' => 'json',
+                        'css'  => 'css',
+                        'js'   => 'javascript'
+                    );
                     $doleditor = new DolEditor('editfilecontent', $content, '', '300', 'Full', 'In', true, false, 'ace', 0, '99%', '');
-                    echo $doleditor->Create(1, '', false, $langs->trans('File').' : '.$file, 'html');
+                    echo $doleditor->Create(1, '', false, $langs->trans('File').' : '.$file, (isset($formats[$format]) ? $formats[$format] : 'text'));
                 ?>
                 <br>
                 <center>

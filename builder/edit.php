@@ -341,7 +341,25 @@ else if ($action == 'addwidget' && ! empty($module) && ! empty($name) && isset($
  * View
  */
 
-print_header('ModuleBuilder', array(), array('damb/css/builder/edit.css.php'), array('damb/js/builder/edit.js.php', 'includes/ace/ace.js', 'includes/ace/ext-statusbar.js'));
+$css_files = array(
+    'damb/css/builder/edit.css.php'
+);
+$js_files = array(
+    'damb/js/builder/edit.js.php',
+    'includes/ace/ace.js',
+    'includes/ace/ext-statusbar.js'
+);
+
+if (function_exists('version_compare') && version_compare(DOL_VERSION, '11.0.0') >= 0) { // Fix ace js files path for dolibarr 11.x
+    $js_files = array(
+        'damb/js/builder/edit.js.php',
+        'includes/ace/src/ace.js',
+        'includes/ace/src/ext-statusbar.js',
+        'includes/ace/src/ext-language_tools.js'
+    );
+}
+
+print_header('ModuleBuilder', array(), $css_files, $js_files);
 
 print_subtitle('ModuleBuilder', 'title_setup.png');
 
