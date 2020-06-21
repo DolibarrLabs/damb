@@ -158,7 +158,7 @@ if ($action == 'create')
         }
         if ($add_doc_models) {
             if ($add_num_models) $settings.= "\n\n";
-            else $default_actions_parameters = "''";
+            else $default_actions_parameters = ", ''";
             $settings.= "print_subtitle('DocumentModels');\n";
             $settings.= "print_doc_models('".$data['module_folder']."/core/doc_models', '".$data['module_folder']."', '".$module_name_toupper."_ADDON_PDF', '".$data['module_picture']."@".$data['module_folder']."');";
             $default_actions_parameters.= ", '".$module_name_tolower."', '".$module_name_toupper."_ADDON_PDF', '".$data['module_folder']."/core/doc_models', '".$data['module_folder']."'";
