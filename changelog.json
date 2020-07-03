@@ -1,6 +1,13 @@
 {
     "releases": [
         {
+            "version": "1.0.3",
+            "date": "21/06/2020",
+            "details": [
+                { "badge": "Fix", "text": "Fix missing comma when generating setup page with doc models" }
+            ]
+        },
+        {
             "version": "1.0.2",
             "date": "28/03/2020",
             "details": [
