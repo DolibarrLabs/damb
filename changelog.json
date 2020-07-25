@@ -1,6 +1,13 @@
 {
     "releases": [
         {
+            "version": "1.0.4",
+            "date": "25/07/2020",
+            "details": [
+                { "badge": "Upgrade", "text": "Updates for dolibarr 12.x" }
+            ]
+        },
+        {
             "version": "1.0.3",
             "date": "21/06/2020",
             "details": [

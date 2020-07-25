@@ -107,7 +107,7 @@ if ($action == 'create')
         // Add mini picture
         $image = new SimpleImage();
         $image->load($picture_target_file);
-        $image->resize(16, 16);
+        $image->resize(48, 48);
         $image->save($picture_target_dir.'object_'.$data['module_picture'], $image->getImageType());
 
         // Add menu icon (this is mandatory starting from Dolibarr 8)
