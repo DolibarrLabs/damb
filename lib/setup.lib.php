@@ -43,7 +43,7 @@ if (! function_exists('load_default_actions'))
         {
             $code = $reg[1];
             $type = GETPOST('option_type', 'alpha');
-            $value = (isset($_GET[$code]) || isset($_POST[$code]) ? ($type == 'date' ? dol_mktime(0, 0, 0, GETPOST($code.'month'), GETPOST($code.'day'), GETPOST($code.'year')) : GETPOST($code)) : (in_array($type, array('text', 'multiselect')) ? '' : 1));
+            $value = (isset($_GET[$code]) || isset($_POST[$code]) ? ($type == 'date' ? dol_mktime(0, 0, 0, GETPOST($code.'month'), GETPOST($code.'day'), GETPOST($code.'year')) : GETPOST($code, 'none')) : (in_array($type, array('text', 'multiselect')) ? '' : 1));
 
             if (is_array($value)) {
                 $value = (! empty($value) ? join(',', $value) : '');
