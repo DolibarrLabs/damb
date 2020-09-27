@@ -1,6 +1,14 @@
 {
     "releases": [
         {
+            "version": "1.0.5",
+            "date": "27/09/2020",
+            "details": [
+                { "badge": "Fix", "text": "Page lib error on PHP 7.4" },
+                { "badge": "Fix", "text": "Save issue on setup page" }
+            ]
+        },
+        {
             "version": "1.0.4",
             "date": "25/07/2020",
             "details": [
