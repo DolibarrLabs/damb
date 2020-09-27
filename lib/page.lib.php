@@ -224,7 +224,8 @@ if (! function_exists('print_tabs'))
         // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
         // $this->tabs = array('entity:-tabname);                                                   to remove a tab
         if (! empty($type)) {
-            complete_head_from_modules($conf, $langs, $object, $links, count($links), $type);
+            $links_count = count($links);
+            complete_head_from_modules($conf, $langs, $object, $links, $links_count, $type);
         }
 
         // Generate tabs
