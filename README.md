@@ -44,7 +44,7 @@ All you have to do now is to write your new function(s) inside `page_overrides.l
 
 **Exception**: This may not work as expected for `module` & `widget` libraries, because dolibarr's default behavior on modules & widgets list pages is to include all the module classes at once, so your override(s) may be overrided by functions having the same name but from other modules.
 
-**Solution**: Just change the overrided function(s) name, example: name your function `my_function_2` instead of `my_function`.
+**Solution**: Just change the overrided function(s) name, example: name your function `my_module_function` instead of `my_function`.
 
 - **Easy debugging**
 
@@ -74,7 +74,7 @@ stop_time_measure('my_measure');
 
 - **Lib files are not centralised**
 
-Instead of that they are duplicated/cloned on each new module you create. This can also be considered as a good point, since you don't need any additional module, framework or dependency to handle libraries separately.
+Instead of that they are duplicated/cloned on each new module you create. This can be considered as a good point too, since you don't need any additional module, framework or dependency to handle libraries separately. Also, you still have the choice to update them manually whenever you want.
 
 ## Installation
 
