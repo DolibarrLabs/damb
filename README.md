@@ -1,7 +1,7 @@
 DAMB
 ====
 
-DAMB stands for **D**olibarr **A**dvanced **M**odule **B**uilder, unlike [dolibase](https://github.com/AXeL-dev/dolibase), DAMB don't need any dependencies & integrates with [dolibarr](https://github.com/Dolibarr/dolibarr) as a regular module.
+DAMB stands for **D**olibarr **A**dvanced **M**odule **B**uilder, unlike [dolibase](https://github.com/DolibarrLabs/dolibase), DAMB don't need any dependencies & integrates with [dolibarr](https://github.com/Dolibarr/dolibarr) as a regular module.
 
 ![Screenshot](https://www.dolistore.com/4793/Advanced-Module-Builder.jpg)
 
@@ -48,7 +48,7 @@ All you have to do now is to write your new function(s) inside `page_overrides.l
 
 - **Easy debugging**
 
-There is a `debug` library compatible with the [debugbar module](https://github.com/AXeL-dev/dolibarr-debugbar-module) that you can use to easily debug your modules, example:
+There is a `debug` library compatible with the [debugbar module](https://github.com/DolibarrLabs/dolibarr-debugbar-module) that you can use to easily debug your modules, example:
 
 To print a debug message use:
 
@@ -82,7 +82,7 @@ Download the latest release from [Dolistore](https://www.dolistore.com/en/module
 
 ## Documentation
 
-Find the documentation [here](https://axel-dev.github.io/dolibarr-modules-docs/#/modules/damb/doc). You can improve it by sending pull requests to [this repository](https://github.com/AXeL-dev/dolibarr-modules-docs).
+Find the documentation [here](https://dolibarrlabs.github.io/dolibarr-modules-docs/#/modules/damb/doc). You can improve it by sending pull requests to [this repository](https://github.com/DolibarrLabs/dolibarr-modules-docs).
 
 ## Contributing
 
