@@ -14,6 +14,8 @@
  *
  */
 
+define('NOREDIRECTBYMAINTOLOGIN', 1);
+
 // Load Dolibarr environment
 if (false === (@include '../../../main.inc.php')) { // From htdocs directory
     require '../../../../main.inc.php'; // From "custom" directory
