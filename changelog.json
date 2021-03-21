@@ -1,6 +1,14 @@
 {
     "releases": [
         {
+            "version": "1.0.6",
+            "date": "21/03/2021",
+            "details": [
+                { "badge": "Fix", "text": "Token renewal issue on dolibarr 13.x" },
+                { "badge": "Fix", "text": "Mime type error on dolibarr's login page" }
+            ]
+        },
+        {
             "version": "1.0.5",
             "date": "27/09/2020",
             "details": [
