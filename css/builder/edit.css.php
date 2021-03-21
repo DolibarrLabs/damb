@@ -15,6 +15,7 @@
  */
 
 define('NOREDIRECTBYMAINTOLOGIN', 1);
+define('NOTOKENRENEWAL', 1);
 
 // Load Dolibarr environment
 if (false === (@include '../../../main.inc.php')) { // From htdocs directory
