@@ -1,0 +1,164 @@
+# DAMB - en_US
+#
+# Copyright (C) 2019 AXeL
+
+#
+# Generic
+#
+AdvancedModuleBuilder = Расширенный конструктор модулей
+AdvancedModuleBuilderDesc = Продвинутый конструктор модулей для Dolibarr
+ModuleBuilder = Конструктор модулей
+NewModule = Новый
+EditModule = Редактировать
+
+#
+# New Tab
+#
+ModuleConfiguration = Конфигурация модуля
+ModuleName = Имя
+ModuleVersion = Версия
+ModuleVersionHelp = возможные значения: 'разработка', 'экспериментальный', 'dolibarr' или версия
+ModuleNumber = Номер
+ModuleNumberHelp = используйте уникальный номер и избегайте маленьких чисел, потому что они используются для основных модулей
+ModuleFamily = Семья
+ModulePosition = Позиция
+ModuleRightsClass = Класс прав
+ModuleRightsClassHelp = ключ к справочному модулю (для разрешений, меню и т. д.)
+ModuleFolderName = Имя папки
+ModuleFolderNameHelp = совет: никогда не используйте символы подчеркивания в имени папки модуля, чтобы избежать многих проблем, особенно со значком верхнего меню, виджетами модуля и т.д..
+ModulePicture = Рисунок
+ModulePictureHelp = предпочтительный размер (128 x 128)
+AddNumberingModels = Добавить модели нумерации
+AddNumberingModelsHelp = добавляет модели нумерации saphir и marbre на страницу ядра и настройки модуля
+AddDocumentModels = Добавить модели документов
+AddDocumentModelsHelp = добавляет модели документов azur и crabe на страницу ядра и настройки модуля
+NumberingModelsConfiguration = Конфигурация моделей нумерации
+TableName = Имя таблицы
+TableNameHelp = без префикса таблицы (llx_)
+TableFieldName = Имя поля таблицы
+TableFieldNameHelp = поле таблицы, которое будет связано с моделями нумерации
+NumModelPrefix = Префикс модели
+NumModelPrefixHelp = используется в модели нумерации мрамора
+AddExtrafields = Добавить дополнительные поля
+AddExtrafieldsHelp = добавляет таблицу дополнительных полей в папку sql и страницу дополнительных полей на страницы администратора
+AddChangelog = Добавить журнал изменений
+AddChangelogHelp = добавляет файл changelog.json в папку модуля и страницу журнала изменений на страницы администратора
+CreateModule = Создавать
+BuilderSettings = Настройки конструктора
+ModuleExists = Папка модуля <strong>%s</strong> уже существует.
+ModuleCreated = Модуль <strong>%s</strong> успешно создан в папке <strong>%s</strong>.
+
+#
+# Edit Tab
+#
+ExternalModules = Внешние модули
+Refresh = Обновить
+Files = Файлы
+SelectModule = Выберите модуль...
+ModuleInformations = Информационный модуль
+ModuleSettings = Настройки модуля
+ModuleStatus = Статус
+Widgets = Виджеты
+AddWidget = Добавить виджет
+Edit = Редактировать
+Save = Сохранить
+Close = Закрыть
+Create = Создавать
+Cancel = Отмена
+Delete = Удалить
+Preview = Предварительный просмотр
+Download = Скачать
+Packages = Пакеты
+BuildPackage = Сборка пакета
+DeleteModule = Удалить модуль
+ModuleDeleted = Модуль <strong>%s</strong> удален.
+ModulesList = Список модулей
+WidgetsList = Список виджетов
+NewFile = Новый файл/папка
+NewPage = Новая страница
+FileType = Тип
+FileName = Имя
+PageName = Имя
+File = Файл
+Folder = Папка
+FileCreated = Файл <strong>%s</strong> создан.
+FolderCreated = Папка <strong>%s</strong> создана.
+FileDeleted = Файл <strong>%s</strong> удален.
+FolderDeleted = Папка <strong>%s</strong> удалена.
+DeleteFileFolder = Удалить файл/папку
+FileSaved = Файл <strong>%s</strong> сохранен.
+ZipArchiveNotFound = Операции с архивами недоступны, <strong>ZipArchive</strong> класс не найден.
+PackageExists = Пакет <strong>%s</strong> уже существует, попробуйте изменить версию модуля или удалить старый пакет.
+PackageCreated = Пакет <strong>%s</strong> создана.
+PackageDeleted = Пакет <strong>%s</strong> удалена.
+DeletePackage = Удалить пакет
+WidgetName = Имя
+WidgetPicture = Рисунок
+WidgetExists = Виджет <strong>%s</strong> уже существует.
+WidgetAdded = Виджет <strong>%s</strong> добавлен.
+FileExists = Файл <strong>%s</strong> уже существует.
+FolderExists = Папка <strong>%s</strong> уже существует.
+PageExists = Страница <strong>%s</strong> уже существует.
+PageCreated = Страница <strong>%s</strong> создана.
+WritePermissionDenied = В текущей папке отказано в разрешении на запись.
+
+#
+# Setup
+#
+Setup = Настройка
+Settings = Настройки
+Changelog = Журнал изменений
+About = О
+Option = Вариант
+Value = Значение
+NumberingModels = Нумерация моделей
+DocumentModels = Документы модуля
+DocModelAzurDescription = PDF-шаблон Azur. Полная модель документа (рекомендуемый шаблон)
+DocModelCrabeDescription = PDF-шаблон Crabe. Полная модель документа (логотип ...)
+NoSetupAvailable = Нет доступных настроек.
+GeneralSettings = Общие настройки
+AllowModuleDelete = Разрешить удаление модулей
+AllowFileDelete = Разрешить удаление файлов
+AuthorSettings = Настройки автора
+AuthorName = Имя
+AuthorUrl = Url
+AuthorEmail = Email
+AuthorDolistoreUrl = URL-адрес Dolistore
+
+#
+# About
+#
+DevelopedBy = Разработано
+ForAnyQuestions = Если у вас возникнут какие-либо вопросы или отзывы, отправьте электронное письмо по адресу
+FindMyModules = Найдите другие мои модули на
+Dolistore = Dolistore
+ReportBug = Сообщить об ошибке
+TechnicalInformations = Техническая информация
+DolibarrVersion = Версия Dolibarr
+ModuleVersion = Версия модуля
+PHPVersion = Версия PHP
+DatabaseVersion = Версия базы данных
+WebServerVersion = Версия веб-сервера
+ReportBugNotice = Приведенная ниже техническая информация должна быть предоставлена в вашем отчете об ошибке в дополнение к файлу %s чтобы увеличить шанс быстрого исправления ошибки.
+EnableLogModule = Модуль журналов отладки не включен %s
+ClickToEnable = Нажмите, чтобы включить
+CheckForUpdates = Проверить обновления
+ModuleUpdateAvailable = Доступна версия %s
+ModuleIsUpToDate = Модуль обновлен
+CouldNotCheckForModuleUpdates = Не удалось проверить наличие обновлений модуля
+
+#
+# Changelog
+#
+Version = Версия
+PublicationDate = Дата публикации
+Details = Подробности
+NoChangelogAvailable = Журнал изменений недоступен.
+
+#
+# Validation
+#
+ErrorFieldMustBeGreaterThan = Поле '%s' должно быть больше %s.
+ErrorFieldMustBeLessThan = Поле '%s' должно быть меньше %s
+ErrorFieldMustHaveMinLength = Поле '%s' должно содержать не менее %s символов.
+ErrorFieldMustHaveMaxLength = Поле '%s' должно иметь максимальную длину %s символов.
