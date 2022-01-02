@@ -1,6 +1,14 @@
 {
     "releases": [
         {
+           "version": "1.0.7",
+            "date": "02/01/2022",
+            "details": [
+                { "badge": "Fix", "text": "Widgets display issue on dolibarr 14.x" },
+                { "badge": "Fix", "text": "Ignore hidden/dot files/directories when building packages" }
+            ]
+        },
+        {
             "version": "1.0.6",
             "date": "21/03/2021",
             "details": [
