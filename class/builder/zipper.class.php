@@ -87,6 +87,14 @@ class Zipper
         return false;
     }
     /**
+     * Check if file is hidden
+     * @param string $filename
+     * @return bool
+     */
+    private function isHiddenFile($filename) {
+        return $filename[0] == '.' || $filename[0] == '~';
+    }
+    /**
      * Add folder recursively
      * @param string $path
      * @return bool
@@ -99,7 +107,7 @@ class Zipper
         $objects = scandir($path);
         if (is_array($objects)) {
             foreach ($objects as $file) {
-                if ($file != '.' && $file != '..') {
+                if ($file != '.' && $file != '..' && !$this->isHiddenFile($file)) {
                     if (is_dir($path . '/' . $file) && !in_array($file, $exclude_files)) {
                         if (!$this->addDir($path . '/' . $file, $exclude_files)) {
                             return false;
